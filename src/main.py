@@ -9,10 +9,12 @@ BLACK = (0, 0, 0)
 FPS = 60
 MOVEMENT_VELOCITY = 5
 
+# Load title image
 current_dir = os.path.dirname(os.path.abspath(__file__))
 title_img = pygame.image.load(os.path.join(current_dir, "Assets", "logo.png"))
 
 
+# Main game drawing function
 def draw_window(title):
     WIN.fill(WHITE)
     WIN.blit(title_img, (title.x, title.y))
@@ -25,6 +27,7 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
+    # Main game loop
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
@@ -32,6 +35,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+        # Input handling for movement
         keys_depressed = pygame.key.get_pressed()
 
         if keys_depressed[pygame.K_LEFT]:  # Left arrow key
