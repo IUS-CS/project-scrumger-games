@@ -12,3 +12,7 @@ TODO: Write introductory paragraph
 - Open terminal on repository root directory
 - `pip install pygame` to install pygame
 - `python src\main.py` to run 
+
+# Unit Testing
+
+TODO: Include info about pygame unit test suite
