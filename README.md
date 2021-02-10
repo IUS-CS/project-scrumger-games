@@ -22,8 +22,11 @@ using Pygame and Tensorflow.
 
 - Clone repository
 - Open terminal on repository root directory
-- `pip install pygame` to install pygame
+- `python --version` to verify python 3.7
+- `python -m venv venv && "venv\Scripts\activate.bat" && pip install -r requirements.txt`
+  to install dependencies
 - `python src\main.py` to run 
+
 
 # Unit Testing
 
