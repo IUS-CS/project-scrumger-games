@@ -1,5 +1,7 @@
 import pygame
 import os
+import logging
+from testfixtures import LogCapture
 
 WIDTH, HEIGHT = 960, 540
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -20,8 +22,14 @@ def draw_window(title):
     WIN.blit(title_img, (title.x, title.y))
     pygame.display.update()
 
+def log_game():
+    logging.basicConfig(level=logging.INFO)
+    logging.info("Welcome to The Froggerithm!")
 
 def main():
+
+    log_game()
+
     title = pygame.Rect(WIDTH / 2, HEIGHT / 2, title_img.get_width(), title_img.get_height())
 
     clock = pygame.time.Clock()
