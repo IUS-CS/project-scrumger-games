@@ -1,7 +1,14 @@
-import pygame
-import os
+# File: main.py
+# Authors: John Cooke
+# Since: 2/12/2021
+# This file contains the main game loop and will initialize all the game systems
+"""
+This module will contain the main high level functions of the game, as well as the main game loop
+"""
 import logging
-from testfixtures import LogCapture
+import os
+
+import pygame
 
 WIDTH, HEIGHT = 960, 540
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -18,16 +25,18 @@ title_img = pygame.image.load(os.path.join(current_dir, "Assets", "logo.png"))
 
 # Main game drawing function
 def draw_window(title):
+    """Draws the frame to be rendered"""
     WIN.fill(WHITE)
     WIN.blit(title_img, (title.x, title.y))
     pygame.display.update()
 
 def log_game():
+    """Initializes console for logging messages"""
     logging.basicConfig(level=logging.INFO)
     logging.info("Welcome to The Froggerithm!")
 
 def main():
-
+    """Main game method containing the main game loop"""
     log_game()
 
     title = pygame.Rect(WIDTH / 2, HEIGHT / 2, title_img.get_width(), title_img.get_height())
@@ -59,8 +68,6 @@ def main():
             title.y += MOVEMENT_VELOCITY
 
         draw_window(title)
-
-    pygame.quit()
 
 
 if __name__ == "__main__":

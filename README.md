@@ -25,9 +25,9 @@ using Pygame and Tensorflow.
 - `python --version` to verify python 3.7
 - `python -m venv venv && "venv\Scripts\activate.bat" && pip install -r requirements.txt`
   to install dependencies
-- `python src\main.py` to run 
-
+- `python src\main.py` to run
 
 # Unit Testing
 
-TODO: Include info about pygame unit test suite
+This project will primarily make use of the built-in Python unit testing framework.
+All unit testing source should be placed in src\Unittests.
