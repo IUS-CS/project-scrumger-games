@@ -1,6 +1,7 @@
 import pygame
 import os
 
+
 WIDTH, HEIGHT = 960, 540
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The Froggerithm")
