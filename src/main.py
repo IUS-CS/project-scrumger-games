@@ -8,6 +8,7 @@ This module will contain the main high level functions of the game, as well as t
 import logging
 import os
 
+
 import pygame
 
 WIDTH, HEIGHT = 960, 540
