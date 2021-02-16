@@ -4,7 +4,7 @@ Date: 2/16/2021
 
 Members present:
 
-* John Cook
+* John Cooke
 * Zion Emond
 * Alex Stiner
   
@@ -14,7 +14,7 @@ Members present:
   
   * Setting up directories and files to be worked in.
   * Creating and filling out the proposal.md document 
-  * Filling out the READ.md with introduction, prerequisites , initial setup and unit testing
+  * Filling out the README.md with introduction, prerequisites , initial setup and unit testing
   * Set up build system and basic prototype for the game 
   * Create a .gitignore file 
   * Create and fill out the organization.md file with the roles
