@@ -1,8 +1,8 @@
-#Roles
+# Roles
 In general, the majority of the testing and code writing workload will be split as
 evenly as possible between members of the team.
 
-###John Cooke
+### John Cooke
 * Lead Developer
 * Project Manager
 
@@ -10,7 +10,7 @@ John has the most experience with git workflow, as well as the most knowledge of
 technical parts involved in machine learning. Because of this, he will be taking the
 role of lead developer on this project.
 
-###Alex Stiner
+### Alex Stiner
 * Associate Developer
 * Project Manager
 
@@ -18,7 +18,7 @@ Alex is proficient in writing, so she will be handling a lot of the writing invo
 in this project. In addition, Alex is very organized and will help keep the team on
 track with deadlines.
 
-###Zion Emond
+### Zion Emond
 * Associate Developer
 * Project Manager
 
