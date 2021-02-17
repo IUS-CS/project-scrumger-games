@@ -25,6 +25,7 @@ Members present:
   
   Here are screenshots of what we did:
   
+
   ![Screenshot](../doc/image/Froggerithm.png?raw=true "Froggerithm")
   
   ## Retro
