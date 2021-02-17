@@ -31,3 +31,7 @@ using Pygame and Tensorflow.
 
 This project will primarily make use of the built-in Python unit testing framework.
 All unit testing source should be placed in src\Unittests.
+
+## Extra Credits
+
+Logo created by Azariah Emond
