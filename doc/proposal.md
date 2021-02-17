@@ -1,4 +1,4 @@
-#Project Proposal
+# Project Proposal
 * Group Name: Scrumger Games
 * Project Name: The Froggerithm
 
