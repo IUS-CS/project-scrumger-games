@@ -25,7 +25,7 @@ Members present:
   
   Here are screenshots of what we did:
   
-  ![Alt Text](\doc\image\Froggerithm.png?raw=true "Froggerithm")
+  ![Alt text](\doc\image\Froggerithm.png?raw=true "Froggerithm")
   
   ## Retro
     
