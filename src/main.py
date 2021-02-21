@@ -18,6 +18,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FPS = 60
 MOVEMENT_VELOCITY = 5
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 # Image scaling function for all assets
@@ -25,9 +26,9 @@ def scale_image(image):
     return pygame.transform.scale(image, (image.get_width()*4, image.get_height()*4))
 
 
-# Load title image
-current_dir = os.path.dirname(os.path.abspath(__file__))
-# title_img = pygame.image.load(os.path.join(current_dir, "Assets", "logo.png"))
+def is_colliding(rect1, rect2):
+    return rect1.colliderect(rect2)
+
 
 # Load images
 background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
@@ -35,6 +36,9 @@ background = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
 frog_image = pygame.image.load(os.path.join(current_dir, "Assets", "frog.png"))
 frog = scale_image(frog_image)
+
+car_image = pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png"))
+car_scaled = scale_image(car_image)
 
 
 # Main game drawing function
@@ -55,6 +59,7 @@ def main():
     log_game()
 
     player = pygame.Rect(WIDTH / 2, HEIGHT - frog.get_width(), frog.get_width(), frog.get_height())
+    car = pygame.Rect(WIDTH / 2, HEIGHT - car_scaled.get_width(), car_scaled.get_width(), car_scaled.get_height())
 
     clock = pygame.time.Clock()
     run = True
@@ -81,6 +86,9 @@ def main():
 
         if keys_depressed[pygame.K_DOWN] or keys_depressed[pygame.K_s]:  # Down arrow key or s
             player.y += MOVEMENT_VELOCITY
+
+        if is_colliding(player, car):
+            print("COLLISION")
 
         draw_window(player)
 
