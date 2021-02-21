@@ -25,6 +25,8 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()
+        self.rect.x = WIDTH / 2
+        self.rect.y = HEIGHT - self.rect.height - 5
 
 
 class Car(pygame.sprite.Sprite):
@@ -38,6 +40,37 @@ class Car(pygame.sprite.Sprite):
         self.rect.y = 700
 
 
+class FrogNest(pygame.sprite.Sprite):
+
+    def __init__(self, pos):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([74, 50])
+        self.image.fill(WHITE)
+        self.rect = pygame.Rect(0, 0, 100, 100)
+        self.set_pos(pos)
+
+    def set_pos(self, pos):
+        if pos == 1:
+            self.rect.x = 45
+            self.rect.y = 30
+
+        elif pos == 2:
+            self.rect.x = 205
+            self.rect.y = 30
+
+        elif pos == 3:
+            self.rect.x = 365
+            self.rect.y = 30
+
+        elif pos == 4:
+            self.rect.x = 525
+            self.rect.y = 30
+
+        else:
+            self.rect.x = 685
+            self.rect.y = 30
+
+
 class DeathSprites(pygame.sprite.Group):
 
     def __init__(self):
@@ -49,11 +82,24 @@ def scale_image(image):
     return pygame.transform.scale(image, (image.get_width()*4, image.get_height()*4))
 
 
-# Checks a list of rendered pygame rectangles to determine if player should be killed
+# Stub method to be called when the player wins the game
+def win_game():
+    print("YOU WIN!")
+
+
+# Checks the player sprite object against a group object
+# and kills the sprite if it collides with any sprite in the group
 def check_kill_collisions(player, kill_group):
     collide_list = pygame.sprite.spritecollide(player, kill_group, 0)
     if collide_list:
         player.kill()
+
+
+# Checks the player sprite object against a group object for the game's win condition
+def check_win_collisions(player, win_group):
+    collide_list = pygame.sprite.spritecollide(player, win_group, 0)
+    if collide_list:
+        win_game()
 
 
 # Load background image
@@ -107,13 +153,16 @@ def main():
     # Initialize sprite groups
     render_group = pygame.sprite.RenderUpdates()
     kill_group = DeathSprites()
+    win_group = pygame.sprite.Group()
 
     player = Player(asset_dict["frog"])
-    render_group.add(player)
-
-    car = Car(asset_dict["car1"])
-    render_group.add(car)
-    kill_group.add(car)
+    player.add(render_group)
+    Car(asset_dict["car1"]).add(render_group, kill_group)
+    FrogNest(1).add(win_group)
+    FrogNest(2).add(win_group)
+    FrogNest(3).add(win_group)
+    FrogNest(4).add(win_group)
+    FrogNest(5).add(win_group)
 
     clock = pygame.time.Clock()
     run = True
@@ -142,6 +191,7 @@ def main():
             player.rect.y += MOVEMENT_VELOCITY
 
         check_kill_collisions(player, kill_group)
+        check_win_collisions(player, win_group)
         draw_window(render_group)
 
 
