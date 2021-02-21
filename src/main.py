@@ -7,8 +7,6 @@ This module will contain the main high level functions of the game, as well as t
 """
 import logging
 import os
-
-
 import pygame
 
 WIDTH, HEIGHT = 800, 880
@@ -21,45 +19,101 @@ MOVEMENT_VELOCITY = 5
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
+class Player(pygame.sprite.Sprite):
+
+    def __init__(self, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = self.image.get_rect()
+
+
+class Car(pygame.sprite.Sprite):
+
+    def __init__(self, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = self.image.get_rect()
+
+        self.rect.x = WIDTH - self.rect.width
+        self.rect.y = 700
+
+
+class DeathSprites(pygame.sprite.Group):
+
+    def __init__(self):
+        pygame.sprite.Group.__init__(self)
+
+
 # Image scaling function for all assets
 def scale_image(image):
     return pygame.transform.scale(image, (image.get_width()*4, image.get_height()*4))
 
 
-def is_colliding(rect1, rect2):
-    return rect1.colliderect(rect2)
+# Checks a list of rendered pygame rectangles to determine if player should be killed
+def check_kill_collisions(player, kill_group):
+    collide_list = pygame.sprite.spritecollide(player, kill_group, 0)
+    if collide_list:
+        player.kill()
 
 
-# Load images
+# Load background image
 background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
 background = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
-frog_image = pygame.image.load(os.path.join(current_dir, "Assets", "frog.png"))
-frog = scale_image(frog_image)
+# Load sprites into a dictionary for easy reference
+asset_dict = {
+    "frog": pygame.image.load(os.path.join(current_dir, "Assets", "frog.png")),
+    "frog_jumping": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
+    "car1": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
+    "car2": pygame.image.load(os.path.join(current_dir, "Assets", "car-2.png")),
+    "car3": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
+    "car4": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
+    "log-long": pygame.image.load(os.path.join(current_dir, "Assets", "log-long.png")),
+    "log-short": pygame.image.load(os.path.join(current_dir, "Assets", "log-short.png")),
+    "logo": pygame.image.load(os.path.join(current_dir, "Assets", "logo.png")),
+    "semi-truck": pygame.image.load(os.path.join(current_dir, "Assets", "semi-truck.png")),
+    "turtle-1": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-1.png")),
+    "turtle-2": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-2.png")),
+    "turtle-3": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-3.png")),
+    "turtle-sink-1": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-1.png")),
+    "turtle-sink-2": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-2.png")),
+}
 
-car_image = pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png"))
-car_scaled = scale_image(car_image)
+# Scale all the images in the asset dictionary
+for key in asset_dict:
+    asset_dict[key] = scale_image(asset_dict[key])
 
 
 # Main game drawing function
-def draw_window(player):
+def draw_window(render_group):
     """Draws the frame to be rendered"""
-    WIN.fill(WHITE)
     WIN.blit(background, (0, 0))
-    WIN.blit(frog, (player.x, player.y))
+    render_group.draw(WIN)
     pygame.display.update()
+
 
 def log_game():
     """Initializes console for logging messages"""
     logging.basicConfig(level=logging.INFO)
     logging.info("Welcome to The Froggerithm!")
 
+
 def main():
     """Main game method containing the main game loop"""
     log_game()
+    WIN.fill(WHITE)
+    WIN.blit(background, (0, 0))
 
-    player = pygame.Rect(WIDTH / 2, HEIGHT - frog.get_width(), frog.get_width(), frog.get_height())
-    car = pygame.Rect(WIDTH / 2, HEIGHT - car_scaled.get_width(), car_scaled.get_width(), car_scaled.get_height())
+    # Initialize sprite groups
+    render_group = pygame.sprite.RenderUpdates()
+    kill_group = DeathSprites()
+
+    player = Player(asset_dict["frog"])
+    render_group.add(player)
+
+    car = Car(asset_dict["car1"])
+    render_group.add(car)
+    kill_group.add(car)
 
     clock = pygame.time.Clock()
     run = True
@@ -76,21 +130,19 @@ def main():
         keys_depressed = pygame.key.get_pressed()
 
         if keys_depressed[pygame.K_LEFT] or keys_depressed[pygame.K_a]:  # Left arrow key or a
-            player.x -= MOVEMENT_VELOCITY
+            player.rect.x -= MOVEMENT_VELOCITY
 
         if keys_depressed[pygame.K_RIGHT] or keys_depressed[pygame.K_d]:  # Right arrow key or d
-            player.x += MOVEMENT_VELOCITY
+            player.rect.x += MOVEMENT_VELOCITY
 
         if keys_depressed[pygame.K_UP] or keys_depressed[pygame.K_w]:  # Up arrow key or w
-            player.y -= MOVEMENT_VELOCITY
+            player.rect.y -= MOVEMENT_VELOCITY
 
         if keys_depressed[pygame.K_DOWN] or keys_depressed[pygame.K_s]:  # Down arrow key or s
-            player.y += MOVEMENT_VELOCITY
+            player.rect.y += MOVEMENT_VELOCITY
 
-        if is_colliding(player, car):
-            print("COLLISION")
-
-        draw_window(player)
+        check_kill_collisions(player, kill_group)
+        draw_window(render_group)
 
 
 if __name__ == "__main__":
