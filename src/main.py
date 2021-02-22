@@ -57,19 +57,15 @@ def move_player(player, keys_depressed):
 
     if keys_depressed[pygame.K_LEFT] or keys_depressed[pygame.K_a]:  # Left arrow key or a
         x_change -= MOVEMENT_DISTANCE_X
-        y_change = 0
 
     elif keys_depressed[pygame.K_RIGHT] or keys_depressed[pygame.K_d]:  # Right arrow key or d
         x_change += MOVEMENT_DISTANCE_X
-        y_change = 0
 
     elif keys_depressed[pygame.K_UP] or keys_depressed[pygame.K_w]:  # Up arrow key or w
         y_change -= MOVEMENT_DISTANCE_Y
-        x_change = 0
 
     elif keys_depressed[pygame.K_DOWN] or keys_depressed[pygame.K_s]:  # Down arrow key or s
         y_change += MOVEMENT_DISTANCE_Y
-        x_change = 0
 
     player.x += x_change
     player.y += y_change
