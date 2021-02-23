@@ -10,7 +10,7 @@ import os
 
 import pygame
 
-WIDTH, HEIGHT = 820, 940
+WIDTH, HEIGHT = 820, 876
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The Froggerithm")
 WHITE = (255, 255, 255)
@@ -52,6 +52,10 @@ def log_game():
 
 def move_player(player, keys_depressed):
     """Handles player movement"""
+
+    # Make sure the player doesn't move off screen
+
+
     x_change = 0
     y_change = 0
 
