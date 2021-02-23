@@ -1,5 +1,5 @@
 # File: main.py
-# Authors: John Cooke
+# Authors: John Cooke, Zion Emond
 # Since: 2/12/2021
 # This file contains the main game loop and will initialize all the game systems
 """
@@ -9,7 +9,7 @@ import logging
 import os
 import pygame
 
-WIDTH, HEIGHT = 800, 880
+WIDTH, HEIGHT = 820, 876
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The Froggerithm")
 WHITE = (255, 255, 255)
@@ -129,10 +129,14 @@ asset_dict = {
 for key in asset_dict:
     asset_dict[key] = scale_image(asset_dict[key])
 
+MOVEMENT_DISTANCE_X = frog.get_width() + 4
+MOVEMENT_DISTANCE_Y = frog.get_height() + 12
+
 
 # Main game drawing function
 def draw_window(render_group):
     """Draws the frame to be rendered"""
+    WIN.fill(WHITE)
     WIN.blit(background, (0, 0))
     render_group.draw(WIN)
     pygame.display.update()
@@ -142,6 +146,32 @@ def log_game():
     """Initializes console for logging messages"""
     logging.basicConfig(level=logging.INFO)
     logging.info("Welcome to The Froggerithm!")
+
+
+
+def move_player(player, keys_depressed):
+    """Handles player movement"""
+
+    # Make sure the player doesn't move off screen
+
+
+    x_change = 0
+    y_change = 0
+
+    if keys_depressed[pygame.K_LEFT] or keys_depressed[pygame.K_a]:  # Left arrow key or a
+        x_change -= MOVEMENT_DISTANCE_X
+
+    elif keys_depressed[pygame.K_RIGHT] or keys_depressed[pygame.K_d]:  # Right arrow key or d
+        x_change += MOVEMENT_DISTANCE_X
+
+    elif keys_depressed[pygame.K_UP] or keys_depressed[pygame.K_w]:  # Up arrow key or w
+        y_change -= MOVEMENT_DISTANCE_Y
+
+    elif keys_depressed[pygame.K_DOWN] or keys_depressed[pygame.K_s]:  # Down arrow key or s
+        y_change += MOVEMENT_DISTANCE_Y
+
+    player.x += x_change
+    player.y += y_change
 
 
 def main():
@@ -193,6 +223,9 @@ def main():
         check_kill_collisions(player, kill_group)
         check_win_collisions(player, win_group)
         draw_window(render_group)
+            if event.type == pygame.KEYDOWN:
+                keys_depressed = pygame.key.get_pressed()
+                move_player(player, keys_depressed)
 
 
 if __name__ == "__main__":
