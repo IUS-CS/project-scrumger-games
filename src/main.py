@@ -188,11 +188,11 @@ def main():
     player = Player(asset_dict["frog"])
     player.add(render_group)
     Car(asset_dict["car1"]).add(render_group, kill_group)
-    FrogNest(1).add(win_group, render_group)
-    FrogNest(2).add(win_group, render_group)
-    FrogNest(3).add(win_group, render_group)
-    FrogNest(4).add(win_group, render_group)
-    FrogNest(5).add(win_group, render_group)
+    FrogNest(1).add(win_group)
+    FrogNest(2).add(win_group)
+    FrogNest(3).add(win_group)
+    FrogNest(4).add(win_group)
+    FrogNest(5).add(win_group)
 
     clock = pygame.time.Clock()
     run = True
