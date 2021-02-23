@@ -129,8 +129,8 @@ asset_dict = {
 for key in asset_dict:
     asset_dict[key] = scale_image(asset_dict[key])
 
-MOVEMENT_DISTANCE_X = frog.get_width() + 4
-MOVEMENT_DISTANCE_Y = frog.get_height() + 12
+MOVEMENT_DISTANCE_X = asset_dict["frog"].get_width() + 4
+MOVEMENT_DISTANCE_Y = asset_dict["frog"].get_height() + 12
 
 
 # Main game drawing function
@@ -148,12 +148,10 @@ def log_game():
     logging.info("Welcome to The Froggerithm!")
 
 
-
-def move_player(player, keys_depressed):
+def move_player(player: Player, keys_depressed):
     """Handles player movement"""
 
     # Make sure the player doesn't move off screen
-
 
     x_change = 0
     y_change = 0
@@ -170,8 +168,8 @@ def move_player(player, keys_depressed):
     elif keys_depressed[pygame.K_DOWN] or keys_depressed[pygame.K_s]:  # Down arrow key or s
         y_change += MOVEMENT_DISTANCE_Y
 
-    player.x += x_change
-    player.y += y_change
+    player.rect.x += x_change
+    player.rect.y += y_change
 
 
 def main():
@@ -206,26 +204,14 @@ def main():
                 run = False
 
         # Input handling for movement
-        keys_depressed = pygame.key.get_pressed()
-
-        if keys_depressed[pygame.K_LEFT] or keys_depressed[pygame.K_a]:  # Left arrow key or a
-            player.rect.x -= MOVEMENT_VELOCITY
-
-        if keys_depressed[pygame.K_RIGHT] or keys_depressed[pygame.K_d]:  # Right arrow key or d
-            player.rect.x += MOVEMENT_VELOCITY
-
-        if keys_depressed[pygame.K_UP] or keys_depressed[pygame.K_w]:  # Up arrow key or w
-            player.rect.y -= MOVEMENT_VELOCITY
-
-        if keys_depressed[pygame.K_DOWN] or keys_depressed[pygame.K_s]:  # Down arrow key or s
-            player.rect.y += MOVEMENT_VELOCITY
-
-        check_kill_collisions(player, kill_group)
-        check_win_collisions(player, win_group)
-        draw_window(render_group)
             if event.type == pygame.KEYDOWN:
                 keys_depressed = pygame.key.get_pressed()
                 move_player(player, keys_depressed)
+
+        # Check collisions and render sprites on every frame
+        check_kill_collisions(player, kill_group)
+        check_win_collisions(player, win_group)
+        draw_window(render_group)
 
 
 if __name__ == "__main__":
