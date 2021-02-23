@@ -20,6 +20,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 class Player(pygame.sprite.Sprite):
+    """Pygame sprite class representing the player"""
 
     def __init__(self, image):
         pygame.sprite.Sprite.__init__(self)
@@ -30,6 +31,7 @@ class Player(pygame.sprite.Sprite):
 
 
 class Car(pygame.sprite.Sprite):
+    """Pygame sprite class representing a car"""
 
     def __init__(self, image):
         pygame.sprite.Sprite.__init__(self)
@@ -41,37 +43,36 @@ class Car(pygame.sprite.Sprite):
 
 
 class FrogNest(pygame.sprite.Sprite):
+    """Pygame sprite class for frog nests used for checking the win condition"""
 
+    # Constructor should be passed an int to indicate which nest position the sprite should go in
     def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([74, 50])
         self.image.fill(WHITE)
-        self.rect = pygame.Rect(0, 0, 100, 100)
+        self.rect = self.image.get_rect()
+        self.rect.y = 40
         self.set_pos(pos)
 
     def set_pos(self, pos):
         if pos == 1:
-            self.rect.x = 45
-            self.rect.y = 30
+            self.rect.x = 67
 
         elif pos == 2:
-            self.rect.x = 205
-            self.rect.y = 30
+            self.rect.x = 227
 
         elif pos == 3:
-            self.rect.x = 365
-            self.rect.y = 30
+            self.rect.x = 387
 
         elif pos == 4:
-            self.rect.x = 525
-            self.rect.y = 30
+            self.rect.x = 547
 
         else:
-            self.rect.x = 685
-            self.rect.y = 30
+            self.rect.x = 707
 
 
 class DeathSprites(pygame.sprite.Group):
+    """Pygame group class to be used for sprites that should kill the player on collision"""
 
     def __init__(self):
         pygame.sprite.Group.__init__(self)
@@ -87,16 +88,16 @@ def win_game():
     print("YOU WIN!")
 
 
-# Checks the player sprite object against a group object
-# and kills the sprite if it collides with any sprite in the group
 def check_kill_collisions(player, kill_group):
+    """Checks the player sprite object against a group object
+       and kills the sprite if it collides with any sprite in the group"""
     collide_list = pygame.sprite.spritecollide(player, kill_group, 0)
     if collide_list:
         player.kill()
 
 
-# Checks the player sprite object against a group object for the game's win condition
 def check_win_collisions(player, win_group):
+    """Checks the player sprite object against a group object for the game's win condition"""
     collide_list = pygame.sprite.spritecollide(player, win_group, 0)
     if collide_list:
         win_game()
@@ -183,14 +184,15 @@ def main():
     kill_group = DeathSprites()
     win_group = pygame.sprite.Group()
 
+    # Initialize sprites
     player = Player(asset_dict["frog"])
     player.add(render_group)
     Car(asset_dict["car1"]).add(render_group, kill_group)
-    FrogNest(1).add(win_group)
-    FrogNest(2).add(win_group)
-    FrogNest(3).add(win_group)
-    FrogNest(4).add(win_group)
-    FrogNest(5).add(win_group)
+    FrogNest(1).add(win_group, render_group)
+    FrogNest(2).add(win_group, render_group)
+    FrogNest(3).add(win_group, render_group)
+    FrogNest(4).add(win_group, render_group)
+    FrogNest(5).add(win_group, render_group)
 
     clock = pygame.time.Clock()
     run = True
