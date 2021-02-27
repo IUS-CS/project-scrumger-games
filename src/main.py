@@ -14,7 +14,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("The Froggerithm")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-FPS = 60
+FPS = 30
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -44,14 +44,19 @@ class Car(pygame.sprite.Sprite):
 class Log(pygame.sprite.Sprite):
     """Pygame sprite class representing a log floating in the river"""
 
-    def __init__(self, image, initial_y):
+    def __init__(self, image, initial_x,  initial_y):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()
 
-        self.rect.x = -1 - self.image.get_width()
         self.rect.y = initial_y
+        self.set_x(initial_x)
 
+    def set_x(self, x):
+        if x == -999:
+            self.rect.x = -1 - self.image.get_width()
+        else:
+            self.rect.x = x
 
 class FrogNest(pygame.sprite.Sprite):
     """Pygame sprite class for frog nests used for checking the win condition"""
@@ -190,14 +195,19 @@ def move_player(player: Player, key_depressed):
 
 
 def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group):
+    """Handle spawning water platforms"""
 
-    # Spawns all logs in lane 2 every 5 seconds
-    if framecount % 300 == 0:
-        Log(asset_dict["log-short"], 308).add(lane2, render_group)
+    # Spawns logs in lane 2 every 8 seconds, skipping every 4th spawn
+    if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
+        Log(asset_dict["log-short"], -999, 308).add(lane2, render_group)
 
-    # Spawns all logs in lane 3 every 10 seconds
-    if framecount % 600 == 0:
-        Log(asset_dict["log-long"], 244).add(lane3, render_group)
+    # Spawns logs in lane 3 every 9 seconds
+    if framecount % 270 == 0:
+        Log(asset_dict["log-long"], -999, 244).add(lane3, render_group)
+
+    # Spawns logs in lane 5 every 5 seconds
+    if framecount % 150 == 0:
+        Log(asset_dict["log-short"], -999, 116).add(lane5, render_group)
 
     lane1_sprites = lane1.sprites()
     lane2_sprites = lane2.sprites()
@@ -213,6 +223,12 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
 
     # Moves all entities in lane 3 at a constant speed and kill them if they have moved offscreen
     for sprite in lane3_sprites:
+        sprite.rect.x += 3
+        if sprite.rect.x > WIDTH + 1:
+            sprite.kill()
+
+    # Moves all entities in lane 5 at a constant speed and kill them if they have moved offscreen
+    for sprite in lane5_sprites:
         sprite.rect.x += 2
         if sprite.rect.x > WIDTH + 1:
             sprite.kill()
@@ -230,6 +246,7 @@ def main():
     render_group = pygame.sprite.RenderUpdates()
     kill_group = DeathSprites()
     win_group = pygame.sprite.Group()
+    log_group = pygame.sprite.Group()
 
     # Initialize sprite groups for the water "lanes"
     water_lane1 = pygame.sprite.Group()
@@ -237,6 +254,17 @@ def main():
     water_lane3 = pygame.sprite.Group()
     water_lane4 = pygame.sprite.Group()
     water_lane5 = pygame.sprite.Group()
+
+    # Initialize logs on the screen on game start
+    Log(asset_dict["log-short"], 779, 308).add(water_lane2, render_group)
+    Log(asset_dict["log-short"], 539, 308).add(water_lane2, render_group)
+    Log(asset_dict["log-short"], 299, 308).add(water_lane2, render_group)
+
+    Log(asset_dict["log-long"], 425, 244).add(water_lane3, render_group)
+
+    Log(asset_dict["log-short"], 119, 116).add(water_lane5, render_group)
+    Log(asset_dict["log-short"], 419, 116).add(water_lane5, render_group)
+    Log(asset_dict["log-short"], 719, 116).add(water_lane5, render_group)
 
     # Initialize sprites
     player = Player(asset_dict["frog"])
