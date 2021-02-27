@@ -41,6 +41,7 @@ class Car(pygame.sprite.Sprite):
         self.rect.x = WIDTH - self.rect.width
         self.rect.y = 700
 
+
 class Log(pygame.sprite.Sprite):
     """Pygame sprite class representing a log floating in the river"""
 
@@ -52,7 +53,7 @@ class Log(pygame.sprite.Sprite):
         if initial_x >= 0:
             self.rect.x = initial_x
         else:
-            self.rect.x = WIDTH - self.rect.width
+            self.rect.x = WIDTH + 1
 
         self.rect.y = initial_y
 
@@ -119,7 +120,7 @@ def check_win_collisions(player, win_group):
 
 
 # Load background image
-background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
+background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background-grid.png"))
 background = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
 # Load sprites into a dictionary for easy reference
@@ -192,13 +193,29 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
 
     # Spawns all logs in lane 1 every 5 seconds
     if framecount % 300 == 0:
-        Log(asset_dict["log-short"], -1, 500).add(lane1, render_group)
-        print("spawned a log")
+        Log(asset_dict["log-short"], -1, 350).add(lane1, render_group)
 
+    # Spawns all logs in lane 2 every 10 seconds
+    if framecount % 600 == 0:
+        Log(asset_dict["log-long"], -1, 200).add(lane1, render_group)
 
+    lane1_sprites = lane1.sprites()
+    lane2_sprites = lane2.sprites()
+    lane3_sprites = lane3.sprites()
+    lane4_sprites = lane4.sprites()
+    lane5_sprites = lane5.sprites()
 
+    # Moves all entities in lane 1 at a constant speed and kill them if they have moved offscreen
+    for sprite in lane1_sprites:
+        sprite.rect.x += -1
+        if sprite.rect.x + sprite.image.get_width() < -1:
+            sprite.kill()
 
-
+    # Moves all entities in lane 2 at a constant speed and kill them if they have moved offscreen
+    for sprite in lane2_sprites:
+        sprite.rect.x += -1
+        if sprite.rect.x + sprite.image.get_width() < -1:
+            sprite.kill()
 
 
 def main():
@@ -246,7 +263,7 @@ def main():
                 keys_depressed = pygame.key.get_pressed()
                 move_player(player, keys_depressed)
 
-        # Check collisions and render sprites on every frame
+        # Check collisions, render sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)
         check_win_collisions(player, win_group)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5, render_group)
