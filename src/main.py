@@ -45,16 +45,12 @@ class Car(pygame.sprite.Sprite):
 class Log(pygame.sprite.Sprite):
     """Pygame sprite class representing a log floating in the river"""
 
-    def __init__(self, image, initial_x, initial_y):
+    def __init__(self, image, initial_y):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()
 
-        if initial_x >= 0:
-            self.rect.x = initial_x
-        else:
-            self.rect.x = WIDTH + 1
-
+        self.rect.x = -1 - self.image.get_width()
         self.rect.y = initial_y
 
 
@@ -191,13 +187,13 @@ def move_player(player: Player, keys_depressed):
 
 def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group):
 
-    # Spawns all logs in lane 1 every 5 seconds
+    # Spawns all logs in lane 2 every 5 seconds
     if framecount % 300 == 0:
-        Log(asset_dict["log-short"], -1, 350).add(lane1, render_group)
+        Log(asset_dict["log-short"], 308).add(lane2, render_group)
 
-    # Spawns all logs in lane 2 every 10 seconds
+    # Spawns all logs in lane 3 every 10 seconds
     if framecount % 600 == 0:
-        Log(asset_dict["log-long"], -1, 200).add(lane1, render_group)
+        Log(asset_dict["log-long"], 244).add(lane3, render_group)
 
     lane1_sprites = lane1.sprites()
     lane2_sprites = lane2.sprites()
@@ -205,16 +201,16 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
     lane4_sprites = lane4.sprites()
     lane5_sprites = lane5.sprites()
 
-    # Moves all entities in lane 1 at a constant speed and kill them if they have moved offscreen
-    for sprite in lane1_sprites:
-        sprite.rect.x += -1
-        if sprite.rect.x + sprite.image.get_width() < -1:
-            sprite.kill()
-
     # Moves all entities in lane 2 at a constant speed and kill them if they have moved offscreen
     for sprite in lane2_sprites:
-        sprite.rect.x += -1
-        if sprite.rect.x + sprite.image.get_width() < -1:
+        sprite.rect.x += 1
+        if sprite.rect.x > WIDTH + 1:
+            sprite.kill()
+
+    # Moves all entities in lane 3 at a constant speed and kill them if they have moved offscreen
+    for sprite in lane3_sprites:
+        sprite.rect.x += 2
+        if sprite.rect.x > WIDTH + 1:
             sprite.kill()
 
 
