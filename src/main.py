@@ -15,7 +15,6 @@ pygame.display.set_caption("The Froggerithm")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 FPS = 60
-MOVEMENT_VELOCITY = 5
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -27,7 +26,7 @@ class Player(pygame.sprite.Sprite):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.x = WIDTH / 2
-        self.rect.y = HEIGHT - self.rect.height - 5
+        self.rect.y = HEIGHT - self.rect.height - 9
 
 
 class Car(pygame.sprite.Sprite):
@@ -149,25 +148,30 @@ def log_game():
     logging.info("Welcome to The Froggerithm!")
 
 
-def move_player(player: Player, keys_depressed):
+def move_player(player: Player, key_depressed):
     """Handles player movement"""
-
-    # Make sure the player doesn't move off screen
-
     x_change = 0
     y_change = 0
+    up = 119  # 'w' key ascii
+    left = 97  # 'a' key ascii
+    right = 100  # 'd' key ascii
+    down = 115  # 's' key ascii
 
-    if keys_depressed[pygame.K_LEFT] or keys_depressed[pygame.K_a]:  # Left arrow key or a
-        x_change -= MOVEMENT_DISTANCE_X
+    if key_depressed == up:  # if up key is pressed
+        if player.rect.y > 20:  # not at top
+            y_change -= MOVEMENT_DISTANCE_Y  # move up
 
-    elif keys_depressed[pygame.K_RIGHT] or keys_depressed[pygame.K_d]:  # Right arrow key or d
-        x_change += MOVEMENT_DISTANCE_X
+    elif key_depressed == left:  # if left key is pressed
+        if player.rect.x > 20:  # not at leftmost border
+            x_change -= MOVEMENT_DISTANCE_X
 
-    elif keys_depressed[pygame.K_UP] or keys_depressed[pygame.K_w]:  # Up arrow key or w
-        y_change -= MOVEMENT_DISTANCE_Y
+    elif key_depressed == right:  # if right key is pressed
+        if player.rect.x < 750:  # not at rightmost border
+            x_change += MOVEMENT_DISTANCE_X
 
-    elif keys_depressed[pygame.K_DOWN] or keys_depressed[pygame.K_s]:  # Down arrow key or s
-        y_change += MOVEMENT_DISTANCE_Y
+    elif key_depressed == down:  # if down key is pressed
+        if player.rect.y < 800:  # not at bottom
+            y_change += MOVEMENT_DISTANCE_Y
 
     player.rect.x += x_change
     player.rect.y += y_change
@@ -178,6 +182,7 @@ def main():
     log_game()
     WIN.fill(WHITE)
     WIN.blit(background, (0, 0))
+    can_move = True
 
     # Initialize sprite groups
     render_group = pygame.sprite.RenderUpdates()
@@ -206,9 +211,12 @@ def main():
                 run = False
 
         # Input handling for movement
-            if event.type == pygame.KEYDOWN:
-                keys_depressed = pygame.key.get_pressed()
-                move_player(player, keys_depressed)
+            if event.type == pygame.KEYDOWN and can_move:
+                can_move = False
+                key_depressed = event.key
+                move_player(player, key_depressed)
+            if event.type == pygame.KEYUP:
+                can_move = True
 
         # Check collisions and render sprites on every frame
         check_kill_collisions(player, kill_group)
