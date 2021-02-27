@@ -182,6 +182,7 @@ def main():
     log_game()
     WIN.fill(WHITE)
     WIN.blit(background, (0, 0))
+    can_move = True
 
     # Initialize sprite groups
     render_group = pygame.sprite.RenderUpdates()
@@ -210,9 +211,12 @@ def main():
                 run = False
 
         # Input handling for movement
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN and can_move:
+                can_move = False
                 key_depressed = event.key
                 move_player(player, key_depressed)
+            if event.type == pygame.KEYUP:
+                can_move = True
 
         # Check collisions and render sprites on every frame
         check_kill_collisions(player, kill_group)
