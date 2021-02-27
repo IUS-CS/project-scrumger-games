@@ -41,6 +41,21 @@ class Car(pygame.sprite.Sprite):
         self.rect.x = WIDTH - self.rect.width
         self.rect.y = 700
 
+class Log(pygame.sprite.Sprite):
+    """Pygame sprite class representing a log floating in the river"""
+
+    def __init__(self, image, initial_x, initial_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = self.image.get_rect()
+
+        if initial_x >= 0:
+            self.rect.x = initial_x
+        else:
+            self.rect.x = WIDTH - self.rect.width
+
+        self.rect.y = initial_y
+
 
 class FrogNest(pygame.sprite.Sprite):
     """Pygame sprite class for frog nests used for checking the win condition"""
@@ -113,8 +128,8 @@ asset_dict = {
     "frog_jumping": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
     "car1": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
     "car2": pygame.image.load(os.path.join(current_dir, "Assets", "car-2.png")),
-    "car3": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
-    "car4": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
+    "car3": pygame.image.load(os.path.join(current_dir, "Assets", "car-3.png")),
+    "car4": pygame.image.load(os.path.join(current_dir, "Assets", "car-4.png")),
     "log-long": pygame.image.load(os.path.join(current_dir, "Assets", "log-long.png")),
     "log-short": pygame.image.load(os.path.join(current_dir, "Assets", "log-short.png")),
     "logo": pygame.image.load(os.path.join(current_dir, "Assets", "logo.png")),
@@ -173,16 +188,37 @@ def move_player(player: Player, keys_depressed):
     player.rect.y += y_change
 
 
+def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group):
+
+    # Spawns all logs in lane 1 every 5 seconds
+    if framecount % 300 == 0:
+        Log(asset_dict["log-short"], -1, 500).add(lane1, render_group)
+        print("spawned a log")
+
+
+
+
+
+
+
 def main():
     """Main game method containing the main game loop"""
     log_game()
     WIN.fill(WHITE)
     WIN.blit(background, (0, 0))
+    frame_count = 0
 
     # Initialize sprite groups
     render_group = pygame.sprite.RenderUpdates()
     kill_group = DeathSprites()
     win_group = pygame.sprite.Group()
+
+    # Initialize sprite groups for the water "lanes"
+    water_lane1 = pygame.sprite.Group()
+    water_lane2 = pygame.sprite.Group()
+    water_lane3 = pygame.sprite.Group()
+    water_lane4 = pygame.sprite.Group()
+    water_lane5 = pygame.sprite.Group()
 
     # Initialize sprites
     player = Player(asset_dict["frog"])
@@ -213,7 +249,11 @@ def main():
         # Check collisions and render sprites on every frame
         check_kill_collisions(player, kill_group)
         check_win_collisions(player, win_group)
+        spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5, render_group)
         draw_window(render_group)
+
+        # Iterate the frame counter
+        frame_count += 1
 
 
 if __name__ == "__main__":
