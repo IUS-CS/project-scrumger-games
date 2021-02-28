@@ -194,20 +194,20 @@ def move_player(player: Player, key_depressed):
     player.rect.y += y_change
 
 
-def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group, kill_group):
+def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group):
     """Handle spawning water platforms"""
 
     # Spawns logs in lane 2 every 8 seconds, skipping every 4th spawn
     if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
-        Log(asset_dict["log-short"], -999, 308).add(lane2, render_group, kill_group)
+        Log(asset_dict["log-short"], -999, 308).add(lane2, render_group)
 
     # Spawns logs in lane 3 every 9 seconds
     if framecount % 270 == 0:
-        Log(asset_dict["log-long"], -999, 244).add(lane3, render_group, kill_group)
+        Log(asset_dict["log-long"], -999, 244).add(lane3, render_group)
 
     # Spawns logs in lane 5 every 5 seconds
     if framecount % 150 == 0:
-        Log(asset_dict["log-short"], -999, 116).add(lane5, render_group, kill_group)
+        Log(asset_dict["log-short"], -999, 116).add(lane5, render_group)
 
     lane1_sprites = lane1.sprites()
     lane2_sprites = lane2.sprites()
@@ -239,7 +239,7 @@ def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5
     if framecount % 240 == 0:
         Car(asset_dict["car1"], 0, 750).add(carlane1, render_group, kill_group)
 
-    # Spawns cars  in lane 2 every 9 seconds
+    # Spawns cars in lane 2 every 9 seconds
     if framecount % 270 == 0:
         Car(asset_dict["car2"], 0, 700).add(carlane2, render_group, kill_group)
 
@@ -251,7 +251,7 @@ def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5
     if framecount % 240 == 0:
         Car(asset_dict["car4"], 0, 560).add(carlane4, render_group, kill_group)
 
-    # Spawns logs in lane 5 every 9 seconds
+    # Spawns cars in lane 5 every 9 seconds
     if framecount % 270 == 0:
         Car(asset_dict["car2"], 0, 500).add(carlane5, render_group, kill_group)
 
@@ -368,7 +368,7 @@ def main():
         check_kill_collisions(player, kill_group)
         check_win_collisions(player, win_group)
         spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5, render_group, kill_group)
-        spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5, render_group, kill_group)
+        spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5, render_group)
         draw_window(render_group)
 
         # Iterate the frame counter
