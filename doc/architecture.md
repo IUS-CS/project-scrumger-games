@@ -54,4 +54,4 @@ as it currently exists to attempt to play the game.
 With these two main systems complete and functioning as intended, the 
 overall structure of the project will look something like this:
 
-![Diagram](../doc/image/Froggerithm Architecture.png?raw=true "Froggerithm Architecture")
+   ![Diagram](../doc/image/Froggerithm Architecture.png?raw=true "Froggerithm Architecture")
