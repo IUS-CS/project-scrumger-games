@@ -118,7 +118,7 @@ def main():
         spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
                         render_group, kill_group, asset_dict, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
-                          render_group, asset_dict, WIDTH)
+                          render_group, asset_dict, WIDTH, WIN)
         draw_sprites(render_group, WIN, background)
 
         # Iterate the frame counter
