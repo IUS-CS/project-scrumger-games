@@ -1,5 +1,7 @@
 # The Froggerithm
 
+![The Froggerithm Logo](./src/assets/The Froggerithm Logo.png?raw=true "The Froggerithm Logo")
+
 As machine learning has become more and more ubiquitous over recent years,
 it has come to play a greater and greater role in our lives. From the social
 media posts we see, to the systems that monitor bank accounts for financial
