@@ -48,14 +48,18 @@ Members present:
 
   Points | Story
   -------|--------
-     0   | As a player, I want be able to move my character. 
-     0   | As a player, I want to start the game. 
-     0   | As a player, I get hit by a car my character will die and I will restart the game.
-     0   | As a player, I hit the water and my character will die and I will restart the game. 
-     0   | As a player, I reach the end and I win. 
-     0   | As a player, when I start the game obstacles will populate such as cars, turtles and logs.
-     0   | As a player, there will be a display background. 
-     0   | As a player, I have to beat the time limit to cross the obstacles. 
+     5   | As a player, I want be able to move my character. 
+     3   | As a player, I get hit by a car my character will die and I will restart the game.
+     1   | As a player, I reach the end and I win. 
+     5   | As a player, when I start the game cars will populate.
+     3   | As a player, when I start the game turtles and logs will populate.
+     1   | As a developer, I should be able to read about the architecture of project. 
+     1   | As a developer, I should be able to read about the previous sprints. 
+     5   | As a developer, I should be able to render and derender sprites easily. 
+     1   | As a developer, I need to be able to access the proper log and assets.  
+
+
+m 
 
    
 
