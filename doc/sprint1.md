@@ -59,7 +59,7 @@ Members present:
      1   | As a developer, I need to be able to access the proper log and assets.  
 
 
-m 
+
 
    
 
