@@ -23,6 +23,9 @@ class AssetDictionary:
             "turtle-1": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-1.png")),
             "turtle-2": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-2.png")),
             "turtle-3": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-3.png")),
+            "double-turtle-1": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-1.png")),
+            "double-turtle-2": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-2.png")),
+            "double-turtle-3": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-3.png")),
             "turtle-sink-1": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-1.png")),
             "turtle-sink-2": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-2.png")),
         }
