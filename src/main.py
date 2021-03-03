@@ -29,7 +29,7 @@ FPS = 30
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Load background image
-background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background-grid.png"))
+background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
 background = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
 # Load assets into an object for easy access
