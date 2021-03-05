@@ -11,7 +11,7 @@ class AssetDictionary:
         # Load sprites into a dictionary for easy reference
         self.asset_dict = {
             "frog": pygame.image.load(os.path.join(current_dir, "Assets", "frog.png")),
-            "frog_jumping": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
+            "frog_jumping": pygame.image.load(os.path.join(current_dir, "Assets", "frog_jumping.png")),
             "car1": pygame.image.load(os.path.join(current_dir, "Assets", "car-1.png")),
             "car2": pygame.image.load(os.path.join(current_dir, "Assets", "car-2.png")),
             "car3": pygame.image.load(os.path.join(current_dir, "Assets", "car-3.png")),

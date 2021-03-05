@@ -1,5 +1,5 @@
 # File: main.py
-# Authors: John Cooke, Zion Emond
+# Authors: John Cooke, Zion Emond, Alex Stiner
 # Since: 2/12/2021
 # This file contains the main game loop and will initialize all the game systems
 """
@@ -37,6 +37,9 @@ asset_dict = AssetDictionary(current_dir)
 
 MOVEMENT_DISTANCE_X = asset_dict.get_asset("frog").get_width() + 4
 MOVEMENT_DISTANCE_Y = asset_dict.get_asset("frog").get_height() + 12
+
+# Prepare images for player animation
+player_images = [asset_dict.get_asset("frog"), asset_dict.get_asset("frog_jumping")]
 
 
 def main():
@@ -85,7 +88,7 @@ def main():
     Car(asset_dict.get_asset("car2"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
-    player = Player(asset_dict.get_asset("frog"), WIN)
+    player = Player(player_images, WIN)
     player.add(render_group)
     FrogNest(1).add(win_group)
     FrogNest(2).add(win_group)
@@ -108,9 +111,13 @@ def main():
             if event.type == pygame.KEYDOWN and can_move:
                 can_move = False
                 key_depressed = event.key
-                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, asset_dict)
+                player.index = 1
+                player.image = player.images[player.index]
             if event.type == pygame.KEYUP:
                 can_move = True
+                player.index = 0
+                player.image = player.images[player.index]
 
         # Check collisions, render sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)
