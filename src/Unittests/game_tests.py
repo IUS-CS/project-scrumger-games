@@ -45,6 +45,19 @@ class TestGameMethods(unittest.TestCase):
         obstacle_spawner.sprite_despawner(test_sprite, test_win)
         self.assertFalse(test_group.has(test_sprite))
 
+        test_sprite.rect.x = 481856
+        test_sprite.rect.y = 156135
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = -748964
+        test_sprite.rect.y = -156489
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+
     def test_water_spawner(self):
         test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
                       pygame.sprite.Group(), pygame.sprite.Group()]
@@ -156,6 +169,8 @@ class TestGameMethods(unittest.TestCase):
             self.assertFalse(lane.has())
 
         test_render_group.empty()
+
+
 
     #
     # def test_move_player(self):
