@@ -15,4 +15,5 @@ class Player(pygame.sprite.Sprite):
         self.image = images[self.index]
         self.direction = "up"
         self.score = 0
+        self.farthest_distance = 900
 
