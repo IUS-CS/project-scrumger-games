@@ -1,6 +1,6 @@
 import os
 import pygame.image
-from Util.utilities import scale_image
+from src.Util.utilities import scale_image
 
 
 class AssetDictionary:

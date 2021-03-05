@@ -1,11 +1,11 @@
 import pygame
-from Sprites.log import Log
-from Sprites.car import Car
-from Sprites.turtle import Turtle
-from Util.asset_dictionary import AssetDictionary
+from src.Sprites.log import Log
+from src.Sprites.car import Car
+from src.Sprites.turtle import Turtle
+from src.Util.asset_dictionary import AssetDictionary
 
 
-def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group, asset_dict: AssetDictionary, width, win):
+def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group, asset_dict: AssetDictionary, win):
     """Handle spawning water platforms"""
 
     # Spawns turtles in lane 1 every 2 seconds
@@ -43,13 +43,13 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
     # Moves all entities in lane 2 at a constant speed and kill them if they have moved offscreen
     for sprite in lane2_sprites:
         sprite.rect.x += 1
-        if sprite.rect.x > width + 1:
+        if sprite.rect.x > win.get_width() + 1:
             sprite.kill()
 
     # Moves all entities in lane 3 at a constant speed and kill them if they have moved offscreen
     for sprite in lane3_sprites:
         sprite.rect.x += 3
-        if sprite.rect.x > width + 1:
+        if sprite.rect.x > win.get_width() + 1:
             sprite.kill()
 
     # Moves all entities in lane 4 at a constant speed and kill them if they have moved offscreen
@@ -61,7 +61,7 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
     # Moves all entities in lane 5 at a constant speed and kill them if they have moved offscreen
     for sprite in lane5_sprites:
         sprite.rect.x += 2
-        if sprite.rect.x > width + 1:
+        if sprite.rect.x > win.get_width() + 1:
             sprite.kill()
 
 
