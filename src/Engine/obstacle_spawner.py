@@ -1,8 +1,19 @@
 import pygame
-from src.Sprites.log import Log
-from src.Sprites.car import Car
-from src.Sprites.turtle import Turtle
-from src.Util.asset_dictionary import AssetDictionary
+from Sprites.log import Log
+from Sprites.car import Car
+from Sprites.turtle import Turtle
+from Util.asset_dictionary import AssetDictionary
+
+
+def sprite_despawner(sprite, win):
+    x = sprite.rect.x
+    y = sprite.rect.y
+
+    if x + sprite.image.get_width() < 0 or x > win.get_width() + 1:
+        sprite.kill()
+
+    if y + sprite.image.get_height() < 0 or y > win.get_height() + 1:
+        sprite.kill()
 
 
 def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group, asset_dict: AssetDictionary, win):
@@ -26,7 +37,7 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
 
     # Spawns logs in lane 5 every 5 seconds
     if framecount % 150 == 0:
-        Log(asset_dict.get_asset("log-short"), -999, 116).add(lane5, render_group)
+        Log(asset_dict.get_asset("log-medium"), -999, 116).add(lane5, render_group)
 
     lane1_sprites = lane1.sprites()
     lane2_sprites = lane2.sprites()
@@ -37,32 +48,27 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
     # Moves all entities in lane 1 at a constant speed and kill them if they have moved offscreen
     for sprite in lane1_sprites:
         sprite.rect.x -= 5
-        if sprite.rect.x + sprite.image.get_width() < 0:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all entities in lane 2 at a constant speed and kill them if they have moved offscreen
     for sprite in lane2_sprites:
         sprite.rect.x += 1
-        if sprite.rect.x > win.get_width() + 1:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all entities in lane 3 at a constant speed and kill them if they have moved offscreen
     for sprite in lane3_sprites:
         sprite.rect.x += 3
-        if sprite.rect.x > win.get_width() + 1:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all entities in lane 4 at a constant speed and kill them if they have moved offscreen
     for sprite in lane4_sprites:
         sprite.rect.x -= 3
-        if sprite.rect.x + sprite.image.get_width() < 0:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all entities in lane 5 at a constant speed and kill them if they have moved offscreen
     for sprite in lane5_sprites:
         sprite.rect.x += 2
-        if sprite.rect.x > win.get_width() + 1:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
 
 def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5, render_group, kill_group,
@@ -97,29 +103,24 @@ def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5
     # Moves all cars in lane 1 at a constant speed and kill if go off screen
     for sprite in carlane1_sprites:
         sprite.rect.x += -1
-        if sprite.rect.x + sprite.image.get_width() < 0:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all cars in lane 2 at a constant speed and kill if go off screen
     for sprite in carlane2_sprites:
         sprite.rect.x += -3
-        if sprite.rect.x + sprite.image.get_width() < 0:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all cars in lane 3 at a constant speed and kill if go off screen
     for sprite in carlane3_sprites:
         sprite.rect.x += -2
-        if sprite.rect.x + sprite.image.get_width() < 0:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all cars in lane 4 at a constant speed and kill if go off screen
     for sprite in carlane4_sprites:
         sprite.rect.x += -1
-        if sprite.rect.x + sprite.image.get_width() < 0:
-            sprite.kill()
+        sprite_despawner(sprite, win)
 
     # Moves all cars in lane 5 at a constant speed and kill if go off screen
     for sprite in carlane5_sprites:
         sprite.rect.x += -3
-        if sprite.rect.x > win.get_width() + 1:
-            sprite.kill()
+        sprite_despawner(sprite, win)

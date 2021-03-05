@@ -6,56 +6,157 @@
 import unittest
 import pygame
 import os
-from src.Engine.obstacle_spawner import spawn_water_lanes
-from src.Util.asset_dictionary import AssetDictionary
-from src.Sprites.turtle import Turtle
-
-# WIDTH, HEIGHT = 820, 876
-# WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-# current_dir = os.path.dirname(os.path.abspath(__file__))
-#
-# asset_dict = AssetDictionary(current_dir)
-#
-# MOVEMENT_DISTANCE_X = asset_dict.get_asset("frog").get_width() + 4
-# MOVEMENT_DISTANCE_Y = asset_dict.get_asset("frog").get_height() + 12
+import Engine.obstacle_spawner as obstacle_spawner
+from Util.asset_dictionary import AssetDictionary
+from Sprites.turtle import Turtle
+from Sprites.log import Log
 
 
 class TestGameMethods(unittest.TestCase):
     """Contains the main game unit testing methods"""
 
+    def test_sprite_despawner(self):
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        test_sprite = Log(test_asset_dict.get_asset("log-short"), 100, 100)
+        test_group = pygame.sprite.Group()
+
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertTrue(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 0 - test_sprite.image.get_width() - 1
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 825
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.y = 0 - test_sprite.image.get_height() - 1
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.y = test_win.get_height() + 1
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
     def test_water_spawner(self):
-        test_lane1 = pygame.sprite.Group()
-        test_lane2 = pygame.sprite.Group()
-        test_lane3 = pygame.sprite.Group()
-        test_lane4 = pygame.sprite.Group()
-        test_lane5 = pygame.sprite.Group()
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
         test_render_group = pygame.sprite.RenderUpdates()
         test_win = pygame.Surface((820, 876))
-        current_dir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
-        print(current_dir)
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
 
-        spawn_water_lanes(60, test_lane1, test_lane2, test_lane3, test_lane4, test_lane5, test_render_group,
-                          test_asset_dict, test_win)
+        # test that all lanes spawn properly
+        obstacle_spawner.spawn_water_lanes(0, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                           test_render_group, test_asset_dict, test_win)
 
-        assert_sprite = Turtle(test_asset_dict.get_asset("turtle-1"), 816, 372, test_win)
-        assert_group = pygame.sprite.Group()
-        assert_group.add(assert_sprite)
-        for i, j in zip(test_lane1.sprites(), assert_group.sprites()):
-            self.assertEqual(i.rect.x, j.rect.x)
-            self.assertEqual(i.rect.y, j.rect.y)
-        for i, j in zip(test_lane2.sprites(), assert_group.sprites()):
-            self.assertEqual(i.rect.x, j.rect.x)
-            self.assertEqual(i.rect.y, j.rect.y)
-        for i, j in zip(test_lane3.sprites(), assert_group.sprites()):
-            self.assertEqual(i.rect.x, j.rect.x)
-            self.assertEqual(i.rect.y, j.rect.y)
-        for i, j in zip(test_lane4.sprites(), assert_group.sprites()):
-            self.assertEqual(i.rect.x, j.rect.x)
-            self.assertEqual(i.rect.y, j.rect.y)
-        for i, j in zip(test_lane5.sprites(), assert_group.sprites()):
-            self.assertEqual(i.rect.x, j.rect.x)
-            self.assertEqual(i.rect.y, j.rect.y)
+        Turtle(test_asset_dict.get_asset("turtle-1"), 816, 372, test_win).add(assert_groups[0])
+        Log(test_asset_dict.get_asset("log-short"), -180, 308).add(assert_groups[1])
+        Log(test_asset_dict.get_asset("log-long"), -382, 244).add(assert_groups[2])
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), 818, 180, test_win).add(assert_groups[3])
+        Log(test_asset_dict.get_asset("log-medium"), -279, 116).add(assert_groups[4])
+
+        for test_lane, assert_group in zip(test_lanes, assert_groups):
+            for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            test_lane.empty()
+
+        test_render_group.empty()
+
+    def test_water_mover(self):
+
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Turtle(test_asset_dict.get_asset("turtle-1"), 300, 308, test_win).add(assert_groups[0], test_render_group)
+
+        Log(test_asset_dict.get_asset("log-short"), 779, 308).add(test_lanes[1], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 539, 308).add(test_lanes[1], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 299, 308).add(test_lanes[1], test_render_group)
+
+        Log(test_asset_dict.get_asset("log-long"), 425, 244).add(test_lanes[2], test_render_group)
+
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), 121, 308, test_win).add(test_lanes[3], test_render_group)
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), 625, 308, test_win).add(test_lanes[3], test_render_group)
+
+        Log(test_asset_dict.get_asset("log-short"), 119, 116).add(test_lanes[4], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 419, 116).add(test_lanes[4], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 719, 116).add(test_lanes[4], test_render_group)
+
+        # expected sprites
+        Turtle(test_asset_dict.get_asset("turtle-1"), 305, 308, test_win).add(assert_groups[0], test_render_group)
+
+        Log(test_asset_dict.get_asset("log-short"), 780, 308).add(assert_groups[1], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 540, 308).add(assert_groups[1], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 300, 308).add(assert_groups[1], test_render_group)
+
+        Log(test_asset_dict.get_asset("log-long"), 428, 244).add(assert_groups[2], test_render_group)
+
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), 118, 308, test_win).add(assert_groups[3], test_render_group)
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), 622, 308, test_win).add(assert_groups[3], test_render_group)
+
+        Log(test_asset_dict.get_asset("log-short"), 121, 116).add(assert_groups[4], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 421, 116).add(assert_groups[4], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 721, 116).add(assert_groups[4], test_render_group)
+
+        # call function on actual sprites and test it
+        obstacle_spawner.spawn_water_lanes(12, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3],
+                                           test_lanes[4], test_render_group, test_asset_dict, test_win)
+
+        for test_lane, assert_group in zip(test_lanes, assert_groups):
+            for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            test_lane.empty()
+
+        test_render_group.empty()
+
+    def test_water_despawner(self):
+
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Turtle(test_asset_dict.get_asset("turtle-1"), -100, 308, test_win).add(assert_groups[0], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 877, 308).add(test_lanes[1], test_render_group)
+        Log(test_asset_dict.get_asset("log-long"), 900, 244).add(test_lanes[2], test_render_group)
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), -50, 308, test_win).add(test_lanes[3], test_render_group)
+        Log(test_asset_dict.get_asset("log-short"), 1050, 116).add(test_lanes[4], test_render_group)
+
+        # call function on the actual sprites and test
+        obstacle_spawner.spawn_water_lanes(1, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                           test_render_group, test_asset_dict, test_win)
+
+        for lane in test_lanes:
+            self.assertFalse(lane.has())
+
+        test_render_group.empty()
+
     #
     # def test_move_player(self):
     #     """Test whether the movement system works as expected"""
@@ -112,5 +213,3 @@ class TestGameMethods(unittest.TestCase):
     #     test_player.rect.y = 400
     #     move_player(test_player, down)
     #     self.assertEqual(test_player.rect.x, 800)
-
-
