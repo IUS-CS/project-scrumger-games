@@ -17,6 +17,7 @@ class AssetDictionary:
             "car3": pygame.image.load(os.path.join(current_dir, "Assets", "car-3.png")),
             "car4": pygame.image.load(os.path.join(current_dir, "Assets", "car-4.png")),
             "log-long": pygame.image.load(os.path.join(current_dir, "Assets", "log-long.png")),
+            "log-medium": pygame.image.load(os.path.join(current_dir, "Assets", "log-medium.png")),
             "log-short": pygame.image.load(os.path.join(current_dir, "Assets", "log-short.png")),
             "logo": pygame.image.load(os.path.join(current_dir, "Assets", "logo.png")),
             "semi-truck": pygame.image.load(os.path.join(current_dir, "Assets", "semi-truck.png")),
