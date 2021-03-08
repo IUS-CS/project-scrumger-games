@@ -11,6 +11,7 @@ from Engine.logger import log_game
 from Engine.sprite_renderer import draw_sprites
 from Engine.movement_handler import move_player
 from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
+from Engine.sprite_animator import animate_sprites
 from Util.utilities import check_kill_collisions, check_win_collisions
 from Util.asset_dictionary import AssetDictionary
 from Sprites.player import Player
@@ -120,7 +121,7 @@ def main():
                 player.index = 0
                 player.image = player.images[player.index]
 
-        # Check collisions, render sprites, and spawn obstacles on every frame
+        # Check collisions, render & animate sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)
         check_win_collisions(player, win_group)
         spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
@@ -128,6 +129,7 @@ def main():
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           render_group, asset_dict, WIN)
         draw_sprites(render_group, WIN, background)
+        animate_sprites(water_lane1, water_lane4, frame_count)
 
         # Iterate the frame counter
         frame_count += 1

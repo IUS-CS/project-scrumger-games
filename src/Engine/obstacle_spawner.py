@@ -2,6 +2,7 @@ import pygame
 from Sprites.log import Log
 from Sprites.car import Car
 from Sprites.turtle import Turtle
+from Sprites.turtle_animated import TurtleSinker
 from Util.asset_dictionary import AssetDictionary
 
 
@@ -9,10 +10,10 @@ def sprite_despawner(sprite, win):
     x = sprite.rect.x
     y = sprite.rect.y
 
-    if x + sprite.image.get_width() < 0 or x > win.get_width() + 1:
+    if x + sprite.rect.width < 0 or x > win.get_width() + 1:
         sprite.kill()
 
-    if y + sprite.image.get_height() < 0 or y > win.get_height() + 1:
+    if y + sprite.rect.height < 0 or y > win.get_height() + 1:
         sprite.kill()
 
 
@@ -21,7 +22,7 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
 
     # Spawns turtles in lane 1 every 2 seconds
     if framecount % 60 == 0:
-        Turtle(asset_dict.get_asset("turtle-1"), 821, 372, win).add(lane1, render_group)
+        TurtleSinker(asset_dict.get_asset("triple-turtle-animated"), framecount, 821, 372).add(lane1, render_group)
 
     # Spawns logs in lane 2 every 8 seconds, skipping every 4th spawn
     if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
@@ -33,7 +34,7 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
 
     # Spawns turtles in lane 4 every 3 seconds
     if framecount % 90 == 0:
-        Turtle(asset_dict.get_asset("double-turtle-1"), 821, 180, win).add(lane4, render_group)
+        Turtle(asset_dict.get_asset("double-turtle-1"), 821, 180).add(lane4, render_group)
 
     # Spawns logs in lane 5 every 5 seconds
     if framecount % 150 == 0:

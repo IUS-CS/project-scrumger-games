@@ -29,11 +29,17 @@ class AssetDictionary:
             "double-turtle-3": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-3.png")),
             "turtle-sink-1": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-1.png")),
             "turtle-sink-2": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-2.png")),
+            "blank-triple-turtle": pygame.image.load(os.path.join(current_dir, "Assets", "blank-triple-turtle.png")),
         }
 
         # Scale all the images in the asset dictionary
         for key in self.asset_dict:
             self.asset_dict[key] = scale_image(self.asset_dict[key])
+
+        self.asset_dict.update({
+            "triple-turtle-animated": [self.get_asset("turtle-1"), self.get_asset("turtle-sink-1"),
+                                       self.get_asset("turtle-sink-2"), self.get_asset("blank-triple-turtle")]
+        })
 
     def get_asset(self, key):
         return self.asset_dict[key]
