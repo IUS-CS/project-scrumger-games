@@ -21,6 +21,7 @@ class TurtleSinker(Turtle):
         self.next_frame(framecount)
 
     def next_frame(self, framecount):
+
         if not self.submerged and not self.emerging:
             self.frame_index += 1
             if self.frame_index >= len(self.frames):
@@ -42,7 +43,7 @@ class TurtleSinker(Turtle):
     def last_frame(self):
         self.frame_index -= 1
         if self.frame_index < 1:
-            self.emerging = False
+            self.finish_animation()
         self.image = self.frames[self.frame_index]
 
     def submerge(self):
@@ -51,3 +52,5 @@ class TurtleSinker(Turtle):
     def finish_animation(self):
         self.frame_index = 0
         self.animation_started = False
+        self.emerging = False
+        self.submerged = False

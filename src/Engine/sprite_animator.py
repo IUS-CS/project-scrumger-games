@@ -5,6 +5,7 @@ from Sprites.turtle_animated import TurtleSinker
 def animate_sprites(*args):
     animate_turtles(args[0], args[1], args[2])
 
+
 def animate_turtles(lane1: pygame.sprite.Group, lane2: pygame.sprite.Group, framecount):
 
     animation_speed = 20
