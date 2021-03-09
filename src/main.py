@@ -55,7 +55,7 @@ def main():
     frogger_font = pygame.font.SysFont("Consolas", 30)
 
     # Initialize sprite groups
-    render_group = pygame.sprite.RenderUpdates()
+    render_group = pygame.sprite.LayeredUpdates()
     kill_group = DeathSprites()
     win_group = pygame.sprite.Group()
 
@@ -94,6 +94,7 @@ def main():
     # Initialize sprites for Frog
     player = Player(player_images, WIN)
     player.add(render_group)
+    render_group.change_layer(player, 1)
     FrogNest(1).add(win_group)
     FrogNest(2).add(win_group)
     FrogNest(3).add(win_group)
