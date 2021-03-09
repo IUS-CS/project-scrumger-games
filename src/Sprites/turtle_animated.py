@@ -14,7 +14,7 @@ class TurtleSinker(Turtle):
         self.image = frames[0]
         self.frame_index = 0
         self.submerged = False
-        self.emerging = True
+        self.emerging = False
         self.animation_speed = animation_speed
 
     def start_animation(self, framecount):
@@ -23,22 +23,24 @@ class TurtleSinker(Turtle):
 
     def next_frame(self, framecount):
 
-        if not self.submerged and not self.emerging:  # start new submerge cycle
-            self.frame_index += 1
-            if self.frame_index >= len(self.frames):  # if at the end of submerge animation, set submerged state
-                self.submerged = True
-            else:                                     # otherwise, advance the animation
-                self.image = self.frames[self.frame_index]
+        if self.animation_started:
+
+            if not self.submerged and not self.emerging:  # start new submerge cycle
+                self.frame_index += 1
+                if self.frame_index >= len(self.frames):  # if at the end of submerge animation, set submerged state
+                    self.submerged = True
+                else:                                     # otherwise, advance the animation
+                    self.image = self.frames[self.frame_index]
+                    self.last_animation = framecount
+
+            elif self.submerged and framecount - self.last_animation > 1:  # turtle is submerged - begin emerge animation
+                self.submerged = False
+                self.emerging = True
+                self.last_frame()
+
+            elif self.emerging:                           # turtle is emerging - play submerge animation backwards
+                self.last_frame()
                 self.last_animation = framecount
-
-        elif self.submerged and framecount - self.last_animation > 1:  # turtle is submerged - begin emerge animation
-            self.submerged = False
-            self.emerging = True
-            self.last_frame()
-
-        elif self.emerging:                           # turtle is emerging - play submerge animation backwards
-            self.last_frame()
-            self.last_animation = framecount
 
     def last_frame(self):
         self.frame_index -= 1
