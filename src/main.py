@@ -139,7 +139,7 @@ def main():
                 player.index = 0
                 player.image = player.images[player.index]
 
-        text_timer_box = text.render(text_for_timer, 1, (255, 255, 255))
+        text_timer_box = text.render(text_for_timer, True, (255, 255, 255))
 
         # Check collisions, render sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)
