@@ -51,6 +51,10 @@ def main():
     frame_count = 0
     can_move = True
 
+    # Initialize on-screen text
+    pygame.font.init()
+    frogger_font = pygame.font.SysFont("Consolas", 30)
+
     # Initialize sprite groups
     render_group = pygame.sprite.LayeredUpdates()
     kill_group = DeathSprites()
@@ -86,7 +90,7 @@ def main():
     Car(asset_dict.get_asset("car2"), 0, 700, WIN).add(render_group, car_lane2, kill_group)
     Car(asset_dict.get_asset("car3"), 0, 630, WIN).add(render_group, car_lane3, kill_group)
     Car(asset_dict.get_asset("car4"), 0, 560, WIN).add(render_group, car_lane4, kill_group)
-    Car(asset_dict.get_asset("car2"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
+    Car(asset_dict.get_asset("semi-truck"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
     player = Player(player_images, WIN)
@@ -130,6 +134,10 @@ def main():
                           render_group, asset_dict, WIN)
         draw_sprites(render_group, WIN, background)
         animate_sprites(water_lane1, water_lane4, frame_count)
+
+        # Initialize and render score text
+        score_text = frogger_font.render("Score: " + str(player.score), True, WHITE, BLACK)
+        background.blit(score_text, (20, 20))
 
         # Iterate the frame counter
         frame_count += 1

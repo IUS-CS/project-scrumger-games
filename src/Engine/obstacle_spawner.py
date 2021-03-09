@@ -93,7 +93,7 @@ def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5
 
     # Spawns cars in lane 5 every 9 seconds
     if framecount % 270 == 0:
-        Car(asset_dict.get_asset("car2"), 0, 500, win).add(carlane5, render_group, kill_group)
+        Car(asset_dict.get_asset("semi-truck"), 0, 500, win).add(carlane5, render_group, kill_group)
 
     carlane1_sprites = carlane1.sprites()
     carlane2_sprites = carlane2.sprites()

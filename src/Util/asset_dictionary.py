@@ -30,6 +30,7 @@ class AssetDictionary:
             "turtle-sink-1": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-1.png")),
             "turtle-sink-2": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-2.png")),
             "blank-triple-turtle": pygame.image.load(os.path.join(current_dir, "Assets", "blank-triple-turtle.png")),
+            "win-frog": pygame.image.load(os.path.join(current_dir, "Assets", "win-frog.png")),
         }
 
         # Scale all the images in the asset dictionary
