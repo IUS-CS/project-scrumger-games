@@ -8,22 +8,20 @@ def animate_sprites(*args):
 
 def animate_turtles(lane1: pygame.sprite.Group, lane2: pygame.sprite.Group, framecount):
 
-    animation_speed = 20
-
     for sprite in lane1.sprites():
         if isinstance(sprite, TurtleSinker):
-            if not sprite.animation_started and framecount - sprite.last_animation >= 90:
+            if not sprite.animation_started and framecount - sprite.last_animation >= 30:
                 sprite.start_animation(framecount)
 
             else:
-                if framecount - sprite.last_animation >= animation_speed:
+                if framecount - sprite.last_animation >= sprite.animation_speed:
                     sprite.next_frame(framecount)
 
     for sprite in lane2.sprites():
         if isinstance(sprite, TurtleSinker):
-            if not sprite.animation_started and framecount - sprite.last_animation >= 90:
+            if not sprite.animation_started and framecount - sprite.last_animation >= 30:
                 sprite.start_animation(framecount)
 
             else:
-                if framecount - sprite.last_animation >= animation_speed:
+                if framecount - sprite.last_animation >= sprite.animation_speed:
                     sprite.next_frame(framecount)

@@ -6,7 +6,7 @@ from Sprites.turtle import Turtle
 class TurtleSinker(Turtle):
     """Pygame sprite class representing an animated turtle"""
 
-    def __init__(self, frames, frame_spawned_on, x, y):
+    def __init__(self, frames, frame_spawned_on, x, y, animation_speed=18):
         Turtle.__init__(self, frames[0], x, y)
         self.frames = frames
         self.last_animation = frame_spawned_on
@@ -15,6 +15,7 @@ class TurtleSinker(Turtle):
         self.frame_index = 0
         self.submerged = False
         self.emerging = True
+        self.animation_speed = animation_speed
 
     def start_animation(self, framecount):
         self.animation_started = True
@@ -22,21 +23,20 @@ class TurtleSinker(Turtle):
 
     def next_frame(self, framecount):
 
-        if not self.submerged and not self.emerging:
+        if not self.submerged and not self.emerging:  # start new submerge cycle
             self.frame_index += 1
-            if self.frame_index >= len(self.frames):
-                self.submerge()
+            if self.frame_index >= len(self.frames):  # if at the end of submerge animation, set submerged state
                 self.submerged = True
-            else:
+            else:                                     # otherwise, advance the animation
                 self.image = self.frames[self.frame_index]
-            self.last_animation = framecount
+                self.last_animation = framecount
 
-        elif self.submerged and framecount - self.last_animation > 30:
+        elif self.submerged and framecount - self.last_animation > 1:  # turtle is submerged - begin emerge animation
             self.submerged = False
             self.emerging = True
             self.last_frame()
 
-        elif self.emerging:
+        elif self.emerging:                           # turtle is emerging - play submerge animation backwards
             self.last_frame()
             self.last_animation = framecount
 
@@ -45,9 +45,6 @@ class TurtleSinker(Turtle):
         if self.frame_index < 1:
             self.finish_animation()
         self.image = self.frames[self.frame_index]
-
-    def submerge(self):
-        self.submerged = True
 
     def finish_animation(self):
         self.frame_index = 0

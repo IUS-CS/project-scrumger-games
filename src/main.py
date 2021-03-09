@@ -18,6 +18,8 @@ from Sprites.player import Player
 from Sprites.car import Car
 from Sprites.log import Log
 from Sprites.frog_nest import FrogNest
+from Sprites.turtle import Turtle
+from Sprites.turtle_animated import TurtleSinker
 from Sprites.Groups.death_sprites import DeathSprites
 
 
@@ -67,12 +69,20 @@ def main():
     water_lane4 = pygame.sprite.Group()
     water_lane5 = pygame.sprite.Group()
 
-    # Initialize logs on the screen on game start
+    # Initialize logs and turtles already on the screen at game start
     Log(asset_dict.get_asset("log-short"), 779, 308).add(water_lane2, render_group)
     Log(asset_dict.get_asset("log-short"), 539, 308).add(water_lane2, render_group)
     Log(asset_dict.get_asset("log-short"), 299, 308).add(water_lane2, render_group)
 
+    TurtleSinker(asset_dict.get_asset("triple-turtle-sink"), -30, -79, 372).add(water_lane1, render_group)
+    Turtle(asset_dict.get_asset("turtle-1"), 221, 372).add(water_lane1, render_group)
+    Turtle(asset_dict.get_asset("turtle-1"), 521, 372).add(water_lane1, render_group)
+
     Log(asset_dict.get_asset("log-long"), 425, 244).add(water_lane3, render_group)
+
+    TurtleSinker(asset_dict.get_asset("double-turtle-sink"), -30, 0, 180).add(water_lane4, render_group)
+    Turtle(asset_dict.get_asset("double-turtle-1"), 270, 180).add(water_lane4, render_group)
+    Turtle(asset_dict.get_asset("double-turtle-1"), 540, 180).add(water_lane4, render_group)
 
     Log(asset_dict.get_asset("log-short"), 119, 116).add(water_lane5, render_group)
     Log(asset_dict.get_asset("log-short"), 419, 116).add(water_lane5, render_group)

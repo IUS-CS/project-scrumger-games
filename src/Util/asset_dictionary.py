@@ -27,9 +27,11 @@ class AssetDictionary:
             "double-turtle-1": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-1.png")),
             "double-turtle-2": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-2.png")),
             "double-turtle-3": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-3.png")),
+            "double-turtle-sink-1": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-sink-1.png")),
+            "double-turtle-sink-2": pygame.image.load(os.path.join(current_dir, "Assets", "double-turtle-sink-2.png")),
             "turtle-sink-1": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-1.png")),
             "turtle-sink-2": pygame.image.load(os.path.join(current_dir, "Assets", "turtle-sink-2.png")),
-            "blank-triple-turtle": pygame.image.load(os.path.join(current_dir, "Assets", "blank-triple-turtle.png")),
+            "submerged-turtle": pygame.image.load(os.path.join(current_dir, "Assets", "blank-triple-turtle.png")),
             "win-frog": pygame.image.load(os.path.join(current_dir, "Assets", "win-frog.png")),
         }
 
@@ -38,8 +40,10 @@ class AssetDictionary:
             self.asset_dict[key] = scale_image(self.asset_dict[key])
 
         self.asset_dict.update({
-            "triple-turtle-animated": [self.get_asset("turtle-1"), self.get_asset("turtle-sink-1"),
-                                       self.get_asset("turtle-sink-2"), self.get_asset("blank-triple-turtle")]
+            "triple-turtle-sink": [self.get_asset("turtle-1"), self.get_asset("turtle-sink-1"),
+                                   self.get_asset("turtle-sink-2"), self.get_asset("submerged-turtle")],
+            "double-turtle-sink": [self.get_asset("double-turtle-1"), self.get_asset("double-turtle-sink-1"),
+                                   self.get_asset("double-turtle-sink-2"), self.get_asset("submerged-turtle")]
         })
 
     def get_asset(self, key):
