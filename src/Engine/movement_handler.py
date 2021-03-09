@@ -13,11 +13,15 @@ def move_player(player: Player, key_depressed, movement_distance_x, movement_dis
     down = 115  # 's' key ascii
 
     if key_depressed == up:  # if up key is pressed
-        if player.rect.y > 20:  # not at top
+        if player.rect.y > 60:  # not at top
             y_change -= movement_distance_y  # move up
             up_image = asset_dict.get_asset("frog")
             up_image2 = asset_dict.get_asset("frog_jumping")
             player.images = [up_image, up_image2]
+        new_y = player.rect.y
+        if new_y < player.farthest_distance:
+            player.farthest_distance = new_y
+            player.score += 10
 
     elif key_depressed == left:  # if left key is pressed
         if player.rect.x > 20:  # not at leftmost border

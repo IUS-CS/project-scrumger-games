@@ -7,8 +7,10 @@ def scale_image(image):
 
 
 # Stub method to be called when the player wins the game
-def win_game():
+def win_game(player):
     print("YOU WIN!")
+    player.score += 50
+    print(player.score)
 
 
 def check_kill_collisions(player: pygame.sprite.Sprite, kill_group: pygame.sprite.Group):
@@ -23,5 +25,5 @@ def check_win_collisions(player: pygame.sprite.Sprite, win_group: pygame.sprite.
     """Checks the player sprite object against a group object for the game's win condition"""
     collide_list = pygame.sprite.spritecollide(player, win_group, 0)
     if collide_list:
-        win_game()
+        win_game(player)
 
