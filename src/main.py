@@ -17,6 +17,7 @@ from Sprites.player import Player
 from Sprites.car import Car
 from Sprites.log import Log
 from Sprites.frog_nest import FrogNest
+from Sprites.riverbank import Riverbank
 from Sprites.Groups.death_sprites import DeathSprites
 
 
@@ -101,6 +102,13 @@ def main():
     FrogNest(4).add(win_group)
     FrogNest(5).add(win_group)
 
+    Riverbank(0).add(kill_group)
+    Riverbank(1).add(kill_group)
+    Riverbank(2).add(kill_group)
+    Riverbank(3).add(kill_group)
+    Riverbank(4).add(kill_group)
+    Riverbank(5).add(kill_group)
+
     clock = pygame.time.Clock()
     run = True
 
@@ -132,6 +140,8 @@ def main():
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           render_group, asset_dict, WIN)
         draw_sprites(render_group, WIN, background)
+        # draw_sprites(win_group, WIN, background)
+        # draw_sprites(kill_group, WIN, background)
 
         # Initialize and render score text
         score_text = frogger_font.render("Score: " + str(player.score), True, WHITE, BLACK)
