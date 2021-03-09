@@ -6,6 +6,8 @@
 This module will contain the main high level functions of the game, as well as the main game loop
 """
 import os
+from idlelib import window
+
 import pygame
 from Engine.logger import log_game
 from Engine.sprite_renderer import draw_sprites
@@ -43,6 +45,7 @@ player_images = [asset_dict.get_asset("frog"), asset_dict.get_asset("frog_jumpin
 
 
 def main():
+    pygame.init()
     """Main game method containing the main game loop"""
     log_game()
     WIN.fill(WHITE)
@@ -97,15 +100,32 @@ def main():
     FrogNest(5).add(win_group)
 
     clock = pygame.time.Clock()
+
+    #Create counter, timer and fonts for timer, counter
+    counter_for_timer = 25
+    text_for_timer = '25'.rjust(5)
+    pygame.time.set_timer(pygame.USEREVENT, 1000)
+    text = pygame.font.SysFont('Times New Roman', 35)
+
     run = True
 
     # Main game loop
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
-
             if event.type == pygame.QUIT:
                 run = False
+            if event.type == pygame.USEREVENT:
+                 counter_for_timer -= 1
+                 text_for_timer = str(counter_for_timer).rjust(5)
+                 if counter_for_timer == 0:
+                    player.kill()
+
+                    #add player back to orginal spot
+                    player.add(render_group)
+
+                    #restart counter
+                    counter_for_timer = 25
 
         # Input handling for movement
             if event.type == pygame.KEYDOWN and can_move:
@@ -119,6 +139,8 @@ def main():
                 player.index = 0
                 player.image = player.images[player.index]
 
+        text_timer_box = text.render(text_for_timer, 1, (255, 255, 255))
+
         # Check collisions, render sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)
         check_win_collisions(player, win_group)
@@ -126,7 +148,8 @@ def main():
                         render_group, kill_group, asset_dict, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           render_group, asset_dict, WIN)
-        draw_sprites(render_group, WIN, background)
+        draw_sprites(render_group, WIN, background, text_timer_box)
+        pygame.display.update()
 
         # Iterate the frame counter
         frame_count += 1
