@@ -7,12 +7,8 @@ class TurtleSinker(Turtle):
     """Pygame sprite class representing an animated turtle"""
 
     def __init__(self, frames, frame_spawned_on, x, y, animation_speed=18):
-        Turtle.__init__(self, frames[0], x, y)
-        self.frames = frames
-        self.last_animation = frame_spawned_on
+        Turtle.__init__(self, frames, frame_spawned_on, x, y)
         self.animation_started = False
-        self.image = frames[0]
-        self.frame_index = 0
         self.submerged = False
         self.emerging = False
         self.animation_speed = animation_speed

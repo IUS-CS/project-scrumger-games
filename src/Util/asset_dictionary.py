@@ -40,6 +40,9 @@ class AssetDictionary:
             self.asset_dict[key] = scale_image(self.asset_dict[key])
 
         self.asset_dict.update({
+            "triple-turtle": [self.get_asset("turtle-1"), self.get_asset("turtle-2"), self.get_asset("turtle-3")],
+            "double-turtle": [self.get_asset("double-turtle-1"), self.get_asset("double-turtle-2"),
+                              self.get_asset("double-turtle-3")],
             "triple-turtle-sink": [self.get_asset("turtle-1"), self.get_asset("turtle-sink-1"),
                                    self.get_asset("turtle-sink-2"), self.get_asset("submerged-turtle")],
             "double-turtle-sink": [self.get_asset("double-turtle-1"), self.get_asset("double-turtle-sink-1"),

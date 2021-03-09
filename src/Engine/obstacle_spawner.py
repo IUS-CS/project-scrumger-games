@@ -25,7 +25,7 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
         if framecount % 180 == 0:
             TurtleSinker(asset_dict.get_asset("triple-turtle-sink"), framecount, 821, 372, 10).add(lane1, render_group)
         else:
-            Turtle(asset_dict.get_asset("turtle-1"), 821, 372).add(lane1, render_group)
+            Turtle(asset_dict.get_asset("triple-turtle"), framecount, 821, 372).add(lane1, render_group)
 
     # Spawns logs in lane 2 every 8 seconds, skipping every 4th spawn
     if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
@@ -40,7 +40,7 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
         if framecount % 540 == 0:
             TurtleSinker(asset_dict.get_asset("double-turtle-sink"), framecount, 821, 180).add(lane4, render_group)
         elif framecount % 450 != 0:
-            Turtle(asset_dict.get_asset("double-turtle-1"), 821, 180).add(lane4, render_group)
+            Turtle(asset_dict.get_asset("double-turtle"), framecount, 821, 180).add(lane4, render_group)
 
     # Spawns logs in lane 5 every 5 seconds
     if framecount % 150 == 0:

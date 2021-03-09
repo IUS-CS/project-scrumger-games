@@ -75,14 +75,14 @@ def main():
     Log(asset_dict.get_asset("log-short"), 299, 308).add(water_lane2, render_group)
 
     TurtleSinker(asset_dict.get_asset("triple-turtle-sink"), -30, -79, 372).add(water_lane1, render_group)
-    Turtle(asset_dict.get_asset("turtle-1"), 221, 372).add(water_lane1, render_group)
-    Turtle(asset_dict.get_asset("turtle-1"), 521, 372).add(water_lane1, render_group)
+    Turtle(asset_dict.get_asset("triple-turtle"), frame_count, 221, 372).add(water_lane1, render_group)
+    Turtle(asset_dict.get_asset("triple-turtle"), frame_count, 521, 372).add(water_lane1, render_group)
 
     Log(asset_dict.get_asset("log-long"), 425, 244).add(water_lane3, render_group)
 
     TurtleSinker(asset_dict.get_asset("double-turtle-sink"), -30, 0, 180).add(water_lane4, render_group)
-    Turtle(asset_dict.get_asset("double-turtle-1"), 270, 180).add(water_lane4, render_group)
-    Turtle(asset_dict.get_asset("double-turtle-1"), 540, 180).add(water_lane4, render_group)
+    Turtle(asset_dict.get_asset("double-turtle"), frame_count, 270, 180).add(water_lane4, render_group)
+    Turtle(asset_dict.get_asset("double-turtle"), frame_count, 540, 180).add(water_lane4, render_group)
 
     Log(asset_dict.get_asset("log-short"), 119, 116).add(water_lane5, render_group)
     Log(asset_dict.get_asset("log-short"), 419, 116).add(water_lane5, render_group)
