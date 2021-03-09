@@ -5,8 +5,6 @@ from Util.utilities import scale_image
 
 class AssetDictionary:
 
-    asset_dict = {}
-
     def __init__(self, current_dir):
         # Load sprites into a dictionary for easy reference
         self.asset_dict = {
