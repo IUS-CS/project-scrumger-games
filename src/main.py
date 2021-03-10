@@ -18,6 +18,7 @@ from Sprites.player import Player
 from Sprites.car import Car
 from Sprites.log import Log
 from Sprites.frog_nest import FrogNest
+from Sprites.riverbank import Riverbank
 from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.Groups.death_sprites import DeathSprites
@@ -111,6 +112,13 @@ def main():
     FrogNest(3).add(win_group)
     FrogNest(4).add(win_group)
     FrogNest(5).add(win_group)
+
+    Riverbank(0).add(kill_group)
+    Riverbank(1).add(kill_group)
+    Riverbank(2).add(kill_group)
+    Riverbank(3).add(kill_group)
+    Riverbank(4).add(kill_group)
+    Riverbank(5).add(kill_group)
 
     clock = pygame.time.Clock()
     run = True
