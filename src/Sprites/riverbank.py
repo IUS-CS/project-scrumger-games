@@ -2,9 +2,9 @@ import pygame.sprite
 
 
 class Riverbank(pygame.sprite.Sprite):
-    """Pygame sprite class for frog nests used for checking the win condition"""
+    """Pygame sprite class for riverbank sprites used for killing the player"""
 
-    # Constructor should be passed an int to indicate which nest position the sprite should go in
+    # Constructor should be passed an int to indicate which position the sprite should go in
     def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([72, 50])
