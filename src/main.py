@@ -150,8 +150,8 @@ def main():
                         render_group, kill_group, asset_dict, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           render_group, asset_dict, WIN)
-        draw_sprites(render_group, WIN, background)
         animate_sprites(water_lane1, water_lane4, frame_count)
+        draw_sprites(render_group, WIN, background)
 
         # Initialize and render score text
         score_text = frogger_font.render("Score: " + str(player.score), True, WHITE, BLACK)
