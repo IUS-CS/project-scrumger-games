@@ -1,5 +1,5 @@
 import pygame.sprite
-
+from Util.asset_dictionary import AssetDictionary
 
 class FrogNest(pygame.sprite.Sprite):
     """Pygame sprite class for frog nests used for checking the win condition"""
@@ -28,3 +28,8 @@ class FrogNest(pygame.sprite.Sprite):
 
         else:
             self.rect.x = 710
+
+    def disable(self, win_group, render_group, kill_group):
+        self.remove(win_group)
+        self.image = AssetDictionary.asset_dict["win-frog"]
+        self.add(render_group, kill_group)
