@@ -19,7 +19,7 @@ def move_player(player: Player, key_depressed, movement_distance_x, movement_dis
             up_image2 = AssetDictionary.get_asset("frog_jumping")
             player.images = [up_image, up_image2]
         new_y = player.rect.y
-        if new_y < player.farthest_distance:
+        if player.farthest_distance > new_y > 110:
             player.farthest_distance = new_y
             player.score += 10
 

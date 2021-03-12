@@ -14,6 +14,7 @@ from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
 from Engine.sprite_animator import animate_sprites
 from Util.utilities import check_kill_collisions, check_win_collisions
 from Util.asset_dictionary import AssetDictionary
+from Util.window import Window
 from Sprites.player import Player
 from Sprites.car import Car
 from Sprites.log import Log
@@ -23,9 +24,7 @@ from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.Groups.death_sprites import DeathSprites
 
-
-WIDTH, HEIGHT = 820, 876
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+WIN = Window.WIN
 pygame.display.set_caption("The Froggerithm")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -34,7 +33,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Load background image
 background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
-background = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
+background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
 
 
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
@@ -102,7 +101,7 @@ def main():
     Car(AssetDictionary.get_asset("semi-truck"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
-    player = Player(player_images, WIN)
+    player = Player(player_images)
     player.add(render_group)
     render_group.change_layer(player, 1)
     FrogNest(1).add(win_group)
