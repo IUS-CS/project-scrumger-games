@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
     def nest(self):
         self.return_home()
         self.farthest_distance = 900
+        self.score += 50
 
     def win_game(self):
         self.score += 1000
