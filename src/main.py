@@ -123,6 +123,7 @@ def main():
     # Main game loop
     while run:
         clock.tick(FPS)
+        pygame.event.pump()
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
@@ -153,6 +154,10 @@ def main():
         # Initialize and render score text
         score_text = frogger_font.render("Score: " + str(player.score), True, WHITE, BLACK)
         background.blit(score_text, (20, 10))
+
+        # Initialize and render lives left
+        lives_text = frogger_font.render("Lives: " + str(player.lives_left), True, WHITE, BLACK)
+        background.blit(lives_text, (650, 10))
 
         # Iterate the frame counter
         frame_count += 1

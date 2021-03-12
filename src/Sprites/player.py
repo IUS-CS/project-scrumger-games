@@ -1,6 +1,7 @@
 import pygame.sprite
 import pygame.surface
 from Util.window import Window
+from Util.utilities import quit_game
 
 
 class Player(pygame.sprite.Sprite):
@@ -17,6 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = "up"
         self.score = 0
         self.farthest_distance = 900
+        self.lives_left = 6
 
     def win(self):
         self.score += 50
@@ -33,6 +35,10 @@ class Player(pygame.sprite.Sprite):
         self.index = 0
         self.image = self.images[self.index]
         self.direction = "up"
+        self.lives_left -= 1
+
+        if self.lives_left < 0:
+            quit_game()
 
     def return_home(self):
         return

@@ -22,3 +22,6 @@ def check_win_collisions(player, win_group, render_group, kill_group):
         for nest in collide_list:
             nest.disable(win_group, render_group, kill_group)
 
+
+def quit_game():
+    pygame.event.post(pygame.event.Event(pygame.QUIT))
