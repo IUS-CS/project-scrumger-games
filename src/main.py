@@ -123,7 +123,6 @@ def main():
     # Main game loop
     while run:
         clock.tick(FPS)
-        pygame.event.pump()
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
