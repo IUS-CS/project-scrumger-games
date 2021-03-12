@@ -40,9 +40,6 @@ background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIG
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
 MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
-# Prepare images for player animation
-player_images = [AssetDictionary.get_asset("frog"), AssetDictionary.get_asset("frog_jumping")]
-
 
 def main():
     """Main game method containing the main game loop"""
@@ -103,7 +100,7 @@ def main():
     Car(AssetDictionary.get_asset("semi-truck"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
-    player = Player(player_images)
+    player = Player(AssetDictionary.get_asset("player"))
     player.add(render_group)
     render_group.change_layer(player, 1)
 

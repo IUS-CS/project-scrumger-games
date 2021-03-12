@@ -44,7 +44,8 @@ class AssetDictionary:
         "triple-turtle-sink": [asset_dict["turtle-1"], asset_dict["turtle-sink-1"],
                                asset_dict["turtle-sink-2"], asset_dict["submerged-turtle"]],
         "double-turtle-sink": [asset_dict["double-turtle-1"], asset_dict["double-turtle-sink-1"],
-                               asset_dict["double-turtle-sink-2"], asset_dict["submerged-turtle"]]
+                               asset_dict["double-turtle-sink-2"], asset_dict["submerged-turtle"]],
+        "player": [asset_dict["frog"], asset_dict["frog_jumping"]]
     })
 
     def __init__(self, current=current_dir):

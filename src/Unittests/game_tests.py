@@ -9,9 +9,11 @@ import os
 import Engine.obstacle_spawner as obstacle_spawner
 import Engine.sprite_animator as sprite_animator
 from Util.asset_dictionary import AssetDictionary
+from Util.window import Window
 from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.log import Log
+from Sprites.player import Player
 
 
 class TestGameMethods(unittest.TestCase):
@@ -413,6 +415,32 @@ class TestGameMethods(unittest.TestCase):
         self.assertFalse(test_turtle_1.emerging)
         self.assertEqual(test_turtle_1.frame_index, 0)
         self.assertEqual(test_turtle_1.last_animation, 122)
+
+    def test_player(self):
+        actual = Player(AssetDictionary.get_asset("player"))
+
+        actual.rect.x = 101
+        actual.rect.y = 415
+        actual.index = 1
+        actual.direction = "right"
+
+        expected = Player(AssetDictionary.get_asset("player"))
+
+        actual.return_home()
+
+        self.assertEqual(actual.rect.x, expected.rect.x)
+        self.assertEqual(actual.rect.y, expected.rect.y)
+        self.assertEqual(actual.index, expected.index)
+        self.assertEqual(actual.direction, expected.direction)
+
+        actual.farthest_distance = 265
+        expected.score += 50
+
+        actual.nest()
+
+        self.assertEqual(actual.farthest_distance, expected.farthest_distance)
+        self.assertEqual(actual.score, expected.score)
+
 
     #
     # def test_move_player(self):
