@@ -36,14 +36,12 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
 background = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
-# Load assets into an object for easy access
-asset_dict = AssetDictionary(current_dir)
 
-MOVEMENT_DISTANCE_X = asset_dict.get_asset("frog").get_width() + 4
-MOVEMENT_DISTANCE_Y = asset_dict.get_asset("frog").get_height() + 12
+MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
+MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
 # Prepare images for player animation
-player_images = [asset_dict.get_asset("frog"), asset_dict.get_asset("frog_jumping")]
+player_images = [AssetDictionary.get_asset("frog"), AssetDictionary.get_asset("frog_jumping")]
 
 
 def main():
@@ -71,23 +69,23 @@ def main():
     water_lane5 = pygame.sprite.Group()
 
     # Initialize logs and turtles already on the screen at game start
-    Log(asset_dict.get_asset("log-short"), 779, 308).add(water_lane2, render_group)
-    Log(asset_dict.get_asset("log-short"), 539, 308).add(water_lane2, render_group)
-    Log(asset_dict.get_asset("log-short"), 299, 308).add(water_lane2, render_group)
+    Log(AssetDictionary.get_asset("log-short"), 779, 308).add(water_lane2, render_group)
+    Log(AssetDictionary.get_asset("log-short"), 539, 308).add(water_lane2, render_group)
+    Log(AssetDictionary.get_asset("log-short"), 299, 308).add(water_lane2, render_group)
 
-    TurtleSinker(asset_dict.get_asset("triple-turtle-sink"), -30, -79, 372).add(water_lane1, render_group)
-    Turtle(asset_dict.get_asset("triple-turtle"), frame_count, 221, 372).add(water_lane1, render_group)
-    Turtle(asset_dict.get_asset("triple-turtle"), frame_count, 521, 372).add(water_lane1, render_group)
+    TurtleSinker(AssetDictionary.get_asset("triple-turtle-sink"), -30, -79, 372).add(water_lane1, render_group)
+    Turtle(AssetDictionary.get_asset("triple-turtle"), frame_count, 221, 372).add(water_lane1, render_group)
+    Turtle(AssetDictionary.get_asset("triple-turtle"), frame_count, 521, 372).add(water_lane1, render_group)
 
-    Log(asset_dict.get_asset("log-long"), 425, 244).add(water_lane3, render_group)
+    Log(AssetDictionary.get_asset("log-long"), 425, 244).add(water_lane3, render_group)
 
-    TurtleSinker(asset_dict.get_asset("double-turtle-sink"), -30, 0, 180).add(water_lane4, render_group)
-    Turtle(asset_dict.get_asset("double-turtle"), frame_count, 270, 180).add(water_lane4, render_group)
-    Turtle(asset_dict.get_asset("double-turtle"), frame_count, 540, 180).add(water_lane4, render_group)
+    TurtleSinker(AssetDictionary.get_asset("double-turtle-sink"), -30, 0, 180).add(water_lane4, render_group)
+    Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 270, 180).add(water_lane4, render_group)
+    Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 540, 180).add(water_lane4, render_group)
 
-    Log(asset_dict.get_asset("log-short"), 119, 116).add(water_lane5, render_group)
-    Log(asset_dict.get_asset("log-short"), 419, 116).add(water_lane5, render_group)
-    Log(asset_dict.get_asset("log-short"), 719, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-short"), 119, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-short"), 419, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-short"), 719, 116).add(water_lane5, render_group)
 
     # Initialize sprite groups for the car lanes
     car_lane1 = pygame.sprite.Group()
@@ -97,11 +95,11 @@ def main():
     car_lane5 = pygame.sprite.Group()
 
     # Initialize the cars at start of game
-    Car(asset_dict.get_asset("car1"), 0, 750, WIN).add(render_group, car_lane1, kill_group)
-    Car(asset_dict.get_asset("car2"), 0, 700, WIN).add(render_group, car_lane2, kill_group)
-    Car(asset_dict.get_asset("car3"), 0, 630, WIN).add(render_group, car_lane3, kill_group)
-    Car(asset_dict.get_asset("car4"), 0, 560, WIN).add(render_group, car_lane4, kill_group)
-    Car(asset_dict.get_asset("semi-truck"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
+    Car(AssetDictionary.get_asset("car1"), 0, 750, WIN).add(render_group, car_lane1, kill_group)
+    Car(AssetDictionary.get_asset("car2"), 0, 700, WIN).add(render_group, car_lane2, kill_group)
+    Car(AssetDictionary.get_asset("car3"), 0, 630, WIN).add(render_group, car_lane3, kill_group)
+    Car(AssetDictionary.get_asset("car4"), 0, 560, WIN).add(render_group, car_lane4, kill_group)
+    Car(AssetDictionary.get_asset("semi-truck"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
     player = Player(player_images, WIN)
@@ -135,7 +133,7 @@ def main():
             if event.type == pygame.KEYDOWN and can_move:
                 can_move = False
                 key_depressed = event.key
-                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, asset_dict)
+                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
                 player.index = 1
                 player.image = player.images[player.index]
             if event.type == pygame.KEYUP:
@@ -147,9 +145,9 @@ def main():
         check_kill_collisions(player, kill_group)
         check_win_collisions(player, win_group)
         spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
-                        render_group, kill_group, asset_dict, WIN)
+                        render_group, kill_group, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
-                          render_group, asset_dict, WIN)
+                          render_group, WIN)
         animate_sprites(water_lane1, water_lane4, frame_count)
         draw_sprites(render_group, WIN, background)
 
