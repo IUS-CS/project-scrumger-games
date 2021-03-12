@@ -20,25 +20,24 @@ class Player(pygame.sprite.Sprite):
         self.farthest_distance = 900
         self.lives_left = 6
 
-    def win(self):
-        self.score += 50
-        self.rect.x = Window.WIN.get_width() / 2
-        self.rect.y = Window.WIN.get_height() - self.rect.height - 11
-        self.index = 0
-        self.image = self.images[self.index]
-        self.direction = "up"
+    def nest(self):
+        self.return_home()
         self.farthest_distance = 900
 
+    def win_game(self):
+        self.score += 1000
+        quit_game(self)
+
     def kill(self):
-        self.rect.x = Window.WIN.get_width() / 2
-        self.rect.y = Window.WIN.get_height() - self.rect.height - 11
-        self.index = 0
-        self.image = self.images[self.index]
-        self.direction = "up"
+        self.return_home()
         self.lives_left -= 1
 
         if self.lives_left < 0:
-            quit_game()
+            quit_game(self)
 
     def return_home(self):
-        return
+        self.rect.x = Window.WIN.get_width() / 2
+        self.rect.y = Window.WIN.get_height() - self.rect.height - 11
+        self.index = 0
+        self.image = self.images[self.index]
+        self.direction = "up"

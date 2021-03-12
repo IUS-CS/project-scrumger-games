@@ -23,6 +23,7 @@ from Sprites.riverbank import Riverbank
 from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.Groups.death_sprites import DeathSprites
+from Sprites.Groups.nests import DisabledNests
 
 WIN = Window.WIN
 pygame.display.set_caption("The Froggerithm")
@@ -59,6 +60,7 @@ def main():
     render_group = pygame.sprite.LayeredUpdates()
     kill_group = DeathSprites()
     win_group = pygame.sprite.Group()
+    disabled_nests = DisabledNests()
 
     # Initialize sprite groups for the water "lanes"
     water_lane1 = pygame.sprite.Group()
@@ -104,6 +106,7 @@ def main():
     player = Player(player_images)
     player.add(render_group)
     render_group.change_layer(player, 1)
+
     FrogNest(1).add(win_group)
     FrogNest(2).add(win_group)
     FrogNest(3).add(win_group)
@@ -142,7 +145,7 @@ def main():
 
         # Check collisions, render & animate sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)
-        check_win_collisions(player, win_group, render_group, kill_group)
+        check_win_collisions(player, win_group, render_group, kill_group, disabled_nests)
         spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
                         render_group, kill_group, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
