@@ -7,6 +7,7 @@ import unittest
 import pygame
 import os
 import Engine.obstacle_spawner as obstacle_spawner
+from Sprites.car import Car
 from Util.asset_dictionary import AssetDictionary
 from Sprites.turtle import Turtle
 from Sprites.log import Log
@@ -56,7 +57,6 @@ class TestGameMethods(unittest.TestCase):
         test_group.add(test_sprite)
         obstacle_spawner.sprite_despawner(test_sprite, test_win)
         self.assertFalse(test_group.has(test_sprite))
-
 
     def test_water_spawner(self):
         test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
@@ -123,8 +123,10 @@ class TestGameMethods(unittest.TestCase):
 
         Log(test_asset_dict.get_asset("log-long"), 428, 244).add(assert_groups[2], test_render_group)
 
-        Turtle(test_asset_dict.get_asset("double-turtle-1"), 118, 308, test_win).add(assert_groups[3], test_render_group)
-        Turtle(test_asset_dict.get_asset("double-turtle-1"), 622, 308, test_win).add(assert_groups[3], test_render_group)
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), 118, 308, test_win).add(assert_groups[3],
+                                                                                     test_render_group)
+        Turtle(test_asset_dict.get_asset("double-turtle-1"), 622, 308, test_win).add(assert_groups[3],
+                                                                                     test_render_group)
 
         Log(test_asset_dict.get_asset("log-short"), 121, 116).add(assert_groups[4], test_render_group)
         Log(test_asset_dict.get_asset("log-short"), 421, 116).add(assert_groups[4], test_render_group)
@@ -170,7 +172,105 @@ class TestGameMethods(unittest.TestCase):
 
         test_render_group.empty()
 
+    def test_car_spawner(self):
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
 
+        # test that all lanes spawn properly
+        obstacle_spawner.spawn_water_lanes(0, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3], car_test_lanes[4],
+                                           test_render_group, test_asset_dict, test_win)
+
+        Car(test_asset_dict.get_asset("car1"), 816, 372, test_win).add(assert_groups[0])
+        Car(test_asset_dict.get_asset("car2"), -180, 308, test_win).add(assert_groups[1])
+        Car(test_asset_dict.get_asset("car3"), -382, 244, test_win).add(assert_groups[2])
+        Car(test_asset_dict.get_asset("car4"), 818, 180, test_win).add(assert_groups[3])
+        Car(test_asset_dict.get_asset("semi-truck"), -279, 116, test_win).add(assert_groups[4])
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_render_group.empty()
+
+    def test_car_mover(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Car(test_asset_dict.get_asset("car1"), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(test_asset_dict.get_asset("car2"), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(test_asset_dict.get_asset("car3"), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(test_asset_dict.get_asset("car4"), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(test_asset_dict.get_asset("semi-truck"), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # expected sprites
+        Car(test_asset_dict.get_asset("car1"), 795, 750, test_win).add(assert_groups[0], test_render_group)
+
+        Car(test_asset_dict.get_asset("car2"), 801, 700, test_win).add(assert_groups[1], test_render_group)
+        Car(test_asset_dict.get_asset("car3"), 803, 630, test_win).add(assert_groups[2], test_render_group)
+        Car(test_asset_dict.get_asset("car4"), 797, 560, test_win).add(assert_groups[3], test_render_group)
+
+        Car(test_asset_dict.get_asset("semi-truck"), 802, 500, test_win).add(assert_groups[4], test_render_group)
+
+        # call function for actual sprites and test it
+        obstacle_spawner.spawn_water_lanes(10, car_test_lanes[0], car_test_lanes[1],car_test_lanes[2], car_test_lanes[3],
+                                           car_test_lanes[4], test_render_group, test_asset_dict, test_win)
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_render_group.empty()
+
+    def test_car_despawner(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Car(test_asset_dict.get_asset("car1"), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(test_asset_dict.get_asset("car2"), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(test_asset_dict.get_asset("car3"), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(test_asset_dict.get_asset("car4"), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(test_asset_dict.get_asset("semi-truck"), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # call function on the actual sprites and test
+        obstacle_spawner.spawn_water_lanes(1, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3], car_test_lanes[4],
+                                           test_render_group, test_asset_dict, test_win)
+
+        for lane in car_test_lanes:
+            self.assertFalse(lane.has())
+
+        test_render_group.empty()
 
     #
     # def test_move_player(self):

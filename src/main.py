@@ -85,11 +85,11 @@ def main():
     car_lane5 = pygame.sprite.Group()
 
     # Initialize the cars at start of game
-    Car(asset_dict.get_asset("car1"), 0, 750, WIN).add(render_group, car_lane1, kill_group)
-    Car(asset_dict.get_asset("car2"), 0, 700, WIN).add(render_group, car_lane2, kill_group)
-    Car(asset_dict.get_asset("car3"), 0, 630, WIN).add(render_group, car_lane3, kill_group)
-    Car(asset_dict.get_asset("car4"), 0, 560, WIN).add(render_group, car_lane4, kill_group)
-    Car(asset_dict.get_asset("semi-truck"), 0, 500, WIN).add(render_group, car_lane5, kill_group)
+    Car(asset_dict.get_asset("car1"), 800, 750, WIN).add(render_group, car_lane1, kill_group)
+    Car(asset_dict.get_asset("car2"), 800, 700, WIN).add(render_group, car_lane2, kill_group)
+    Car(asset_dict.get_asset("car3"), 800, 630, WIN).add(render_group, car_lane3, kill_group)
+    Car(asset_dict.get_asset("car4"), 800, 560, WIN).add(render_group, car_lane4, kill_group)
+    Car(asset_dict.get_asset("semi-truck"), 800, 500, WIN).add(render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
     player = Player(player_images, WIN)
