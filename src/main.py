@@ -93,11 +93,12 @@ def main():
     car_lane5 = pygame.sprite.Group()
 
     # Initialize the cars at start of game
-    # Car(AssetDictionary.get_asset("car1"), WIN.get_width() + 1, 750, WIN).add(render_group, car_lane1, kill_group)
-    # Car(AssetDictionary.get_asset("car2"), WIN.get_width() + 1, 700, WIN).add(render_group, car_lane2, kill_group)
-    # Car(AssetDictionary.get_asset("car3"), WIN.get_width() + 1, 630, WIN).add(render_group, car_lane3, kill_group)
-    # Car(AssetDictionary.get_asset("car4"), WIN.get_width() + 1, 560, WIN).add(render_group, car_lane4, kill_group)
-    # Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() + 1, 500, WIN).add(render_group, car_lane5, kill_group)
+    Car(AssetDictionary.get_asset("car4"), WIN.get_width() - 500, 750, WIN).add(render_group, car_lane1, kill_group)
+    Car(AssetDictionary.get_asset("car4"), WIN.get_width() - 260, 750, WIN).add(render_group, car_lane1, kill_group)
+    Car(AssetDictionary.get_asset("car3"), 660, 700, WIN).add(render_group, car_lane2, kill_group)
+    Car(AssetDictionary.get_asset("car3"), 300, 700, WIN).add(render_group, car_lane2, kill_group)
+    Car(AssetDictionary.get_asset("car2"), WIN.get_width() - 400, 630, WIN).add(render_group, car_lane3, kill_group)
+    Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() - 360, 500, WIN).add(render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
     player = Player(AssetDictionary.get_asset("player"))
