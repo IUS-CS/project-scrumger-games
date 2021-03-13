@@ -10,6 +10,5 @@ class Car(pygame.sprite.Sprite):
         self.image = image
         self.rect = self.image.get_rect()
 
-      #  self.rect.x = (win.get_width() - self.rect.width) + x
         self.rect.x = x
         self.rect.y = y

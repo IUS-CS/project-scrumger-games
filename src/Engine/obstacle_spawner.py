@@ -17,34 +17,34 @@ def sprite_despawner(sprite, win):
         sprite.kill()
 
 
-def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group, asset_dict: AssetDictionary, win):
+def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_group, win):
     """Handle spawning water platforms"""
 
     # Spawns turtles in lane 1 every 2 seconds, spawning a sinking turtle every 4th spawn
     if framecount % 60 == 0:
         if framecount % 180 == 0:
-            TurtleSinker(asset_dict.get_asset("triple-turtle-sink"), framecount, 821, 372, 10).add(lane1, render_group)
+            TurtleSinker(AssetDictionary.get_asset("triple-turtle-sink"), framecount, 821, 372, 10).add(lane1, render_group)
         else:
-            Turtle(asset_dict.get_asset("triple-turtle"), framecount, 821, 372).add(lane1, render_group)
+            Turtle(AssetDictionary.get_asset("triple-turtle"), framecount, 821, 372).add(lane1, render_group)
 
     # Spawns logs in lane 2 every 8 seconds, skipping every 4th spawn
     if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
-        Log(asset_dict.get_asset("log-short"), -999, 308).add(lane2, render_group)
+        Log(AssetDictionary.get_asset("log-short"), -999, 308).add(lane2, render_group)
 
     # Spawns logs in lane 3 every 9 seconds
     if framecount % 270 == 0:
-        Log(asset_dict.get_asset("log-long"), -999, 244).add(lane3, render_group)
+        Log(AssetDictionary.get_asset("log-long"), -999, 244).add(lane3, render_group)
 
     # Spawns turtles in lane 4 every 3 seconds, skipping every 5th spawn and sinking turtle every 6th
     if framecount % 90 == 0:
         if framecount % 540 == 0:
-            TurtleSinker(asset_dict.get_asset("double-turtle-sink"), framecount, 821, 180).add(lane4, render_group)
+            TurtleSinker(AssetDictionary.get_asset("double-turtle-sink"), framecount, 821, 180).add(lane4, render_group)
         elif framecount % 450 != 0:
-            Turtle(asset_dict.get_asset("double-turtle"), framecount, 821, 180).add(lane4, render_group)
+            Turtle(AssetDictionary.get_asset("double-turtle"), framecount, 821, 180).add(lane4, render_group)
 
     # Spawns logs in lane 5 every 5 seconds
     if framecount % 150 == 0:
-        Log(asset_dict.get_asset("log-medium"), -999, 116).add(lane5, render_group)
+        Log(AssetDictionary.get_asset("log-medium"), -999, 116).add(lane5, render_group)
 
     lane1_sprites = lane1.sprites()
     lane2_sprites = lane2.sprites()
@@ -78,28 +78,29 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
         sprite_despawner(sprite, win)
 
 
-def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5, render_group, kill_group,
-                    asset_dict: AssetDictionary, win: pygame.surface.Surface):
+def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5, render_group, kill_group, win):
     """Handle spawning car platforms"""
-    # Spawns cars  in lane 1 every 8 seconds
-    if framecount % 240 == 0:
-        Car(asset_dict.get_asset("car1"), 800, 750, win).add(carlane1, render_group, kill_group)
+    # Spawns cars in lane 1 every 4 seconds, skipping every 4th spawn
+    if framecount == 0 or (framecount % 120 == 0 and framecount % 360 != 0):
+        Car(AssetDictionary.get_asset("car4"), win.get_width() + 1, 750, win).add(carlane1, render_group, kill_group)
 
-    # Spawns cars in lane 2 every 9 seconds
-    if framecount % 270 == 0:
-        Car(asset_dict.get_asset("car2"), 800, 700, win).add(carlane2, render_group, kill_group)
+    # Spawns cars in lane 2 every 6 seconds, skipping every 4th spawn
+    if framecount % 180 == 0 and framecount % 720 != 0:
+        Car(AssetDictionary.get_asset("car3"), 0 - AssetDictionary.asset_dict["car2"].get_width(), 700,
+            win).add(carlane2, render_group, kill_group)
 
-    # Spawns cars in lane 3 every 5 seconds
-    if framecount % 150 == 0:
-        Car(asset_dict.get_asset("car3"), 800, 630, win).add(carlane3, render_group, kill_group)
+    # Spawns cars in lane 3 every 4 seconds, skipping every 4th spawn
+    if framecount == 0 or (framecount % 120 == 0 and framecount % 600 != 0):
+        Car(AssetDictionary.get_asset("car2"), win.get_width() + 1, 630, win).add(carlane3, render_group, kill_group)
 
-    # Spawns cars  in lane 4 every 8 seconds, skipping the 4th spawn
-    if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
-        Car(asset_dict.get_asset("car4"), 800, 560, win).add(carlane4, render_group, kill_group)
+    # Spawns cars in lane 4 every 10 seconds
+    if framecount % 420 == 0:
+        Car(AssetDictionary.get_asset("car1"), 0 - AssetDictionary.asset_dict["car4"].get_width(), 560,
+            win).add(carlane4, render_group, kill_group)
 
-    # Spawns cars in lane 5 every 9 seconds
-    if framecount % 270 == 0:
-        Car(asset_dict.get_asset("semi-truck"), 800, 500, win).add(carlane5, render_group, kill_group)
+    # Spawns cars in lane 5 every 3 seconds, skipping every 3rd spawn
+    if framecount == 0 or (framecount % 90 == 0 and framecount % 270 != 0):
+        Car(AssetDictionary.get_asset("semi-truck"), win.get_width() + 1, 500, win).add(carlane5, render_group, kill_group)
 
     carlane1_sprites = carlane1.sprites()
     carlane2_sprites = carlane2.sprites()
@@ -109,25 +110,25 @@ def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5
 
     # Moves all cars in lane 1 at a constant speed and kill if go off screen
     for sprite in carlane1_sprites:
-        sprite.rect.x += -1.5
+        sprite.rect.x += -2
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 2 at a constant speed and kill if go off screen
     for sprite in carlane2_sprites:
-        sprite.rect.x += -3.25
+        sprite.rect.x += 2
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 3 at a constant speed and kill if go off screen
     for sprite in carlane3_sprites:
-        sprite.rect.x += -2.25
+        sprite.rect.x += -3
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 4 at a constant speed and kill if go off screen
     for sprite in carlane4_sprites:
-        sprite.rect.x += -1.5
+        sprite.rect.x += 3
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 5 at a constant speed and kill if go off screen
     for sprite in carlane5_sprites:
-        sprite.rect.x += -3.25
+        sprite.rect.x += -4
         sprite_despawner(sprite, win)
