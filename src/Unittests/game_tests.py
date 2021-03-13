@@ -8,12 +8,14 @@ import pygame
 import os
 import Engine.obstacle_spawner as obstacle_spawner
 import Engine.sprite_animator as sprite_animator
+from Sprites.frog_nest import FrogNest
 from Util.asset_dictionary import AssetDictionary
 from Util.window import Window
 from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.log import Log
 from Sprites.player import Player
+from Sprites.Groups.nests import DisabledNests
 
 
 class TestGameMethods(unittest.TestCase):
@@ -440,6 +442,39 @@ class TestGameMethods(unittest.TestCase):
 
         self.assertEqual(actual.farthest_distance, expected.farthest_distance)
         self.assertEqual(actual.score, expected.score)
+
+        actual.win_game()
+        expected.score += 1000
+
+        self.assertEqual(actual.score, expected.score)
+
+        actual.kill()
+        expected.lives_left -= 1
+
+        self.assertEqual(actual.lives_left, expected.lives_left)
+
+    def test_nests_group(self):
+
+        actual = DisabledNests()
+        self.assertFalse(actual.check_for_win())
+
+        actual.add(FrogNest(1))
+        self.assertFalse(actual.check_for_win())
+
+        actual.add(FrogNest(2))
+        self.assertFalse(actual.check_for_win())
+
+        actual.add(FrogNest(3))
+        self.assertFalse(actual.check_for_win())
+
+        actual.add(FrogNest(4))
+        self.assertFalse(actual.check_for_win())
+
+        actual.add(FrogNest(5))
+        self.assertTrue(actual.check_for_win())
+
+        actual.add(FrogNest(1))
+        self.assertTrue(actual.check_for_win())
 
 
     #
