@@ -78,28 +78,27 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
         sprite_despawner(sprite, win)
 
 
-def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5, render_group, kill_group,
-                    win: pygame.surface.Surface):
+def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5, render_group, kill_group, win):
     """Handle spawning car platforms"""
     # Spawns cars  in lane 1 every 8 seconds
     if framecount % 240 == 0:
-        Car(AssetDictionary.get_asset("car1"), 0, 750, win).add(carlane1, render_group, kill_group)
+        Car(AssetDictionary.get_asset("car1"), win.get_width() + 1, 750, win).add(carlane1, render_group, kill_group)
 
     # Spawns cars in lane 2 every 9 seconds
     if framecount % 270 == 0:
-        Car(AssetDictionary.get_asset("car2"), 0, 700, win).add(carlane2, render_group, kill_group)
+        Car(AssetDictionary.get_asset("car2"), win.get_width() + 1, 700, win).add(carlane2, render_group, kill_group)
 
     # Spawns cars in lane 3 every 5 seconds
     if framecount % 150 == 0:
-        Car(AssetDictionary.get_asset("car3"), 0, 630, win).add(carlane3, render_group, kill_group)
+        Car(AssetDictionary.get_asset("car3"), win.get_width() + 1, 630, win).add(carlane3, render_group, kill_group)
 
     # Spawns cars  in lane 4 every 8 seconds
     if framecount % 240 == 0:
-        Car(AssetDictionary.get_asset("car4"), 0, 560, win).add(carlane4, render_group, kill_group)
+        Car(AssetDictionary.get_asset("car4"), win.get_width() + 1, 560, win).add(carlane4, render_group, kill_group)
 
     # Spawns cars in lane 5 every 9 seconds
     if framecount % 270 == 0:
-        Car(AssetDictionary.get_asset("semi-truck"), 0, 500, win).add(carlane5, render_group, kill_group)
+        Car(AssetDictionary.get_asset("semi-truck"), win.get_width() + 1, 500, win).add(carlane5, render_group, kill_group)
 
     carlane1_sprites = carlane1.sprites()
     carlane2_sprites = carlane2.sprites()
