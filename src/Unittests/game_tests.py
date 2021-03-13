@@ -493,7 +493,7 @@ class TestGameMethods(unittest.TestCase):
         Car(AssetDictionary.get_asset("car1"), 819, 750, test_win).add(assert_groups[0])
         Car(AssetDictionary.get_asset("car2"), 817, 700, test_win).add(assert_groups[1])
         Car(AssetDictionary.get_asset("car3"), 818, 630, test_win).add(assert_groups[2])
-        Car(AssetDictionary.get_asset("car4"), 819, 560, test_win).add(assert_groups[3])
+        Car(AssetDictionary.get_asset("car4"), -57, 560, test_win).add(assert_groups[3])
         Car(AssetDictionary.get_asset("semi-truck"), 817, 500, test_win).add(assert_groups[4])
 
         for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
@@ -526,9 +526,9 @@ class TestGameMethods(unittest.TestCase):
         # expected sprites
         Car(AssetDictionary.get_asset("car1"), 798, 750, test_win).add(assert_groups[0], test_render_group)
 
-        Car(AssetDictionary.get_asset("car2"), 796, 700, test_win).add(assert_groups[1], test_render_group)
+        Car(AssetDictionary.get_asset("car2"), 802, 700, test_win).add(assert_groups[1], test_render_group)
         Car(AssetDictionary.get_asset("car3"), 797, 630, test_win).add(assert_groups[2], test_render_group)
-        Car(AssetDictionary.get_asset("car4"), 798, 560, test_win).add(assert_groups[3], test_render_group)
+        Car(AssetDictionary.get_asset("car4"), 803, 560, test_win).add(assert_groups[3], test_render_group)
 
         Car(AssetDictionary.get_asset("semi-truck"), 796, 500, test_win).add(assert_groups[4], test_render_group)
 
