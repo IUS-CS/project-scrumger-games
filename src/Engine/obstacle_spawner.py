@@ -83,23 +83,23 @@ def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5
     """Handle spawning car platforms"""
     # Spawns cars  in lane 1 every 8 seconds
     if framecount % 240 == 0:
-        Car(asset_dict.get_asset("car1"), 0, 750, win).add(carlane1, render_group, kill_group)
+        Car(asset_dict.get_asset("car1"), 800, 750, win).add(carlane1, render_group, kill_group)
 
     # Spawns cars in lane 2 every 9 seconds
     if framecount % 270 == 0:
-        Car(asset_dict.get_asset("car2"), 0, 700, win).add(carlane2, render_group, kill_group)
+        Car(asset_dict.get_asset("car2"), 800, 700, win).add(carlane2, render_group, kill_group)
 
     # Spawns cars in lane 3 every 5 seconds
     if framecount % 150 == 0:
-        Car(asset_dict.get_asset("car3"), 0, 630, win).add(carlane3, render_group, kill_group)
+        Car(asset_dict.get_asset("car3"), 800, 630, win).add(carlane3, render_group, kill_group)
 
-    # Spawns cars  in lane 4 every 8 seconds
-    if framecount % 240 == 0:
-        Car(asset_dict.get_asset("car4"), 0, 560, win).add(carlane4, render_group, kill_group)
+    # Spawns cars  in lane 4 every 8 seconds, skipping the 4th spawn
+    if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
+        Car(asset_dict.get_asset("car4"), 800, 560, win).add(carlane4, render_group, kill_group)
 
     # Spawns cars in lane 5 every 9 seconds
     if framecount % 270 == 0:
-        Car(asset_dict.get_asset("semi-truck"), 0, 500, win).add(carlane5, render_group, kill_group)
+        Car(asset_dict.get_asset("semi-truck"), 800, 500, win).add(carlane5, render_group, kill_group)
 
     carlane1_sprites = carlane1.sprites()
     carlane2_sprites = carlane2.sprites()
@@ -109,25 +109,25 @@ def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5
 
     # Moves all cars in lane 1 at a constant speed and kill if go off screen
     for sprite in carlane1_sprites:
-        sprite.rect.x += -1
+        sprite.rect.x += -1.5
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 2 at a constant speed and kill if go off screen
     for sprite in carlane2_sprites:
-        sprite.rect.x += -3
+        sprite.rect.x += -3.25
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 3 at a constant speed and kill if go off screen
     for sprite in carlane3_sprites:
-        sprite.rect.x += -2
+        sprite.rect.x += -2.25
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 4 at a constant speed and kill if go off screen
     for sprite in carlane4_sprites:
-        sprite.rect.x += -1
+        sprite.rect.x += -1.5
         sprite_despawner(sprite, win)
 
     # Moves all cars in lane 5 at a constant speed and kill if go off screen
     for sprite in carlane5_sprites:
-        sprite.rect.x += -3
+        sprite.rect.x += -3.25
         sprite_despawner(sprite, win)
