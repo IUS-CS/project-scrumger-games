@@ -7,6 +7,7 @@ import unittest
 import pygame
 import os
 import Engine.obstacle_spawner as obstacle_spawner
+from Sprites.car import Car
 import Engine.sprite_animator as sprite_animator
 from Sprites.frog_nest import FrogNest
 from Util.asset_dictionary import AssetDictionary
@@ -533,3 +534,195 @@ class TestGameMethods(unittest.TestCase):
     #     test_player.rect.y = 400
     #     move_player(test_player, down)
     #     self.assertEqual(test_player.rect.x, 800)
+    def test_move_player(self):
+        """Test whether the movement system works as expected"""
+        test_win = pygame.Surface((820, 876))
+        test_player_images = [test_asset_dict.get_asset("frog"), test_asset_dict.get_asset("frog_jumping")]
+        test_player = Player(test_player_images, test_win)
+        up = 119  # 'w' key ascii
+        left = 97  # 'a' key ascii
+        right = 100  # 'd' key ascii
+        down = 115  # 's' key ascii
+
+        MOVEMENT_DISTANCE_X = test_asset_dict.get_asset("frog").get_width() + 4
+        MOVEMENT_DISTANCE_Y = test_asset_dict.get_asset("frog").get_height() + 12
+
+
+
+        # Test move up
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.y, 400 - MOVEMENT_DISTANCE_Y)
+
+        # Test move left
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 400 - MOVEMENT_DISTANCE_X)
+
+        # Test move right
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 400 + MOVEMENT_DISTANCE_X)
+    def test_car_spawner(self):
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # test that all lanes spawn properly
+        obstacle_spawner.spawn_water_lanes(0, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3], car_test_lanes[4],
+                                           test_render_group, test_asset_dict, test_win)
+
+        Car(test_asset_dict.get_asset("car1"), 816, 372, test_win).add(assert_groups[0])
+        Car(test_asset_dict.get_asset("car2"), -180, 308, test_win).add(assert_groups[1])
+        Car(test_asset_dict.get_asset("car3"), -382, 244, test_win).add(assert_groups[2])
+        Car(test_asset_dict.get_asset("car4"), 818, 180, test_win).add(assert_groups[3])
+        Car(test_asset_dict.get_asset("semi-truck"), -279, 116, test_win).add(assert_groups[4])
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_render_group.empty()
+
+    def test_car_mover(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Car(test_asset_dict.get_asset("car1"), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(test_asset_dict.get_asset("car2"), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(test_asset_dict.get_asset("car3"), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(test_asset_dict.get_asset("car4"), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(test_asset_dict.get_asset("semi-truck"), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # expected sprites
+        Car(test_asset_dict.get_asset("car1"), 795, 750, test_win).add(assert_groups[0], test_render_group)
+
+        Car(test_asset_dict.get_asset("car2"), 801, 700, test_win).add(assert_groups[1], test_render_group)
+        Car(test_asset_dict.get_asset("car3"), 803, 630, test_win).add(assert_groups[2], test_render_group)
+        Car(test_asset_dict.get_asset("car4"), 797, 560, test_win).add(assert_groups[3], test_render_group)
+
+        Car(test_asset_dict.get_asset("semi-truck"), 802, 500, test_win).add(assert_groups[4], test_render_group)
+
+        # call function for actual sprites and test it
+        obstacle_spawner.spawn_water_lanes(10, car_test_lanes[0], car_test_lanes[1],car_test_lanes[2], car_test_lanes[3],
+                                           car_test_lanes[4], test_render_group, test_asset_dict, test_win)
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_render_group.empty()
+
+    def test_car_despawner(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        test_asset_dict = AssetDictionary(current_dir)
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Car(test_asset_dict.get_asset("car1"), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(test_asset_dict.get_asset("car2"), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(test_asset_dict.get_asset("car3"), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(test_asset_dict.get_asset("car4"), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(test_asset_dict.get_asset("semi-truck"), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # call function on the actual sprites and test
+        obstacle_spawner.spawn_water_lanes(1, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3], car_test_lanes[4],
+                                           test_render_group, test_asset_dict, test_win)
+
+        for lane in car_test_lanes:
+            self.assertFalse(lane.has())
+
+        test_render_group.empty()
+
+    def test_move_player(self):
+        """Test whether the movement system works as expected"""
+        test_win = pygame.Surface((820, 876))
+        test_player_images = [test_asset_dict.get_asset("frog"), test_asset_dict.get_asset("frog_jumping")]
+        test_player = Player(test_player_images, test_win)
+        up = 119  # 'w' key ascii
+        left = 97  # 'a' key ascii
+        right = 100  # 'd' key ascii
+        down = 115  # 's' key ascii
+
+        MOVEMENT_DISTANCE_X = test_asset_dict.get_asset("frog").get_width() + 4
+        MOVEMENT_DISTANCE_Y = test_asset_dict.get_asset("frog").get_height() + 12
+
+        # Test move up
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.y, 400 - MOVEMENT_DISTANCE_Y)
+
+        # Test move left
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 400 - MOVEMENT_DISTANCE_X)
+
+        # Test move right
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 400 + MOVEMENT_DISTANCE_X)
+
+        # Test move down
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.y, 400 + MOVEMENT_DISTANCE_Y)
+
+        # Test move left if player is at left edge
+        test_player.rect.x = 20
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 20)
+
+        # Test move right if player is at right edge
+        test_player.rect.x = 750
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 750)
+
+        # Test move up if player is at top edge
+        test_player.rect.x = 400
+        test_player.rect.y = 20
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.y, 20)
+
+        # Test move down if player is at bottom edge
+        test_player.rect.x = 800
+        test_player.rect.y = 400
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 800)

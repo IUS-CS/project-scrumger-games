@@ -103,7 +103,6 @@ def main():
     player = Player(AssetDictionary.get_asset("player"))
     player.add(render_group)
     render_group.change_layer(player, 1)
-
     FrogNest(1).add(win_group)
     FrogNest(2).add(win_group)
     FrogNest(3).add(win_group)
