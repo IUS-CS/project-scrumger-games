@@ -556,6 +556,37 @@ class TestGameMethods(unittest.TestCase):
 
         test_render_group.empty()
 
+    def test_move_player(self):
+        """Test whether the movement system works as expected"""
+        test_win = pygame.Surface((820, 876))
+        test_player_images = [test_asset_dict.get_asset("frog"), test_asset_dict.get_asset("frog_jumping")]
+        test_player = Player(test_player_images, test_win)
+        up = 119  # 'w' key ascii
+        left = 97  # 'a' key ascii
+        right = 100  # 'd' key ascii
+        down = 115  # 's' key ascii
+
+        MOVEMENT_DISTANCE_X = test_asset_dict.get_asset("frog").get_width() + 4
+        MOVEMENT_DISTANCE_Y = test_asset_dict.get_asset("frog").get_height() + 12
+
+        # Test move up
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.y, 400 - MOVEMENT_DISTANCE_Y)
+
+        # Test move left
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 400 - MOVEMENT_DISTANCE_X)
+
+        # Test move right
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_asset_dict)
+        self.assertEqual(test_player.rect.x, 400 + MOVEMENT_DISTANCE_X)
+
         # Test move down
         test_player.rect.x = 400
         test_player.rect.y = 400
