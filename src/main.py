@@ -122,7 +122,7 @@ def main():
 
     clock = pygame.time.Clock()
 
-    #Create counter, timer and fonts for timer, counter
+    # Create counter, timer and fonts for timer, counter
     counter_for_timer = 25
     text_for_timer = '25'.rjust(5)
     pygame.time.set_timer(pygame.USEREVENT, 1000)
@@ -136,17 +136,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
             if event.type == pygame.USEREVENT:
-                 counter_for_timer -= 1
-                 text_for_timer = str(counter_for_timer).rjust(5)
-                 if counter_for_timer == 0:
+                counter_for_timer -= 1
+                Window.TIMER = counter_for_timer
+
+                # if the timer has hit zero, kill the player and restart it
+                if counter_for_timer < 1:
                     player.kill()
-
-                    #add player back to orginal spot
-                    player.add(render_group)
-
-                    #restart counter
+                    # restart counter
                     counter_for_timer = 25
+
+                text_for_timer = str(counter_for_timer).rjust(5)
 
         # Input handling for movement
             if event.type == pygame.KEYDOWN and can_move:
