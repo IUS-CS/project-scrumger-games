@@ -155,7 +155,7 @@ def main():
                 if counter_for_timer < 1:
                     player.kill()
                     # restart counter
-                    counter_for_timer = 25
+                    counter_for_timer = 30
 
                 text_for_timer = str(counter_for_timer).rjust(5)
 
@@ -175,7 +175,7 @@ def main():
 
         # Check collisions, render & animate sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)
-        check_win_collisions(player, win_group, render_group, kill_group, disabled_nests)
+        check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, text_for_timer)
         spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
                         render_group, kill_group, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
