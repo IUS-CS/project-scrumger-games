@@ -9,6 +9,7 @@ import os
 from idlelib import window
 
 import pygame
+
 from Engine.logger import log_game
 from Engine.sprite_renderer import draw_sprites
 from Engine.movement_handler import move_player
@@ -23,6 +24,7 @@ from Sprites.log import Log
 from Sprites.frog_nest import FrogNest
 from Sprites.riverbank import Riverbank
 from Sprites.turtle import Turtle
+from Sprites.water import WaterSprite
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.Groups.death_sprites import DeathSprites
 from Sprites.Groups.nests import DisabledNests
@@ -37,6 +39,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 # Load background image
 background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
 background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
+
 
 
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
@@ -55,6 +58,8 @@ def main():
     # Initialize on-screen text
     pygame.font.init()
     frogger_font = pygame.font.SysFont("Consolas", 30)
+
+
 
     # Initialize sprite groups
     render_group = pygame.sprite.LayeredUpdates()
@@ -113,12 +118,16 @@ def main():
     FrogNest(4).add(win_group)
     FrogNest(5).add(win_group)
 
+    # Initialize sprites for Riverbank
     Riverbank(0).add(kill_group)
     Riverbank(1).add(kill_group)
     Riverbank(2).add(kill_group)
     Riverbank(3).add(kill_group)
     Riverbank(4).add(kill_group)
     Riverbank(5).add(kill_group)
+
+    # Initialize sprites for WaterSprite
+    WaterSprite().add(kill_group)
 
     clock = pygame.time.Clock()
 
@@ -137,6 +146,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+            #TImer for player to complete game
             if event.type == pygame.USEREVENT:
                 counter_for_timer -= 1
                 Window.TIMER = counter_for_timer
