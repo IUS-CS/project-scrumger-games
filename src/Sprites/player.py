@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.farthest_distance = 900
         self.lives_left = 6
 
-    def nest(self, seconds_left):
+    def nest(self):
         self.return_home()
         self.farthest_distance = 900
         self.score += (50 + 2*Window.TIMER)
