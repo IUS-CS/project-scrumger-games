@@ -146,7 +146,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-            #TImer for player to complete game
+            # Timer for player to complete game
             if event.type == pygame.USEREVENT:
                 counter_for_timer -= 1
                 Window.TIMER = counter_for_timer
