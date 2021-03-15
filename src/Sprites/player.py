@@ -23,7 +23,8 @@ class Player(pygame.sprite.Sprite):
     def nest(self, seconds_left):
         self.return_home()
         self.farthest_distance = 900
-        self.score += (50 + 2*seconds_left)
+        self.score += (50 + 2*Window.TIMER)
+        Window.TIMER = 31
 
     def win_game(self):
         self.score += 1000
@@ -32,6 +33,7 @@ class Player(pygame.sprite.Sprite):
     def kill(self):
         self.return_home()
         self.lives_left -= 1
+        Window.TIMER = 31
 
         if self.lives_left < 0:
             quit_game(self)
