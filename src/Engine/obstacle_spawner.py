@@ -1,4 +1,3 @@
-import pygame
 from Sprites.log import Log
 from Sprites.car import Car
 from Sprites.turtle import Turtle
@@ -27,12 +26,12 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
         else:
             Turtle(AssetDictionary.get_asset("triple-turtle"), framecount, 821, 372).add(lane1, render_group)
 
-    # Spawns logs in lane 2 every 8 seconds, skipping every 4th spawn
-    if framecount == 0 or (framecount % 240 == 0 and framecount % 960 != 0):
+    # Spawns logs in lane 2 every 9 seconds, skipping every 4th spawn
+    if framecount == 0 or (framecount % 270 == 0 and framecount % 1080 != 0):
         Log(AssetDictionary.get_asset("log-short"), -999, 308).add(lane2, render_group)
 
     # Spawns logs in lane 3 every 9 seconds
-    if framecount % 270 == 0:
+    if framecount % 90 == 0:
         Log(AssetDictionary.get_asset("log-long"), -999, 244).add(lane3, render_group)
 
     # Spawns turtles in lane 4 every 3 seconds, skipping every 5th spawn and sinking turtle every 6th
@@ -64,17 +63,17 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, render_grou
 
     # Moves all entities in lane 3 at a constant speed and kill them if they have moved offscreen
     for sprite in lane3_sprites:
-        sprite.rect.x += 3
+        sprite.rect.x += 8
         sprite_despawner(sprite, win)
 
     # Moves all entities in lane 4 at a constant speed and kill them if they have moved offscreen
     for sprite in lane4_sprites:
-        sprite.rect.x -= 3
+        sprite.rect.x -= 4
         sprite_despawner(sprite, win)
 
     # Moves all entities in lane 5 at a constant speed and kill them if they have moved offscreen
     for sprite in lane5_sprites:
-        sprite.rect.x += 2
+        sprite.rect.x += 3
         sprite_despawner(sprite, win)
 
 

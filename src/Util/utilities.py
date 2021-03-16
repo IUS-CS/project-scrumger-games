@@ -7,6 +7,29 @@ def scale_image(image):
     return pygame.transform.scale(image, (image.get_width()*4, image.get_height()*4))
 
 
+def add_river_sprites_to_group(lanes, river_group):
+    """Adds all of the sprites in the water lanes to the river group for kill detection"""
+    for group in lanes:
+        for sprite in group:
+            sprite.add(river_group)
+
+
+def add_player_to_water_lane(lanes, player):
+    for lane in lanes:
+        lane.remove(player)
+
+    if player.rect.y == 365:
+        player.add(lanes[0])
+    elif player.rect.y == 301:
+        player.add(lanes[1])
+    elif player.rect.y == 237:
+        player.add(lanes[2])
+    elif player.rect.y == 173:
+        player.add(lanes[3])
+    elif player.rect.y == 109:
+        player.add(lanes[4])
+
+
 def check_kill_collisions(player, kill_group):
     """Checks the player sprite object against a group object
        and kills the sprite if it collides with any sprite in the group"""

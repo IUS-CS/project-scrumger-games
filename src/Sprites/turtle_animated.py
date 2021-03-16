@@ -1,5 +1,3 @@
-import pygame.sprite
-import pygame.surface
 from Sprites.turtle import Turtle
 
 
@@ -21,20 +19,25 @@ class TurtleSinker(Turtle):
 
         if self.animation_started:
 
-            if not self.submerged and not self.emerging:  # start new submerge cycle
+            if not self.submerged and not self.emerging and self.should_animate(framecount):  # start new submerge cycle
                 self.frame_index += 1
-                if self.frame_index >= len(self.frames):  # if at the end of submerge animation, set submerged state
+                if self.frame_index > 2:  # if at the end of submerge animation, set submerged state
                     self.submerged = True
+                    self.image = self.frames[self.frame_index]
+                    self.last_animation = framecount
                 else:                                     # otherwise, advance the animation
                     self.image = self.frames[self.frame_index]
                     self.last_animation = framecount
 
-            elif self.submerged and framecount - self.last_animation > 1:  # turtle is submerged - begin emerge animation
+            # turtle is submerged - begin emerge animation
+            elif self.submerged and self.should_animate(framecount):
                 self.submerged = False
                 self.emerging = True
                 self.last_frame()
+                self.last_animation = framecount
 
-            elif self.emerging:                           # turtle is emerging - play submerge animation backwards
+            # turtle is emerging - play submerge animation backwards
+            elif self.emerging and self.should_animate(framecount):
                 self.last_frame()
                 self.last_animation = framecount
 
@@ -49,3 +52,6 @@ class TurtleSinker(Turtle):
         self.animation_started = False
         self.emerging = False
         self.submerged = False
+
+    def should_animate(self, framecount):
+        return framecount - self.last_animation >= self.animation_speed

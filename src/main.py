@@ -6,16 +6,15 @@
 This module will contain the main high level functions of the game, as well as the main game loop
 """
 import os
-from idlelib import window
-
 import pygame
-
 from Engine.logger import log_game
 from Engine.sprite_renderer import draw_sprites
 from Engine.movement_handler import move_player
 from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
 from Engine.sprite_animator import animate_sprites
-from Util.utilities import check_kill_collisions, check_win_collisions
+from Sprites.Groups.river_sprites import RiverSprites
+from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group,\
+    add_player_to_water_lane
 from Util.asset_dictionary import AssetDictionary
 from Util.window import Window
 from Sprites.player import Player
@@ -24,7 +23,7 @@ from Sprites.log import Log
 from Sprites.frog_nest import FrogNest
 from Sprites.riverbank import Riverbank
 from Sprites.turtle import Turtle
-from Sprites.water import WaterSprite
+from Sprites.water import WaterSprite, RiverEdge
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.Groups.death_sprites import DeathSprites
 from Sprites.Groups.nests import DisabledNests
@@ -39,8 +38,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 # Load background image
 background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
 background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
-
-
 
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
 MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
@@ -59,13 +56,12 @@ def main():
     pygame.font.init()
     frogger_font = pygame.font.SysFont("Consolas", 30)
 
-
-
     # Initialize sprite groups
     render_group = pygame.sprite.LayeredUpdates()
     kill_group = DeathSprites()
     win_group = pygame.sprite.Group()
     disabled_nests = DisabledNests()
+    river_group = RiverSprites()
 
     # Initialize sprite groups for the water "lanes"
     water_lane1 = pygame.sprite.Group()
@@ -73,6 +69,7 @@ def main():
     water_lane3 = pygame.sprite.Group()
     water_lane4 = pygame.sprite.Group()
     water_lane5 = pygame.sprite.Group()
+    water_lanes = [water_lane1, water_lane2, water_lane3, water_lane4, water_lane5]
 
     # Initialize logs and turtles already on the screen at game start
     Log(AssetDictionary.get_asset("log-short"), 779, 308).add(water_lane2, render_group)
@@ -89,9 +86,8 @@ def main():
     Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 270, 180).add(water_lane4, render_group)
     Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 540, 180).add(water_lane4, render_group)
 
-    Log(AssetDictionary.get_asset("log-short"), 119, 116).add(water_lane5, render_group)
-    Log(AssetDictionary.get_asset("log-short"), 419, 116).add(water_lane5, render_group)
-    Log(AssetDictionary.get_asset("log-short"), 719, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-medium"), 219, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-medium"), 719, 116).add(water_lane5, render_group)
 
     # Initialize sprite groups for the car lanes
     car_lane1 = pygame.sprite.Group()
@@ -106,7 +102,8 @@ def main():
     Car(AssetDictionary.get_asset("car3"), 660, 700, WIN).add(render_group, car_lane2, kill_group)
     Car(AssetDictionary.get_asset("car3"), 300, 700, WIN).add(render_group, car_lane2, kill_group)
     Car(AssetDictionary.get_asset("car2"), WIN.get_width() - 400, 630, WIN).add(render_group, car_lane3, kill_group)
-    Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() - 360, 500, WIN).add(render_group, car_lane5, kill_group)
+    Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() - 360, 500, WIN).add(
+        render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
     player = Player(AssetDictionary.get_asset("player"))
@@ -127,7 +124,12 @@ def main():
     Riverbank(5).add(kill_group)
 
     # Initialize sprites for WaterSprite
-    WaterSprite().add(kill_group)
+    river = WaterSprite()
+    river.add(river_group)
+
+    # Initialize sprites on the edges of the river for checking if the player is offscreen
+    RiverEdge("left").add(kill_group)
+    RiverEdge("right").add(kill_group)
 
     clock = pygame.time.Clock()
 
@@ -178,6 +180,9 @@ def main():
                           render_group, WIN)
         animate_sprites(water_lane1, water_lane4, frame_count)
         draw_sprites(render_group, WIN, background, text_timer_box)
+        add_river_sprites_to_group(water_lanes, river_group)
+        river_group.check_if_sunk(player, river)
+        add_player_to_water_lane(water_lanes, player)
 
         # Initialize and render score text
         score_text = frogger_font.render("Score: " + str(player.score), True, WHITE, BLACK)
