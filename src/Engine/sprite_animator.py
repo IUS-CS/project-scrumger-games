@@ -14,8 +14,7 @@ def animate_lane(lane, framecount):
                 sprite.start_animation(framecount)
 
             else:
-                if framecount - sprite.last_animation >= sprite.animation_speed:
-                    sprite.next_frame(framecount)
+                sprite.next_frame(framecount)
 
         elif not isinstance(sprite, Player):
             sprite.next_frame(framecount)

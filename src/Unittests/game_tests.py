@@ -170,7 +170,7 @@ class TestGameMethods(unittest.TestCase):
         test_render_group.empty()
 
     def test_animated_turtle(self):
-        test_sinker = TurtleSinker(AssetDictionary.get_asset("triple-turtle-sink"), 0, -79, 372)
+        test_sinker = TurtleSinker(AssetDictionary.get_asset("triple-turtle-sink"), 0, -79, 372, 1)
 
         self.assertFalse(test_sinker.animation_started)
         self.assertFalse(test_sinker.submerged)
@@ -195,42 +195,22 @@ class TestGameMethods(unittest.TestCase):
 
         test_sinker.next_frame(4)
         self.assertTrue(test_sinker.animation_started)
-        self.assertEqual(test_sinker.frame_index, 4)
-        self.assertEqual(test_sinker.last_animation, 3)
-        self.assertTrue(test_sinker.submerged)
+        self.assertEqual(test_sinker.frame_index, 2)
+        self.assertEqual(test_sinker.last_animation, 4)
+        self.assertFalse(test_sinker.submerged)
+        self.assertTrue(test_sinker.emerging)
 
         test_sinker.next_frame(5)
         self.assertTrue(test_sinker.animation_started)
-        self.assertEqual(test_sinker.frame_index, 3)
-        self.assertEqual(test_sinker.last_animation, 3)
+        self.assertEqual(test_sinker.frame_index, 1)
+        self.assertEqual(test_sinker.last_animation, 5)
         self.assertFalse(test_sinker.submerged)
         self.assertTrue(test_sinker.emerging)
 
         test_sinker.next_frame(6)
-        self.assertTrue(test_sinker.animation_started)
-        self.assertEqual(test_sinker.frame_index, 2)
+        self.assertFalse(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 0)
         self.assertEqual(test_sinker.last_animation, 6)
-        self.assertFalse(test_sinker.submerged)
-        self.assertTrue(test_sinker.emerging)
-
-        test_sinker.next_frame(7)
-        self.assertTrue(test_sinker.animation_started)
-        self.assertEqual(test_sinker.frame_index, 1)
-        self.assertEqual(test_sinker.last_animation, 7)
-        self.assertFalse(test_sinker.submerged)
-        self.assertTrue(test_sinker.emerging)
-
-        test_sinker.next_frame(8)
-        self.assertFalse(test_sinker.animation_started)
-        self.assertEqual(test_sinker.frame_index, 0)
-        self.assertEqual(test_sinker.last_animation, 8)
-        self.assertFalse(test_sinker.submerged)
-        self.assertFalse(test_sinker.emerging)
-
-        test_sinker.next_frame(9)
-        self.assertFalse(test_sinker.animation_started)
-        self.assertEqual(test_sinker.frame_index, 0)
-        self.assertEqual(test_sinker.last_animation, 8)
         self.assertFalse(test_sinker.submerged)
         self.assertFalse(test_sinker.emerging)
 
@@ -304,44 +284,14 @@ class TestGameMethods(unittest.TestCase):
         sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
 
         self.assertTrue(test_turtle_0.animation_started)
-        self.assertFalse(test_turtle_0.submerged)
-        self.assertFalse(test_turtle_0.emerging)
-        self.assertEqual(test_turtle_0.frame_index, 3)
-        self.assertEqual(test_turtle_0.last_animation, 66)
-
-        self.assertTrue(test_turtle_1.animation_started)
-        self.assertFalse(test_turtle_1.submerged)
-        self.assertFalse(test_turtle_1.emerging)
-        self.assertEqual(test_turtle_1.frame_index, 3)
-        self.assertEqual(test_turtle_1.last_animation, 66)
-
-        test_frame_count += 18
-        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
-
-        self.assertTrue(test_turtle_0.animation_started)
         self.assertTrue(test_turtle_0.submerged)
         self.assertFalse(test_turtle_0.emerging)
-        self.assertEqual(test_turtle_0.frame_index, 4)
+        self.assertEqual(test_turtle_0.frame_index, 3)
         self.assertEqual(test_turtle_0.last_animation, 66)
 
         self.assertTrue(test_turtle_1.animation_started)
         self.assertTrue(test_turtle_1.submerged)
         self.assertFalse(test_turtle_1.emerging)
-        self.assertEqual(test_turtle_1.frame_index, 4)
-        self.assertEqual(test_turtle_1.last_animation, 66)
-
-        test_frame_count += 1
-        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
-
-        self.assertTrue(test_turtle_0.animation_started)
-        self.assertFalse(test_turtle_0.submerged)
-        self.assertTrue(test_turtle_0.emerging)
-        self.assertEqual(test_turtle_0.frame_index, 3)
-        self.assertEqual(test_turtle_0.last_animation, 66)
-
-        self.assertTrue(test_turtle_1.animation_started)
-        self.assertFalse(test_turtle_1.submerged)
-        self.assertTrue(test_turtle_1.emerging)
         self.assertEqual(test_turtle_1.frame_index, 3)
         self.assertEqual(test_turtle_1.last_animation, 66)
 
@@ -349,16 +299,31 @@ class TestGameMethods(unittest.TestCase):
         sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
 
         self.assertTrue(test_turtle_0.animation_started)
+        self.assertTrue(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 3)
+        self.assertEqual(test_turtle_0.last_animation, 66)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertTrue(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 3)
+        self.assertEqual(test_turtle_1.last_animation, 66)
+
+        test_frame_count += 17
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
         self.assertFalse(test_turtle_0.submerged)
         self.assertTrue(test_turtle_0.emerging)
         self.assertEqual(test_turtle_0.frame_index, 2)
-        self.assertEqual(test_turtle_0.last_animation, 86)
+        self.assertEqual(test_turtle_0.last_animation, 84)
 
         self.assertTrue(test_turtle_1.animation_started)
         self.assertFalse(test_turtle_1.submerged)
         self.assertTrue(test_turtle_1.emerging)
         self.assertEqual(test_turtle_1.frame_index, 2)
-        self.assertEqual(test_turtle_1.last_animation, 86)
+        self.assertEqual(test_turtle_1.last_animation, 84)
 
         test_frame_count += 1
         sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
@@ -367,13 +332,13 @@ class TestGameMethods(unittest.TestCase):
         self.assertFalse(test_turtle_0.submerged)
         self.assertTrue(test_turtle_0.emerging)
         self.assertEqual(test_turtle_0.frame_index, 2)
-        self.assertEqual(test_turtle_0.last_animation, 86)
+        self.assertEqual(test_turtle_0.last_animation, 84)
 
         self.assertTrue(test_turtle_1.animation_started)
         self.assertFalse(test_turtle_1.submerged)
         self.assertTrue(test_turtle_1.emerging)
         self.assertEqual(test_turtle_1.frame_index, 2)
-        self.assertEqual(test_turtle_1.last_animation, 86)
+        self.assertEqual(test_turtle_1.last_animation, 84)
 
         test_frame_count += 17
         sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
@@ -382,13 +347,13 @@ class TestGameMethods(unittest.TestCase):
         self.assertFalse(test_turtle_0.submerged)
         self.assertTrue(test_turtle_0.emerging)
         self.assertEqual(test_turtle_0.frame_index, 1)
-        self.assertEqual(test_turtle_0.last_animation, 104)
+        self.assertEqual(test_turtle_0.last_animation, 102)
 
         self.assertTrue(test_turtle_1.animation_started)
         self.assertFalse(test_turtle_1.submerged)
         self.assertTrue(test_turtle_1.emerging)
         self.assertEqual(test_turtle_1.frame_index, 1)
-        self.assertEqual(test_turtle_1.last_animation, 104)
+        self.assertEqual(test_turtle_1.last_animation, 102)
 
         test_frame_count += 18
         sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
@@ -397,28 +362,13 @@ class TestGameMethods(unittest.TestCase):
         self.assertFalse(test_turtle_0.submerged)
         self.assertFalse(test_turtle_0.emerging)
         self.assertEqual(test_turtle_0.frame_index, 0)
-        self.assertEqual(test_turtle_0.last_animation, 122)
+        self.assertEqual(test_turtle_0.last_animation, 120)
 
         self.assertFalse(test_turtle_1.animation_started)
         self.assertFalse(test_turtle_1.submerged)
         self.assertFalse(test_turtle_1.emerging)
         self.assertEqual(test_turtle_1.frame_index, 0)
-        self.assertEqual(test_turtle_1.last_animation, 122)
-
-        test_frame_count += 5
-        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
-
-        self.assertFalse(test_turtle_0.animation_started)
-        self.assertFalse(test_turtle_0.submerged)
-        self.assertFalse(test_turtle_0.emerging)
-        self.assertEqual(test_turtle_0.frame_index, 0)
-        self.assertEqual(test_turtle_0.last_animation, 122)
-
-        self.assertFalse(test_turtle_1.animation_started)
-        self.assertFalse(test_turtle_1.submerged)
-        self.assertFalse(test_turtle_1.emerging)
-        self.assertEqual(test_turtle_1.frame_index, 0)
-        self.assertEqual(test_turtle_1.last_animation, 122)
+        self.assertEqual(test_turtle_1.last_animation, 120)
 
     def test_player(self):
         pygame.init()
