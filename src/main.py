@@ -132,8 +132,6 @@ def main():
     clock = pygame.time.Clock()
 
     # Create counter, timer and fonts for timer, counter
-    counter_for_timer = 25
-    text_for_timer = '25'.rjust(5)
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     text = pygame.font.SysFont('Times New Roman', 35)
 
@@ -146,18 +144,16 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-            #TImer for player to complete game
+            # Timer for player to complete game
             if event.type == pygame.USEREVENT:
-                counter_for_timer -= 1
-                Window.TIMER = counter_for_timer
+                Window.TIMER -= 1
 
                 # if the timer has hit zero, kill the player and restart it
-                if counter_for_timer < 1:
+                if Window.TIMER < 1:
                     player.kill()
-                    # restart counter
-                    counter_for_timer = 25
 
-                text_for_timer = str(counter_for_timer).rjust(5)
+                else:
+                    Window.TIMER_TEXT = str(Window.TIMER).rjust(5)
 
         # Input handling for movement
             if event.type == pygame.KEYDOWN and can_move:
@@ -171,7 +167,7 @@ def main():
                 player.index = 0
                 player.image = player.images[player.index]
 
-        text_timer_box = text.render(text_for_timer, True, (255, 255, 255))
+        text_timer_box = text.render(Window.TIMER_TEXT, True, (255, 255, 255))
 
         # Check collisions, render & animate sprites, and spawn obstacles on every frame
         check_kill_collisions(player, kill_group)

@@ -11,6 +11,7 @@ from Sprites.car import Car
 import Engine.sprite_animator as sprite_animator
 from Sprites.frog_nest import FrogNest
 from Util.asset_dictionary import AssetDictionary
+from Util.window import Window
 from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.log import Log
@@ -420,6 +421,7 @@ class TestGameMethods(unittest.TestCase):
         self.assertEqual(test_turtle_1.last_animation, 122)
 
     def test_player(self):
+        pygame.init()
         actual = Player(AssetDictionary.get_asset("player"))
 
         actual.rect.x = 101
@@ -437,7 +439,7 @@ class TestGameMethods(unittest.TestCase):
         self.assertEqual(actual.direction, expected.direction)
 
         actual.farthest_distance = 265
-        expected.score += 50
+        expected.score += 50 + 2 * Window.TIMER
 
         actual.nest()
 
