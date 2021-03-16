@@ -151,10 +151,6 @@ def main():
                 # if the timer has hit zero, kill the player and restart it
                 if Window.TIMER < 1:
                     player.kill()
-                    # restart counter
-                    pygame.time.set_timer(pygame.USEREVENT, 0)
-                    pygame.time.set_timer(pygame.USEREVENT, 1000)
-                    Window.TIMER = 30
 
                 else:
                     Window.TIMER_TEXT = str(Window.TIMER).rjust(5)
