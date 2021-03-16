@@ -22,7 +22,7 @@ from Sprites.log import Log
 from Sprites.frog_nest import FrogNest
 from Sprites.riverbank import Riverbank
 from Sprites.turtle import Turtle
-from Sprites.water import WaterSprite
+from Sprites.water import WaterSprite, RiverEdge
 from Sprites.turtle_animated import TurtleSinker
 from Sprites.Groups.death_sprites import DeathSprites
 from Sprites.Groups.nests import DisabledNests
@@ -126,6 +126,10 @@ def main():
     # Initialize sprites for WaterSprite
     river = WaterSprite()
     river.add(river_group)
+
+    # Initialize sprites on the edges of the river for checking if the player is offscreen
+    RiverEdge("left").add(kill_group)
+    RiverEdge("right").add(kill_group)
 
     clock = pygame.time.Clock()
 
