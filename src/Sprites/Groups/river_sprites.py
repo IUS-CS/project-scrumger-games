@@ -2,7 +2,6 @@ import pygame.sprite
 from Sprites.log import Log
 from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
-from Sprites.water import WaterSprite
 
 
 class RiverSprites(pygame.sprite.Group):
@@ -15,7 +14,7 @@ class RiverSprites(pygame.sprite.Group):
         player_center = player.rect.center
         kill_flag = True
 
-        if collide_list and self.has(river):
+        if collide_list and collide_list.count(river):
             collide_list.remove(river)
 
             for sprite in collide_list:

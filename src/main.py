@@ -13,7 +13,7 @@ from Engine.movement_handler import move_player
 from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
 from Engine.sprite_animator import animate_sprites
 from Sprites.Groups.river_sprites import RiverSprites
-from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group
+from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group, add_player_to_water_lane
 from Util.asset_dictionary import AssetDictionary
 from Util.window import Window
 from Sprites.player import Player
@@ -178,6 +178,7 @@ def main():
         draw_sprites(render_group, WIN, background, text_timer_box)
         add_river_sprites_to_group(water_lanes, river_group)
         river_group.check_if_sunk(player, river)
+        add_player_to_water_lane(water_lanes, player)
 
         # Initialize and render score text
         score_text = frogger_font.render("Score: " + str(player.score), True, WHITE, BLACK)
