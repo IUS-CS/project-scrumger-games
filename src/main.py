@@ -12,7 +12,8 @@ from Engine.sprite_renderer import draw_sprites
 from Engine.movement_handler import move_player
 from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
 from Engine.sprite_animator import animate_sprites
-from Util.utilities import check_kill_collisions, check_win_collisions
+from Sprites.Groups.river_sprites import RiverSprites
+from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group
 from Util.asset_dictionary import AssetDictionary
 from Util.window import Window
 from Sprites.player import Player
@@ -59,6 +60,7 @@ def main():
     kill_group = DeathSprites()
     win_group = pygame.sprite.Group()
     disabled_nests = DisabledNests()
+    river_group = RiverSprites()
 
     # Initialize sprite groups for the water "lanes"
     water_lane1 = pygame.sprite.Group()
@@ -66,6 +68,7 @@ def main():
     water_lane3 = pygame.sprite.Group()
     water_lane4 = pygame.sprite.Group()
     water_lane5 = pygame.sprite.Group()
+    water_lanes = [water_lane1, water_lane2, water_lane3, water_lane4, water_lane5]
 
     # Initialize logs and turtles already on the screen at game start
     Log(AssetDictionary.get_asset("log-short"), 779, 308).add(water_lane2, render_group)
@@ -121,7 +124,8 @@ def main():
     Riverbank(5).add(kill_group)
 
     # Initialize sprites for WaterSprite
-    WaterSprite().add(kill_group)
+    river = WaterSprite()
+    river.add(river_group)
 
     clock = pygame.time.Clock()
 
@@ -172,6 +176,8 @@ def main():
                           render_group, WIN)
         animate_sprites(water_lane1, water_lane4, frame_count)
         draw_sprites(render_group, WIN, background, text_timer_box)
+        add_river_sprites_to_group(water_lanes, river_group)
+        river_group.check_if_sunk(player, river)
 
         # Initialize and render score text
         score_text = frogger_font.render("Score: " + str(player.score), True, WHITE, BLACK)
