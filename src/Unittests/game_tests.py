@@ -77,9 +77,9 @@ class TestGameMethods(unittest.TestCase):
 
         Turtle(AssetDictionary.get_asset("triple-turtle"), 0, 816, 372).add(assert_groups[0])
         Log(AssetDictionary.get_asset("log-short"), -180, 308).add(assert_groups[1])
-        Log(AssetDictionary.get_asset("log-long"), -382, 244).add(assert_groups[2])
-        Turtle(AssetDictionary.get_asset("double-turtle"), 0, 818, 180).add(assert_groups[3])
-        Log(AssetDictionary.get_asset("log-medium"), -279, 116).add(assert_groups[4])
+        Log(AssetDictionary.get_asset("log-long"), -377, 244).add(assert_groups[2])
+        Turtle(AssetDictionary.get_asset("double-turtle"), 0, 817, 180).add(assert_groups[3])
+        Log(AssetDictionary.get_asset("log-medium"), -278, 116).add(assert_groups[4])
 
         for test_lane, assert_group in zip(test_lanes, assert_groups):
             for i, j in zip(test_lane.sprites(), assert_group.sprites()):
@@ -122,14 +122,14 @@ class TestGameMethods(unittest.TestCase):
         Log(AssetDictionary.get_asset("log-short"), 540, 308).add(assert_groups[1], test_render_group)
         Log(AssetDictionary.get_asset("log-short"), 300, 308).add(assert_groups[1], test_render_group)
 
-        Log(AssetDictionary.get_asset("log-long"), 428, 244).add(assert_groups[2], test_render_group)
+        Log(AssetDictionary.get_asset("log-long"), 433, 244).add(assert_groups[2], test_render_group)
 
-        Turtle(AssetDictionary.get_asset("double-turtle"), 0, 118, 308).add(assert_groups[3], test_render_group)
-        Turtle(AssetDictionary.get_asset("double-turtle"), 0, 622, 308).add(assert_groups[3], test_render_group)
+        Turtle(AssetDictionary.get_asset("double-turtle"), 0, 117, 308).add(assert_groups[3], test_render_group)
+        Turtle(AssetDictionary.get_asset("double-turtle"), 0, 621, 308).add(assert_groups[3], test_render_group)
 
-        Log(AssetDictionary.get_asset("log-short"), 121, 116).add(assert_groups[4], test_render_group)
-        Log(AssetDictionary.get_asset("log-short"), 421, 116).add(assert_groups[4], test_render_group)
-        Log(AssetDictionary.get_asset("log-short"), 721, 116).add(assert_groups[4], test_render_group)
+        Log(AssetDictionary.get_asset("log-short"), 122, 116).add(assert_groups[4], test_render_group)
+        Log(AssetDictionary.get_asset("log-short"), 422, 116).add(assert_groups[4], test_render_group)
+        Log(AssetDictionary.get_asset("log-short"), 722, 116).add(assert_groups[4], test_render_group)
 
         # call function on actual sprites and test it
         obstacle_spawner.spawn_water_lanes(12, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3],
