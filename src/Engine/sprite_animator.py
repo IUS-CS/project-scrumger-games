@@ -24,4 +24,3 @@ def animate_turtles(lane1: pygame.sprite.Group, lane2: pygame.sprite.Group, fram
 
     animate_lane(lane1, framecount)
     animate_lane(lane2, framecount)
-

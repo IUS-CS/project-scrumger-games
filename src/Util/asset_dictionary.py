@@ -48,7 +48,7 @@ class AssetDictionary:
         "player": [asset_dict["frog"], asset_dict["frog_jumping"]]
     })
 
-    def __init__(self, current=current_dir):
+    def __init__(self):
         return
 
     @classmethod

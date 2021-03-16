@@ -1,5 +1,3 @@
-import pygame.sprite
-import pygame.surface
 from Sprites.turtle import Turtle
 
 

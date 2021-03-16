@@ -13,7 +13,8 @@ from Engine.movement_handler import move_player
 from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
 from Engine.sprite_animator import animate_sprites
 from Sprites.Groups.river_sprites import RiverSprites
-from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group, add_player_to_water_lane
+from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group,\
+    add_player_to_water_lane
 from Util.asset_dictionary import AssetDictionary
 from Util.window import Window
 from Sprites.player import Player
@@ -85,9 +86,8 @@ def main():
     Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 270, 180).add(water_lane4, render_group)
     Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 540, 180).add(water_lane4, render_group)
 
-    Log(AssetDictionary.get_asset("log-short"), 119, 116).add(water_lane5, render_group)
-    Log(AssetDictionary.get_asset("log-short"), 419, 116).add(water_lane5, render_group)
-    Log(AssetDictionary.get_asset("log-short"), 719, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-medium"), 219, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-medium"), 719, 116).add(water_lane5, render_group)
 
     # Initialize sprite groups for the car lanes
     car_lane1 = pygame.sprite.Group()
