@@ -6,10 +6,7 @@
 This module will contain the main high level functions of the game, as well as the main game loop
 """
 import os
-from idlelib import window
-
 import pygame
-
 from Engine.logger import log_game
 from Engine.sprite_renderer import draw_sprites
 from Engine.movement_handler import move_player
@@ -40,8 +37,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
 background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
 
-
-
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
 MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
@@ -58,8 +53,6 @@ def main():
     # Initialize on-screen text
     pygame.font.init()
     frogger_font = pygame.font.SysFont("Consolas", 30)
-
-
 
     # Initialize sprite groups
     render_group = pygame.sprite.LayeredUpdates()
@@ -106,7 +99,8 @@ def main():
     Car(AssetDictionary.get_asset("car3"), 660, 700, WIN).add(render_group, car_lane2, kill_group)
     Car(AssetDictionary.get_asset("car3"), 300, 700, WIN).add(render_group, car_lane2, kill_group)
     Car(AssetDictionary.get_asset("car2"), WIN.get_width() - 400, 630, WIN).add(render_group, car_lane3, kill_group)
-    Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() - 360, 500, WIN).add(render_group, car_lane5, kill_group)
+    Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() - 360, 500, WIN).add(
+        render_group, car_lane5, kill_group)
 
     # Initialize sprites for Frog
     player = Player(AssetDictionary.get_asset("player"))
