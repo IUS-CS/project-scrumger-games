@@ -137,6 +137,12 @@ def main():
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     text = pygame.font.SysFont('Times New Roman', 35)
 
+    # Initialize the sounds
+    # pygame.mixer.pre_init(44100, 16, 2, 4096)  # frequency, size, channels, buffersize
+    hop_sound = pygame.mixer.Sound("hop.wav")
+    # music = pygame.mixer.music.load("../src/Assets/Sounds/Medieval Theme #1.wav")
+    # pygame.mixer.music.play(-1)
+
     run = True
 
     # Main game loop
@@ -159,6 +165,7 @@ def main():
 
         # Input handling for movement
             if event.type == pygame.KEYDOWN and can_move:
+                hop_sound.play()
                 can_move = False
                 key_depressed = event.key
                 move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
