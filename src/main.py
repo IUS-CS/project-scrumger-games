@@ -44,6 +44,8 @@ MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
 
 def main():
+    # Initialize the mixer
+    pygame.mixer.pre_init(22050, 32, 1, 512)  # frequency, size, channels, buffersize
     pygame.init()
     """Main game method containing the main game loop"""
     log_game()
@@ -51,6 +53,11 @@ def main():
     WIN.blit(background, (0, 0))
     frame_count = 0
     can_move = True
+
+    # Load the sounds
+    hop_sound = pygame.mixer.Sound("hop.wav")
+    # music = pygame.mixer.music.load("../src/Assets/Sounds/Medieval Theme #1.wav")
+    # pygame.mixer.music.play(-1)
 
     # Initialize on-screen text
     pygame.font.init()
@@ -136,12 +143,6 @@ def main():
     # Create counter, timer and fonts for timer, counter
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     text = pygame.font.SysFont('Times New Roman', 35)
-
-    # Initialize the sounds
-    # pygame.mixer.pre_init(44100, 16, 2, 4096)  # frequency, size, channels, buffersize
-    hop_sound = pygame.mixer.Sound("hop.wav")
-    # music = pygame.mixer.music.load("../src/Assets/Sounds/Medieval Theme #1.wav")
-    # pygame.mixer.music.play(-1)
 
     run = True
 
