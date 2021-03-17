@@ -1,6 +1,6 @@
 # Sprint3 Ceremony Minutes
   
-Date: 
+Date: 3/16/21
 
 Members present:
 
@@ -19,9 +19,11 @@ Members present:
   * Create code for winning once reaching all five nests. 
   * Create code for scoring system. 
   * Create code for a timer.
-  * Create code for falling to water and jumping on riverbank and not nest player dies.
+  * Create code for falling to water and jumping on Riverbank and not nest player dies.
   * Create code for rotating player.
   * Create code for scoring system. 
+  * Create code for player standing on turtle/log and goes of screen player dies. 
+  * Create code for player standing on turtle, and it submerges player dies. 
   
   Here are screenshots of what we did:
   
@@ -31,21 +33,23 @@ Members present:
     
   ### Good
   
-  *
-  * 
-  * 
+  * The team stayed on schedule. 
+  * We completed all our tasks. 
+  * We met our goal of getting the game feature complete by the end of sprint 3. 
    
   ### Bad
 
-  * 
-  * 
+  * Pull requests were put in, and some unit tests were not working. 
+  * Merge main into branch working on before pushing changes and submitting pull request.
+  * Linting was not properly followed. 
     
   ### Actionable Commitments
   
-  * As a team, we plan to  
+  * As a team, we plan to get the neural network system designed and built by the end of this sprint.  
 
   ## Planning
 
   Points | Story
   -------|--------
-     0   | As a player, 
+     0   | As a user of the AI I should be able to initialize a neural network.
+     0   | 
