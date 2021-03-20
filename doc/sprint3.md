@@ -51,5 +51,9 @@ Members present:
 
   Points | Story
   -------|--------
-     0   | As a user of the AI I should be able to initialize a neural network.
-     0   | 
+     5   | As a user of the AI I should be able to train the AI to play.
+     2   | As a user of the AI I should be able to have the AI play the game in its current state.
+     3   | As a player of the game, I should hear sound effects.
+     2   | As a player of the game, I should hear background music when I play.
+     2   | As a player of the game, I should see a game title screen before I play.
+     2   | As a player of the game, when I die I should be served a game over screen.
