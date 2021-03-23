@@ -9,3 +9,5 @@ class Window:
     FINAL_SCORE = 0
     TIMER = 30
     TIMER_TEXT = str(TIMER).rjust(5)
+    HIGHEST_SCORE = 0
+    GREATEST_LIVES = 0

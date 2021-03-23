@@ -2,12 +2,13 @@ import pygame.sprite
 import pygame.surface
 from Util.window import Window
 from Util.utilities import quit_game
+from Util.asset_dictionary import AssetDictionary
 
 
 class Player(pygame.sprite.Sprite):
     """Pygame sprite class representing the player"""
 
-    def __init__(self, images):
+    def __init__(self, render_group, images=AssetDictionary.get_asset("player")):
         pygame.sprite.Sprite.__init__(self)
         self.images = images
         self.rect = self.images[0].get_rect()
@@ -19,6 +20,12 @@ class Player(pygame.sprite.Sprite):
         self.score = 0
         self.farthest_distance = 900
         self.lives_left = 6
+        self.add(render_group)
+        render_group.change_layer(self, 1)
+        self.can_move = True
+        self.x_vel = AssetDictionary.get_asset("frog").get_width() + 4
+        self.y_vel = AssetDictionary.get_asset("frog").get_height() + 12
+        self.timer = 30
 
     def nest(self):
         self.return_home()
@@ -36,9 +43,7 @@ class Player(pygame.sprite.Sprite):
     def kill(self):
         self.return_home()
         self.lives_left -= 1
-        pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren't still using the old clock
-        pygame.time.set_timer(pygame.USEREVENT, 1000)
-        Window.TIMER = 30
+        self.timer = 30
         Window.TIMER_TEXT = str(Window.TIMER).rjust(5)
 
         if self.lives_left < 0:
@@ -50,3 +55,22 @@ class Player(pygame.sprite.Sprite):
         self.index = 0
         self.image = self.images[self.index]
         self.direction = "up"
+
+    def set_score(self):
+        if self.farthest_distance > self.rect.y > 110:
+            self.farthest_distance = self.rect.y
+            self.score += 10
+            print("adding 10 to score")
+
+    def move(self, key_pressed):
+        if key_pressed == "w":
+            self.rect.y += self.y_vel
+            self.set_score()
+        elif key_pressed == "s":
+            self.rect.y += self.y_vel
+        elif key_pressed == "a":
+            self.rect.x -= self.x_vel
+        elif key_pressed == "d":
+            self.rect.x += self.x_vel
+        else:
+            return
