@@ -36,7 +36,7 @@ FPS = 30
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Load background image
-background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
+background_image = pygame.image.load(os.path.join(current_dir, "Assets/Images", "background.png"))
 background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
 
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
@@ -55,6 +55,8 @@ def main():
 
     # Load the sounds
     hop_sound = pygame.mixer.Sound("src/Assets/Sounds/hop.wav")
+    pygame.mixer.music.load("src/Assets/Sounds/Frogger_music.mp3")
+    pygame.mixer.music.play(-1)  # Loops the music indefinitely
 
     # Initialize on-screen text
     pygame.font.init()
