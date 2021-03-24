@@ -527,6 +527,8 @@ class TestGameMethods(unittest.TestCase):
         """Test whether the movement system works as expected"""
         test_player_images = [AssetDictionary.get_asset("frog"), AssetDictionary.get_asset("frog_jumping")]
         test_player = Player(test_player_images)
+        pygame.mixer.init()
+        test_sound = pygame.mixer.Sound("../Assets/Sounds/hop.wav")
         up = 119  # 'w' key ascii
         left = 97  # 'a' key ascii
         right = 100  # 'd' key ascii
@@ -538,47 +540,47 @@ class TestGameMethods(unittest.TestCase):
         # Test move up
         test_player.rect.x = 400
         test_player.rect.y = 400
-        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.y, 400 - MOVEMENT_DISTANCE_Y)
 
         # Test move left
         test_player.rect.x = 400
         test_player.rect.y = 400
-        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.x, 400 - MOVEMENT_DISTANCE_X)
 
         # Test move right
         test_player.rect.x = 400
         test_player.rect.y = 400
-        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.x, 400 + MOVEMENT_DISTANCE_X)
 
         # Test move down
         test_player.rect.x = 400
         test_player.rect.y = 400
-        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.y, 400 + MOVEMENT_DISTANCE_Y)
 
         # Test move left if player is at left edge
         test_player.rect.x = 20
         test_player.rect.y = 400
-        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.x, 20)
 
         # Test move right if player is at right edge
         test_player.rect.x = 750
         test_player.rect.y = 400
-        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.x, 750)
 
         # Test move up if player is at top edge
         test_player.rect.x = 400
         test_player.rect.y = 20
-        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.y, 20)
 
         # Test move down if player is at bottom edge
         test_player.rect.x = 800
         test_player.rect.y = 400
-        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
         self.assertEqual(test_player.rect.x, 800)
