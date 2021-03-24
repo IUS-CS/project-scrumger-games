@@ -44,9 +44,8 @@ MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
 
 def main():
-    # Initialize the mixer
-    pygame.mixer.pre_init(22050, 32, 1, 512)  # frequency, size, channels, buffersize
     pygame.init()
+    pygame.mixer.init()
     """Main game method containing the main game loop"""
     log_game()
     WIN.fill(WHITE)
@@ -55,9 +54,7 @@ def main():
     can_move = True
 
     # Load the sounds
-    hop_sound = pygame.mixer.Sound("hop.wav")
-    # music = pygame.mixer.music.load("../src/Assets/Sounds/Medieval Theme #1.wav")
-    # pygame.mixer.music.play(-1)
+    hop_sound = pygame.mixer.Sound("src/Assets/Sounds/hop.wav")
 
     # Initialize on-screen text
     pygame.font.init()
@@ -166,10 +163,9 @@ def main():
 
         # Input handling for movement
             if event.type == pygame.KEYDOWN and can_move:
-                hop_sound.play()
                 can_move = False
                 key_depressed = event.key
-                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, hop_sound)
                 player.index = 1
                 player.image = player.images[player.index]
             if event.type == pygame.KEYUP:
