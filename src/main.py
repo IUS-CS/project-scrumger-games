@@ -13,6 +13,8 @@ from Engine.movement_handler import move_player
 from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
 from Engine.sprite_animator import animate_sprites
 from Sprites.Groups.river_sprites import RiverSprites
+from Engine.startscreen import start_screen
+from Engine.gameover import game_over
 from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group,\
     add_player_to_water_lane
 from Util.asset_dictionary import AssetDictionary
@@ -47,7 +49,7 @@ def main():
     pygame.init()
     """Main game method containing the main game loop"""
     log_game()
-    WIN.fill(WHITE)
+
     WIN.blit(background, (0, 0))
     frame_count = 0
     can_move = True
@@ -138,6 +140,9 @@ def main():
     text = pygame.font.SysFont('Times New Roman', 35)
 
     run = True
+
+    """Start game Screen"""
+    start_screen()
 
     # Main game loop
     while run:
