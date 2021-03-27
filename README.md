@@ -1,6 +1,6 @@
 # The Froggerithm
 
-![The Froggerithm Logo](doc/image/The Froggerithm Logo.png?raw=true "The Froggerithm Logo")
+![The Froggerithm Logo](./doc/image/The Froggerithm Logo.png?raw=true "The Froggerithm Logo")
 
 As machine learning has become more and more ubiquitous over recent years,
 it has come to play a greater and greater role in our lives. From the social
