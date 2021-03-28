@@ -24,8 +24,9 @@ def game_over():
                 quit()
 
         WIN.fill(BLACK)
-        text = pygame.font.SysFont('Times New Roman', 120)
+        text = pygame.font.SysFont('Times New Roman', 100)
         Text, TextRect = text_ob("Game Over", text, WHITE)
-        TextRect.center = ((WIN.width() / 2), (WIN.height() / 2))
+        TextRect.center = ((Window.WIDTH / 2), (Window.HEIGHT / 2))
         WIN.blit(Text, TextRect)
         pygame.display.update()
+
