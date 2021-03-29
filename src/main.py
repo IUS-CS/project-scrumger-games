@@ -6,6 +6,7 @@
 This module will contain the main high level functions of the game, as well as the main game loop
 """
 import os
+
 import pygame
 from Engine.logger import log_game
 from Engine.sprite_renderer import draw_sprites
@@ -13,6 +14,7 @@ from Engine.movement_handler import move_player
 from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
 from Engine.sprite_animator import animate_sprites
 from Sprites.Groups.river_sprites import RiverSprites
+from Engine.gameover import game_over
 from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group,\
     add_player_to_water_lane
 from Util.asset_dictionary import AssetDictionary
@@ -42,12 +44,43 @@ background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIG
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
 MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
+start = True
+
+def text_ob(text, font, color):
+    textforScreen = font.render(text, True, color)
+    return textforScreen, textforScreen.get_rect()
+
+while start:
+    """Initialize font before beginning of game"""
+    pygame.font.init()
+
+    """Start Screen"""
+    blue = pygame.Color(0, 0, 255)
+    aqua = pygame.Color(0, 255, 255)
+
+    """"When mouse or key is pressed end Start Screen"""
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+         start = False
+
+    """"Fill in Start Screen with color and text"""
+    WIN.fill(BLACK)
+    text = pygame.font.SysFont('Times New Roman', 100)
+    Text, TextRect = text_ob("The Froggerithm", text, WHITE)
+    text2 = pygame.font.SysFont('Times New Roman', 35)
+    Text2, TextRect2 = text_ob("Click on the Screen to Start the Game", text2, aqua)
+    TextRect.center = ((Window.WIDTH / 2), (Window.HEIGHT / 2))
+    TextRect2.center = (((Window.WIDTH) / 2), ((Window.HEIGHT + 200) / 2))
+    WIN.blit(Text, TextRect)
+    WIN.blit(Text2, TextRect2)
+    pygame.display.update()
+
 
 def main():
     pygame.init()
     """Main game method containing the main game loop"""
     log_game()
-    WIN.fill(WHITE)
+
     WIN.blit(background, (0, 0))
     frame_count = 0
     can_move = True
@@ -139,7 +172,7 @@ def main():
 
     run = True
 
-    # Main game loop
+     # Main game loop
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
@@ -198,3 +231,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    game_over()
