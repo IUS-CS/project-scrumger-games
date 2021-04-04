@@ -1,4 +1,4 @@
-# Sprint3 Ceremony Minutes
+# Sprint 3 Ceremony Minutes
   
 Date: 3/16/21
 
