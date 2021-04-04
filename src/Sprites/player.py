@@ -2,6 +2,7 @@ import pygame.sprite
 import pygame.surface
 from Util.window import Window
 from Util.utilities import quit_game
+from Util.asset_dictionary import AssetDictionary
 
 
 class Player(pygame.sprite.Sprite):
@@ -50,3 +51,6 @@ class Player(pygame.sprite.Sprite):
         self.index = 0
         self.image = self.images[self.index]
         self.direction = "up"
+        up_image = AssetDictionary.get_asset("frog")
+        up_image2 = AssetDictionary.get_asset("frog_jumping")
+        self.images = [up_image, up_image2]

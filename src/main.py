@@ -38,7 +38,7 @@ FPS = 30
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Load background image
-background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
+background_image = pygame.image.load(os.path.join(current_dir, "Assets/Images", "background.png"))
 background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
 
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
@@ -78,12 +78,18 @@ while start:
 
 def main():
     pygame.init()
+    pygame.mixer.init()
     """Main game method containing the main game loop"""
     log_game()
 
     WIN.blit(background, (0, 0))
     frame_count = 0
     can_move = True
+
+    # Load the sounds
+    hop_sound = pygame.mixer.Sound("src/Assets/Sounds/hop.wav")
+    pygame.mixer.music.load("src/Assets/Sounds/Frogger_music.mp3")
+    pygame.mixer.music.play(-1)  # Loops the music indefinitely
 
     # Initialize on-screen text
     pygame.font.init()
@@ -194,7 +200,7 @@ def main():
             if event.type == pygame.KEYDOWN and can_move:
                 can_move = False
                 key_depressed = event.key
-                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+                move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, hop_sound)
                 player.index = 1
                 player.image = player.images[player.index]
             if event.type == pygame.KEYUP:
