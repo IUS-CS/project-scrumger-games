@@ -1,4 +1,5 @@
 import pygame.display
+import pygame.sprite
 
 
 class Window:
@@ -11,3 +12,4 @@ class Window:
     TIMER_TEXT = str(TIMER).rjust(5)
     HIGHEST_SCORE = 0
     GREATEST_LIVES = 0
+    SPRITE_LIST = pygame.sprite.Group()

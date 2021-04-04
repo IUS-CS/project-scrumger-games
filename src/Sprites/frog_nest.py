@@ -1,5 +1,7 @@
 import pygame.sprite
 from Util.asset_dictionary import AssetDictionary
+from Util.window import Window
+
 
 
 class FrogNest(pygame.sprite.Sprite):
@@ -13,6 +15,8 @@ class FrogNest(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = 40
         self.set_pos(pos)
+        self.add(Window.SPRITE_LIST)
+
 
     def set_pos(self, pos):
         if pos == 1:

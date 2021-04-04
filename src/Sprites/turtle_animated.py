@@ -1,4 +1,5 @@
 from Sprites.turtle import Turtle
+from Util.window import Window
 
 
 class TurtleSinker(Turtle):
@@ -10,6 +11,8 @@ class TurtleSinker(Turtle):
         self.submerged = False
         self.emerging = False
         self.animation_speed = animation_speed
+        self.add(Window.SPRITE_LIST)
+
 
     def start_animation(self, framecount):
         self.animation_started = True

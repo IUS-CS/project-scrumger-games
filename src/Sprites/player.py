@@ -64,7 +64,6 @@ class Player(pygame.sprite.Sprite):
         if self.farthest_distance > self.rect.y > 110:
             self.farthest_distance = self.rect.y
             self.score += 10
-            # print("adding 10 to score")
 
     def move(self, key_pressed):
         if key_pressed == "w" and self.rect.y > 60:
@@ -78,3 +77,42 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.x_vel
         else:
             return
+
+    def find_distance_to_sprite(self, direction):
+        """Find the distance to the nearest sprite in a given direction"""
+        if direction == "ahead":
+            line = (self.rect.x, self.rect.y, self.rect.center[0], 0)
+
+            for sprite in Window.SPRITE_LIST:
+                if sprite.rect.clipline(line) != ():
+                    return self.rect.y - sprite.rect.y
+
+            return self.rect.y - Window.HEIGHT
+
+        if direction == "down":
+            line = (self.rect.x, self.rect.y, self.rect.center[0], Window.HEIGHT)
+
+            for sprite in Window.SPRITE_LIST:
+                if sprite.rect.clipline(line) != ():
+                    return self.rect.y - sprite.rect.y
+
+            return self.rect.y - Window.HEIGHT
+
+        elif direction == "left":
+            line = (self.rect.x, self.rect.y, 0, self.rect.center[1])
+
+            for sprite in Window.SPRITE_LIST:
+                if sprite.rect.clipline(line) != ():
+                    return self.rect.x - sprite.rect.x
+
+            return self.rect.x - Window.HEIGHT
+
+        elif direction == "right":
+            line = (self.rect.x, self.rect.y, Window.WIDTH, self.rect.center[1])
+
+            for sprite in Window.SPRITE_LIST:
+                if sprite.rect.clipline(line) != ():
+                    return self.rect.x - sprite.rect.x
+
+            return self.rect.x - Window.HEIGHT
+

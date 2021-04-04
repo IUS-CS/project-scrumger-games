@@ -1,4 +1,5 @@
 import pygame.sprite
+from Util.window import Window
 
 
 class Riverbank(pygame.sprite.Sprite):
@@ -12,6 +13,8 @@ class Riverbank(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.y = 40
         self.set_pos(pos)
+        self.add(Window.SPRITE_LIST)
+
 
     def set_pos(self, pos):
 

@@ -181,7 +181,7 @@ def main(genomes="", config=""):
 
     # Create counter, timer and fonts for timer, counter
     pygame.time.set_timer(pygame.USEREVENT, 1000)
-    text = pygame.font.SysFont('Times New Roman', 35)
+    text_font = pygame.font.SysFont('Times New Roman', 35)
 
     # Initialize genomes and neural networks if flag is set
     if training_flag:
@@ -201,12 +201,12 @@ def main(genomes="", config=""):
     # Main game loop
     while run:
         clock.tick(FPS)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for game_event in pygame.event.get():
+            if game_event.type == pygame.QUIT:
                 run = False
 
             # Timer for player to complete game
-            if event.type == pygame.USEREVENT:
+            if game_event.type == pygame.USEREVENT:
                 for player in players:
                     player.timer -= 1
 
@@ -217,7 +217,7 @@ def main(genomes="", config=""):
                 else:
                     Window.TIMER_TEXT = str(Window.TIMER).rjust(5)
 
-        text_timer_box = text.render(Window.TIMER_TEXT, True, (255, 255, 255))
+        text_timer_box = text_font.render(Window.TIMER_TEXT, True, (255, 255, 255))
 
         highest_score = 0
         highest_timer = 30
@@ -225,8 +225,16 @@ def main(genomes="", config=""):
         for i, player in enumerate(players):
             genome_list[i].fitness = player.score
 
+            distance_to_sprite_ahead = player.find_distance_to_sprite("ahead")
+            distance_to_sprite_below = player.find_distance_to_sprite("down")
+            distance_to_left_sprite = player.find_distance_to_sprite("left")
+            distance_to_right_sprite = player.find_distance_to_sprite("right")
+
             # Feed values to the neural net to compute the action to be taken on the current frame
-            output = nets[players.index(player)].activate((player.rect.x, player.rect.y, Window.TIMER))
+            output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
+                                                           Window.TIMER, distance_to_sprite_ahead,
+                                                           distance_to_sprite_below, distance_to_left_sprite,
+                                                           distance_to_right_sprite))
 
             max_node_index = output.index(max(output))
 
@@ -235,14 +243,14 @@ def main(genomes="", config=""):
             player.move(key_to_press)
 
             # Input handling for movement
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN and player.can_move:
+            for game_event in pygame.event.get():
+                if game_event.type == pygame.KEYDOWN and player.can_move:
                     player.can_move = False
-                    key_depressed = event.key
+                    key_depressed = game_event.key
                     move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
                     player.index = 1
                     player.image = player.images[player.index]
-                if event.type == pygame.KEYUP:
+                if game_event.type == pygame.KEYUP:
                     player.can_move = True
                     player.index = 0
                     player.image = player.images[player.index]
@@ -294,7 +302,7 @@ def main(genomes="", config=""):
             pygame.event.post(pygame.event.Event(pygame.QUIT))
 
 
-def run_neat(generations: int):
+def run_neat(generations):
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
                                 neat.DefaultStagnation, NEAT_CONFIG)
 
@@ -303,7 +311,7 @@ def run_neat(generations: int):
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
 
-    best = population.run(main, 1)
+    best = population.run(main, int(generations))
     print('\nBest genome:\n{!s}'.format(best))
 
 
