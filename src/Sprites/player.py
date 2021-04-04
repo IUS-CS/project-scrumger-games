@@ -55,6 +55,9 @@ class Player(pygame.sprite.Sprite):
         self.index = 0
         self.image = self.images[self.index]
         self.direction = "up"
+        up_image = AssetDictionary.get_asset("frog")
+        up_image2 = AssetDictionary.get_asset("frog_jumping")
+        self.images = [up_image, up_image2]
 
     def set_score(self):
         if self.farthest_distance > self.rect.y > 110:

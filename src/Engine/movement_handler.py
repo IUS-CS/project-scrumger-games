@@ -3,7 +3,7 @@ from Sprites.player import Player
 from Util.asset_dictionary import AssetDictionary
 
 
-def move_player(player: Player, key_depressed, movement_distance_x, movement_distance_y):
+def move_player(player: Player, key_depressed, movement_distance_x, movement_distance_y, sound_effect):
     """Handles player movement"""
     x_change = 0
     y_change = 0
@@ -14,6 +14,7 @@ def move_player(player: Player, key_depressed, movement_distance_x, movement_dis
 
     if key_depressed == up:  # if up key is pressed
         if player.rect.y > 60:  # not at top
+            sound_effect.play()
             y_change -= movement_distance_y  # move up
             up_image = AssetDictionary.get_asset("frog")
             up_image2 = AssetDictionary.get_asset("frog_jumping")
@@ -25,6 +26,7 @@ def move_player(player: Player, key_depressed, movement_distance_x, movement_dis
 
     elif key_depressed == left:  # if left key is pressed
         if player.rect.x > 20:  # not at leftmost border
+            sound_effect.play()
             x_change -= movement_distance_x
             left_image = pygame.transform.rotate(AssetDictionary.get_asset("frog"), 90)
             left_image2 = pygame.transform.rotate(AssetDictionary.get_asset("frog_jumping"), 90)
@@ -32,6 +34,7 @@ def move_player(player: Player, key_depressed, movement_distance_x, movement_dis
 
     elif key_depressed == right:  # if right key is pressed
         if player.rect.x < 750:  # not at rightmost border
+            sound_effect.play()
             x_change += movement_distance_x
             right_image = pygame.transform.rotate(AssetDictionary.get_asset("frog"), -90)
             right_image2 = pygame.transform.rotate(AssetDictionary.get_asset("frog_jumping"), -90)
@@ -39,6 +42,7 @@ def move_player(player: Player, key_depressed, movement_distance_x, movement_dis
 
     elif key_depressed == down:  # if down key is pressed
         if player.rect.y < 800:  # not at bottom
+            sound_effect.play()
             y_change += movement_distance_y
             down_image = pygame.transform.rotate(AssetDictionary.get_asset("frog"), 180)
             down_image2 = pygame.transform.rotate(AssetDictionary.get_asset("frog_jumping"), 180)

@@ -18,6 +18,9 @@ from Engine.sprite_animator import animate_sprites
 from Sprites.Groups.river_sprites import RiverSprites
 from Util.utilities import check_kill_collisions, check_win_collisions, add_sprites_to_group, \
     add_player_to_water_lane, parse_if_training_net, determine_keypress
+from Engine.gameover import game_over
+from Util.utilities import check_kill_collisions, check_win_collisions, add_river_sprites_to_group,\
+    add_player_to_water_lane
 from Util.asset_dictionary import AssetDictionary
 from Util.window import Window
 from Sprites.player import Player
@@ -41,22 +44,58 @@ NEAT_CONFIG = os.path.join(current_dir, "neat_config.txt")
 training_flag = parse_if_training_net(sys.argv)
 
 # Load background image
-background_image = pygame.image.load(os.path.join(current_dir, "Assets", "background.png"))
+background_image = pygame.image.load(os.path.join(current_dir, "Assets/Images", "background.png"))
 background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
 
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
 MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
+start = True
+
+def text_ob(text, font, color):
+    textforScreen = font.render(text, True, color)
+    return textforScreen, textforScreen.get_rect()
+
+while start:
+    """Initialize font before beginning of game"""
+    pygame.font.init()
+
+    """Start Screen"""
+    blue = pygame.Color(0, 0, 255)
+    aqua = pygame.Color(0, 255, 255)
+
+    """"When mouse or key is pressed end Start Screen"""
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+         start = False
+
+    """"Fill in Start Screen with color and text"""
+    WIN.fill(BLACK)
+    text = pygame.font.SysFont('Times New Roman', 100)
+    Text, TextRect = text_ob("The Froggerithm", text, WHITE)
+    text2 = pygame.font.SysFont('Times New Roman', 35)
+    Text2, TextRect2 = text_ob("Click on the Screen to Start the Game", text2, aqua)
+    TextRect.center = ((Window.WIDTH / 2), (Window.HEIGHT / 2))
+    TextRect2.center = (((Window.WIDTH) / 2), ((Window.HEIGHT + 200) / 2))
+    WIN.blit(Text, TextRect)
+    WIN.blit(Text2, TextRect2)
+    pygame.display.update()
+
 
 def main(genomes="", config=""):
-    """Main game method containing the main game loop"""
-
     pygame.init()
-
+    pygame.mixer.init()
+    """Main game method containing the main game loop"""
     log_game()
-    WIN.fill(WHITE)
+
     WIN.blit(background, (0, 0))
     frame_count = 0
+    can_move = True
+
+    # Load the sounds
+    hop_sound = pygame.mixer.Sound("src/Assets/Sounds/hop.wav")
+    pygame.mixer.music.load("src/Assets/Sounds/Frogger_music.mp3")
+    pygame.mixer.music.play(-1)  # Loops the music indefinitely
 
     # Initialize on-screen text
     pygame.font.init()
@@ -157,7 +196,7 @@ def main(genomes="", config=""):
 
     run = True
 
-    # Main game loop
+     # Main game loop
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
@@ -234,6 +273,9 @@ def main(genomes="", config=""):
         animate_sprites(water_lane1, water_lane4, frame_count)
         add_sprites_to_group(water_lanes, river_group)
         draw_sprites(render_group, WIN, background, text_timer_box)
+        add_river_sprites_to_group(water_lanes, river_group)
+        river_group.check_if_sunk(player, river)
+        add_player_to_water_lane(water_lanes, player)
 
         # Initialize and render score text
         score_text = frogger_font.render("Score: " + str(Window.HIGHEST_SCORE), True, WHITE, BLACK)
