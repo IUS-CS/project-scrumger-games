@@ -10,8 +10,8 @@ def scale_image(image):
 
 def add_sprites_to_group(lanes, group):
     """Adds all of the sprites in the water lanes to the river group for kill detection"""
-    for group in lanes:
-        for sprite in group:
+    for lane in lanes:
+        for sprite in lane:
             sprite.add(group)
 
 
@@ -53,18 +53,23 @@ def check_win_collisions(player, win_group, render_group, kill_group, disabled_n
 
 
 def parse_if_training_net(argv):
-    """Parses the list of command line arguments, returns true if any flag is present after the file name,
-     returns false otherwise"""
+    """Parses the list of command line arguments, returns the argument after -t or -train if it is present,
+     returns false otherwise. If not false, this argument should be the number of generations the user wishes to run."""
     arg_list = []
     for arg in enumerate(argv):
-        arg_list.append(arg)
+        arg_list.append(arg[1])
 
     try:
-        if arg_list[1]:
-            return True
+        index = arg_list.index("-t")
 
-    except IndexError:
-        return False
+    except ValueError:
+        try:
+            index = arg_list.index("-train")
+
+        except ValueError:
+            return False
+
+    return arg_list[index + 1]
 
 
 def determine_keypress(index):

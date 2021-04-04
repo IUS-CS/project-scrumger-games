@@ -47,6 +47,7 @@ class Player(pygame.sprite.Sprite):
         Window.TIMER_TEXT = str(Window.TIMER).rjust(5)
 
         if self.lives_left < 0:
+            print("player final score: " + str(self.score))
             quit_game(self)
 
     def return_home(self):
@@ -63,17 +64,17 @@ class Player(pygame.sprite.Sprite):
         if self.farthest_distance > self.rect.y > 110:
             self.farthest_distance = self.rect.y
             self.score += 10
-            print("adding 10 to score")
+            # print("adding 10 to score")
 
     def move(self, key_pressed):
-        if key_pressed == "w":
-            self.rect.y += self.y_vel
+        if key_pressed == "w" and self.rect.y > 60:
+            self.rect.y -= self.y_vel
             self.set_score()
-        elif key_pressed == "s":
+        elif key_pressed == "s" and self.rect.y < 800:
             self.rect.y += self.y_vel
-        elif key_pressed == "a":
+        elif key_pressed == "a" and self.rect.x > 20:
             self.rect.x -= self.x_vel
-        elif key_pressed == "d":
+        elif key_pressed == "d" and self.rect.x < 750:
             self.rect.x += self.x_vel
         else:
             return
