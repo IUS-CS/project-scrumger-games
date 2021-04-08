@@ -1,6 +1,6 @@
 import pygame
 
-from src.Util.window import Window
+from Util.window import Window
 
 def text_ob(text, font, color):
     textforScreen = font.render(text, True, color)
