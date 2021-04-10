@@ -327,7 +327,7 @@ def run_neat(generations):
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
-    checkpointer = neat.checkpoint.Checkpointer(1)
+    checkpointer = neat.checkpoint.Checkpointer(25)
     population.add_reporter(checkpointer)
 
     best = population.run(main, int(generations))
