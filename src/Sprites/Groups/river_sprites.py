@@ -18,6 +18,10 @@ class RiverSprites(pygame.sprite.Group):
             collide_list.remove(river)
 
             for sprite in collide_list:
+
+                if type(sprite) == TurtleSinker:
+                    player.on_sinking_turtle = True
+
                 if sprite.rect.collidepoint(player_center):
                     if type(sprite) == Log or type(sprite) == Turtle:
                         kill_flag = False

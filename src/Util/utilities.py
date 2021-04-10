@@ -52,6 +52,16 @@ def check_win_collisions(player, win_group, render_group, kill_group, disabled_n
             player.win_game()
 
 
+def pointcollidelist(point, sprite_list: pygame.sprite.Group):
+    """Checks a point against a list of sprites for collisions, and returns the first sprite in the list if a collision
+    is found, otherwise returns false."""
+    for sprite in sprite_list:
+        if sprite.rect.collidepoint(point):
+            return sprite
+
+    return False
+
+
 def parse_if_training_net(argv):
     """Parses the list of command line arguments, returns the argument after -t or -train if it is present,
      returns false otherwise. If not false, this argument should be the number of generations the user wishes to run."""

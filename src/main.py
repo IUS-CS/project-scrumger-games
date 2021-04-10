@@ -68,7 +68,7 @@ if not training_flag:
         """"When mouse or key is pressed end Start Screen"""
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
-             start = False
+                start = False
 
         """"Fill in Start Screen with color and text"""
         WIN.fill(BLACK)
@@ -82,16 +82,19 @@ if not training_flag:
         WIN.blit(Text2, TextRect2)
         pygame.display.update()
 
+print("just before main definition")
 
 def main(genomes="", config=""):
+    """Main game method containing the main game loop"""
+    timer = 30
+    timer_text = str(timer).rjust(5)
     pygame.init()
     pygame.mixer.init()
-    """Main game method containing the main game loop"""
     log_game()
+    player_lines = []
 
     WIN.blit(background, (0, 0))
     frame_count = 0
-    can_move = True
 
     # Load the sounds
     if not training_flag:
@@ -109,6 +112,12 @@ def main(genomes="", config=""):
     win_group = pygame.sprite.Group()
     disabled_nests = DisabledNests()
     river_group = RiverSprites()
+    net_group = pygame.sprite.Group()  # A group used for any sprites we want the neural net to see
+
+    # A list of sprite groups that all logs and turtles should go in
+    log_turtle_groups = [render_group, net_group]
+    # A list of sprite groups that all cars should go in
+    car_groups = [render_group, net_group, kill_group]
 
     # Initialize sprite groups for the water "lanes"
     water_lane1 = pygame.sprite.Group()
@@ -119,22 +128,22 @@ def main(genomes="", config=""):
     water_lanes = [water_lane1, water_lane2, water_lane3, water_lane4, water_lane5]
 
     # Initialize logs and turtles already on the screen at game start
-    Log(AssetDictionary.get_asset("log-short"), 779, 308).add(water_lane2, render_group)
-    Log(AssetDictionary.get_asset("log-short"), 539, 308).add(water_lane2, render_group)
-    Log(AssetDictionary.get_asset("log-short"), 299, 308).add(water_lane2, render_group)
+    Log(AssetDictionary.get_asset("log-short"), 779, 308).add(water_lane2, log_turtle_groups)
+    Log(AssetDictionary.get_asset("log-short"), 539, 308).add(water_lane2, log_turtle_groups)
+    Log(AssetDictionary.get_asset("log-short"), 299, 308).add(water_lane2, log_turtle_groups)
 
-    TurtleSinker(AssetDictionary.get_asset("triple-turtle-sink"), -30, -79, 372).add(water_lane1, render_group)
-    Turtle(AssetDictionary.get_asset("triple-turtle"), frame_count, 221, 372).add(water_lane1, render_group)
-    Turtle(AssetDictionary.get_asset("triple-turtle"), frame_count, 521, 372).add(water_lane1, render_group)
+    TurtleSinker(AssetDictionary.get_asset("triple-turtle-sink"), -30, -79, 372).add(water_lane1, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset("triple-turtle"), frame_count, 221, 372).add(water_lane1, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset("triple-turtle"), frame_count, 521, 372).add(water_lane1, log_turtle_groups)
 
-    Log(AssetDictionary.get_asset("log-long"), 425, 244).add(water_lane3, render_group)
+    Log(AssetDictionary.get_asset("log-long"), 425, 244).add(water_lane3, render_group, log_turtle_groups)
 
-    TurtleSinker(AssetDictionary.get_asset("double-turtle-sink"), -30, 0, 180).add(water_lane4, render_group)
-    Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 270, 180).add(water_lane4, render_group)
-    Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 540, 180).add(water_lane4, render_group)
+    TurtleSinker(AssetDictionary.get_asset("double-turtle-sink"), -30, 0, 180).add(water_lane4, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 270, 180).add(water_lane4, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset("double-turtle"), frame_count, 540, 180).add(water_lane4, log_turtle_groups)
 
-    Log(AssetDictionary.get_asset("log-medium"), 219, 116).add(water_lane5, render_group)
-    Log(AssetDictionary.get_asset("log-medium"), 719, 116).add(water_lane5, render_group)
+    Log(AssetDictionary.get_asset("log-medium"), 219, 116).add(water_lane5, log_turtle_groups)
+    Log(AssetDictionary.get_asset("log-medium"), 719, 116).add(water_lane5, log_turtle_groups)
 
     # Initialize sprite groups for the car lanes
     car_lane1 = pygame.sprite.Group()
@@ -142,32 +151,30 @@ def main(genomes="", config=""):
     car_lane3 = pygame.sprite.Group()
     car_lane4 = pygame.sprite.Group()
     car_lane5 = pygame.sprite.Group()
-    car_lanes = [car_lane1, car_lane2, car_lane3, car_lane4, car_lane5]
 
     # Initialize the cars at start of game
-    Car(AssetDictionary.get_asset("car4"), WIN.get_width() - 500, 750, WIN).add(render_group, car_lane1, kill_group)
-    Car(AssetDictionary.get_asset("car4"), WIN.get_width() - 260, 750, WIN).add(render_group, car_lane1, kill_group)
-    Car(AssetDictionary.get_asset("car3"), 660, 700, WIN).add(render_group, car_lane2, kill_group)
-    Car(AssetDictionary.get_asset("car3"), 300, 700, WIN).add(render_group, car_lane2, kill_group)
-    Car(AssetDictionary.get_asset("car2"), WIN.get_width() - 400, 630, WIN).add(render_group, car_lane3, kill_group)
-    Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() - 360, 500, WIN).add(
-        render_group, car_lane5, kill_group)
+    Car(AssetDictionary.get_asset("car4"), WIN.get_width() - 500, 750, WIN).add(car_lane1, car_groups)
+    Car(AssetDictionary.get_asset("car4"), WIN.get_width() - 260, 750, WIN).add(car_lane1, car_groups)
+    Car(AssetDictionary.get_asset("car3"), 660, 700, WIN).add(car_lane2, car_groups)
+    Car(AssetDictionary.get_asset("car3"), 300, 700, WIN).add(car_lane2, car_groups)
+    Car(AssetDictionary.get_asset("car2"), WIN.get_width() - 400, 630, WIN).add(car_lane3, car_groups)
+    Car(AssetDictionary.get_asset("semi-truck"), WIN.get_width() - 360, 500, WIN).add(car_lane5, car_groups)
 
     # Initialize sprites for Frog
     # player = Player(render_group)
-    FrogNest(1).add(win_group)
-    FrogNest(2).add(win_group)
-    FrogNest(3).add(win_group)
-    FrogNest(4).add(win_group)
-    FrogNest(5).add(win_group)
+    FrogNest(1).add(win_group, net_group)
+    FrogNest(2).add(win_group, net_group)
+    FrogNest(3).add(win_group, net_group)
+    FrogNest(4).add(win_group, net_group)
+    FrogNest(5).add(win_group, net_group)
 
     # Initialize sprites for Riverbank
-    Riverbank(0).add(kill_group)
-    Riverbank(1).add(kill_group)
-    Riverbank(2).add(kill_group)
-    Riverbank(3).add(kill_group)
-    Riverbank(4).add(kill_group)
-    Riverbank(5).add(kill_group)
+    Riverbank(0).add(kill_group, net_group)
+    Riverbank(1).add(kill_group, net_group)
+    Riverbank(2).add(kill_group, net_group)
+    Riverbank(3).add(kill_group, net_group)
+    Riverbank(4).add(kill_group, net_group)
+    Riverbank(5).add(kill_group, net_group)
 
     # Initialize sprites for WaterSprite
     river = WaterSprite()
@@ -198,49 +205,62 @@ def main(genomes="", config=""):
 
     run = True
 
+    print("just before main while loop")
+
     # Main game loop
     while run:
         clock.tick(FPS)
+        max_lives = 0
+        highest_score = 0
+        # keypress = False
+        # while not keypress:
+        #     for game_event in pygame.event.get():
+        #         if game_event.type == pygame.KEYDOWN:
+        #             keypress = True
+
         for game_event in pygame.event.get():
             if game_event.type == pygame.QUIT:
                 run = False
 
             # Timer for player to complete game
             if game_event.type == pygame.USEREVENT:
-                for player in players:
-                    player.timer -= 1
+                timer -= 1
 
-                    # if the timer has hit zero, kill the player and restart it
-                    if player.timer < 1:
+                # if the timer has hit zero, kill all the players
+                if timer < 1:
+                    for player in players:
                         player.kill()
 
                 else:
-                    Window.TIMER_TEXT = str(Window.TIMER).rjust(5)
+                    timer_text = str(timer).rjust(5)
 
-        text_timer_box = text_font.render(Window.TIMER_TEXT, True, (255, 255, 255))
-
-        highest_score = 0
-        highest_timer = 30
+        text_timer_box = text_font.render(timer_text, True, (255, 255, 255))
 
         for i, player in enumerate(players):
             genome_list[i].fitness = player.score
 
-            distance_to_sprite_ahead = player.find_distance_to_sprite("ahead")
-            distance_to_sprite_below = player.find_distance_to_sprite("down")
-            distance_to_left_sprite = player.find_distance_to_sprite("left")
-            distance_to_right_sprite = player.find_distance_to_sprite("right")
+            distance_to_sprite_ahead = player.find_distance_to_sprite("ahead", net_group, player_lines)
+            distance_to_sprite_below = player.find_distance_to_sprite("down", net_group, player_lines)
+            distance_to_left_sprite = player.find_distance_to_sprite("left", net_group, player_lines)
+            distance_to_right_sprite = player.find_distance_to_sprite("right", net_group, player_lines)
 
-            # Feed values to the neural net to compute the action to be taken on the current frame
-            output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
-                                                           Window.TIMER, distance_to_sprite_ahead,
-                                                           distance_to_sprite_below, distance_to_left_sprite,
-                                                           distance_to_right_sprite))
+            frames_since_last_score_increase = frame_count - player.last_score_increase
 
-            max_node_index = output.index(max(output))
+            if frame_count % 8 == 0:
+                # Feed values to the neural net to compute the action to be taken on the current frame
+                output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
+                                                               frames_since_last_score_increase, distance_to_sprite_ahead,
+                                                               distance_to_sprite_below, distance_to_left_sprite,
+                                                               distance_to_right_sprite, player.on_sinking_turtle))
 
-            # Push the keypress to the event queue
-            key_to_press = determine_keypress(max_node_index)
-            player.move(key_to_press)
+                max_node_index = output.index(max(output))
+
+                # Move the player based on the output of the neural net
+                key_to_press = determine_keypress(max_node_index)
+                player.move(key_to_press, frame_count)
+
+            if frames_since_last_score_increase >= 150:
+                player.kill()
 
             # Input handling for movement
             for game_event in pygame.event.get():
@@ -266,40 +286,37 @@ def main(genomes="", config=""):
                 nets.remove(nets[i])
                 genome_list.remove(genome_list[i])
 
-            if player.score > Window.HIGHEST_SCORE:
-                Window.HIGHEST_SCORE = player.score
+            if player.score > highest_score:
+                highest_score = player.score
 
-            if player.timer < Window.TIMER:
-                Window.TIMER = player.timer
-
-            if player.lives_left > Window.GREATEST_LIVES:
-                Window.GREATEST_LIVES = player.lives_left
+            if player.lives_left > max_lives:
+                max_lives = player.lives_left
 
         # Handle all logic that does not involve the player that must be done on every frame
         spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
-                        render_group, kill_group, WIN)
+                        car_groups, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
-                          render_group, WIN)
+                          log_turtle_groups, WIN)
         animate_sprites(water_lane1, water_lane4, frame_count)
         add_sprites_to_group(water_lanes, river_group)
-        draw_sprites(render_group, WIN, background, text_timer_box)
+        draw_sprites(render_group, WIN, background, text_timer_box, player_lines)
         add_sprites_to_group(water_lanes, river_group)
         river_group.check_if_sunk(player, river)
         add_player_to_water_lane(water_lanes, player)
 
         # Initialize and render score text
-        score_text = frogger_font.render("Score: " + str(Window.HIGHEST_SCORE), True, WHITE, BLACK)
+        score_text = frogger_font.render("Score: " + str(highest_score), True, WHITE, BLACK)
         background.blit(score_text, (20, 10))
 
         # Initialize and render lives left
-        lives_text = frogger_font.render("Lives: " + str(Window.GREATEST_LIVES), True, WHITE, BLACK)
+        lives_text = frogger_font.render("Lives: " + str(max_lives), True, WHITE, BLACK)
         background.blit(lives_text, (650, 10))
-
-        # Iterate the frame counter
-        frame_count += 1
 
         if len(players) <= 0:
             pygame.event.post(pygame.event.Event(pygame.QUIT))
+
+        # Iterate the frame counter
+        frame_count += 1
 
 
 def run_neat(generations):
@@ -310,6 +327,8 @@ def run_neat(generations):
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
+    checkpointer = neat.checkpoint.Checkpointer(1)
+    population.add_reporter(checkpointer)
 
     best = population.run(main, int(generations))
     print('\nBest genome:\n{!s}'.format(best))

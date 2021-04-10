@@ -1,6 +1,5 @@
 import pygame.sprite
 import pygame.surface
-from Util.window import Window
 
 
 class Turtle(pygame.sprite.Sprite):
@@ -17,8 +16,6 @@ class Turtle(pygame.sprite.Sprite):
 
         self.rect.x = x
         self.rect.y = y
-        self.add(Window.SPRITE_LIST)
-
 
     def next_frame(self, framecount):
 

@@ -1,5 +1,4 @@
 import pygame.sprite
-from Util.window import Window
 
 
 class Log(pygame.sprite.Sprite):
@@ -12,8 +11,6 @@ class Log(pygame.sprite.Sprite):
 
         self.rect.y = initial_y
         self.set_x(initial_x)
-        self.add(Window.SPRITE_LIST)
-
 
     def set_x(self, x):
         if x == -999:
