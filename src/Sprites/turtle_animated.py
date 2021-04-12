@@ -11,11 +11,11 @@ class TurtleSinker(Turtle):
         self.emerging = False
         self.animation_speed = animation_speed
 
-    def start_animation(self, framecount):
+    def start_animation(self, framecount, net_group):
         self.animation_started = True
-        self.next_frame(framecount)
+        self.next_frame(framecount, net_group)
 
-    def next_frame(self, framecount):
+    def next_frame(self, framecount, net_group):
 
         if self.animation_started:
 
@@ -23,6 +23,7 @@ class TurtleSinker(Turtle):
                 self.frame_index += 1
                 if self.frame_index > 2:  # if at the end of submerge animation, set submerged state
                     self.submerged = True
+                    self.remove(net_group)
                     self.image = self.frames[self.frame_index]
                     self.last_animation = framecount
                 else:                                     # otherwise, advance the animation
@@ -32,6 +33,7 @@ class TurtleSinker(Turtle):
             # turtle is submerged - begin emerge animation
             elif self.submerged and self.should_animate(framecount):
                 self.submerged = False
+                self.add(net_group)
                 self.emerging = True
                 self.last_frame()
                 self.last_animation = framecount

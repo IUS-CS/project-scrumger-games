@@ -13,6 +13,7 @@ class RiverSprites(pygame.sprite.Group):
         collide_list = pygame.sprite.spritecollide(player, self, False)
         player_center = player.rect.center
         kill_flag = True
+        player.on_sinking_turtle = False
 
         if collide_list and collide_list.count(river):
             collide_list.remove(river)

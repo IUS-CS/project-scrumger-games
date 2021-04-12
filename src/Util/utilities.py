@@ -40,13 +40,13 @@ def check_kill_collisions(player, kill_group):
         player.kill()
 
 
-def check_win_collisions(player, win_group, render_group, kill_group, disabled_nests):
+def check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, timers):
     """Checks the player sprite object against a group object for the game's win condition"""
     collide_list = pygame.sprite.spritecollide(player, win_group, True)
     if collide_list:
-        player.nest()
         for nest in collide_list:
-            nest.disable(win_group, render_group, kill_group, disabled_nests)
+            player.nest(timers[0], nest)
+            nest.disable(win_group, render_group, kill_group, disabled_nests, player)
 
         if disabled_nests.check_for_win():
             player.win_game()

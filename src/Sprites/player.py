@@ -27,27 +27,34 @@ class Player(pygame.sprite.Sprite):
         self.y_vel = AssetDictionary.get_asset("frog").get_height() + 12
         self.last_score_increase = 0
         self.on_sinking_turtle = False
+        self.disabled_nests = pygame.sprite.Group()
 
-    def nest(self):
-        self.return_home()
-        self.farthest_distance = 900
-        self.score += (50 + 2*Window.TIMER)
-        pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren't still using the old clock
-        pygame.time.set_timer(pygame.USEREVENT, 1000)
-        Window.TIMER = 30
-        Window.TIMER_TEXT = str(Window.TIMER).rjust(5)
+    def nest(self, timer, nest):
+        if self.disabled_nests.has(nest):
+            self.kill()
+        else:
+            self.return_home()
+            self.farthest_distance = 900
+            self.score += (50 + 2*timer)
+            print(str(self.farthest_distance))
+            #pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren't still using the old clock
+            #pygame.time.set_timer(pygame.USEREVENT, 1000)
+            timer = 30
 
     def win_game(self):
         self.score += 1000
-        quit_game(self)
+        for group in self.groups():
+            self.remove(group)
+        # quit_game(self)
 
     def kill(self):
         self.return_home()
         self.lives_left -= 1
+        self.score - 10
 
         if self.lives_left < 0:
             print("player final score: " + str(self.score))
-            quit_game(self)
+            # quit_game(self)
 
     def return_home(self):
         self.rect.x = Window.WIN.get_width() / 2
@@ -63,12 +70,13 @@ class Player(pygame.sprite.Sprite):
         if self.farthest_distance > self.rect.y > 110:
             self.farthest_distance = self.rect.y
             self.score += 10
+            if self.score > 60 and self.rect.y >= 109:
+                self.score += self.score + 10
             self.last_score_increase = frame_count
 
     def move(self, key_pressed, frame_count):
         if key_pressed == "w" and self.rect.y > 60:
             self.rect.y -= self.y_vel
-            self.set_score(frame_count)
         elif key_pressed == "s" and self.rect.y < 800:
             self.rect.y += self.y_vel
         elif key_pressed == "a" and self.rect.x > 20:
@@ -152,3 +160,85 @@ class Player(pygame.sprite.Sprite):
                     distance_to_nearest = 0 - player_x + sprite.rect.x
 
             return distance_to_nearest
+
+    def find_sprite_in_next_lane(self, direction, sprites, player_lines):
+        """Find the distance to the nearest sprite in the lane ahead or the lane behind the player
+        Returns a tuple containing the distance in the corresponding lane to the closest sprite on the left, and the
+        closest sprite on the right, respectively."""
+
+        startpoint_x = self.rect.center[0]
+
+        if direction == "ahead":
+            # If the player is at the top of the screen, return the max distance
+            if self.rect.y == 109:
+                return Window.WIDTH, Window.WIDTH
+
+            # If we want to use the lane ahead,
+            # set the start point of the line to be one lane position ahead of the player
+            startpoint_y = self.rect.center[1] - 64
+            startpoint_pos = (startpoint_x, startpoint_y)
+
+            # Initial distance is the distance to the left and right edges of the screen
+            distance_to_left = startpoint_x
+            distance_to_right = Window.WIDTH - startpoint_y
+
+            # Set the endpoint of the left line and the right line to the edges of the screen
+            left_endpoint = (0, startpoint_y)
+            right_endpoint = (Window.WIDTH, startpoint_y)
+
+            # Iterate over the sprites we're concerned about to see if the lines intersect
+            for sprite in sprites.sprites():
+                # Check the left side
+                clipline = sprite.rect.clipline(startpoint_pos, left_endpoint)
+
+                # If the line intersects with the sprite in question, and the distance to it is shorter than current,
+                # update current distance
+                if clipline and startpoint_x - (sprite.rect.x + sprite.rect.width) <= distance_to_left:
+                    distance_to_left = startpoint_x - (sprite.rect.x + sprite.rect.width)
+
+                # Check the right side
+                clipline = sprite.rect.clipline(startpoint_pos, right_endpoint)
+
+                if clipline and sprite.rect.x - startpoint_x <= distance_to_right:
+                    distance_to_right = sprite.rect.x - startpoint_x
+
+            # render lines for debugging
+            # player_lines.append((startpoint_pos, (startpoint_x - distance_to_left, startpoint_y)))
+            # player_lines.append((startpoint_pos, (startpoint_x + distance_to_right, startpoint_y)))
+            return distance_to_left, distance_to_right
+
+        if direction == "down":
+            # If the player is at the bottom of the screen, return the max distance
+            if self.rect.center[1] + 64 >= Window.HEIGHT:
+                return Window.WIDTH, Window.WIDTH
+
+            # If we want to use the lane behind,
+            # set the start point of the line to be one lane position behind the player
+            startpoint_y = self.rect.center[1] + 64
+            startpoint_pos = (startpoint_x, startpoint_y)
+
+            # Initial distance is the distance to the left and right edges of the screen
+            distance_to_left = startpoint_x
+            distance_to_right = Window.WIDTH - startpoint_y
+
+            # Set the endpoint of the left line and the right line to the edges of the screen
+            left_endpoint = (0, startpoint_y)
+            right_endpoint = (Window.WIDTH, startpoint_y)
+
+            # Iterate over the sprites we're concerned about to see if the lines intersect
+            for sprite in sprites.sprites():
+                # Check the left side
+                clipline = sprite.rect.clipline(startpoint_pos, left_endpoint)
+
+                # If the line intersects with the sprite in question, and the distance to it is shorter than current,
+                # update current distance
+                if clipline and startpoint_x - (sprite.rect.x + sprite.rect.width) <= distance_to_left:
+                    distance_to_left = startpoint_x - (sprite.rect.x + sprite.rect.width)
+
+                # Check the right side
+                clipline = sprite.rect.clipline(startpoint_pos, right_endpoint)
+
+                if clipline and sprite.rect.x - startpoint_x <= distance_to_right:
+                    distance_to_right = sprite.rect.x - startpoint_x
+
+            return distance_to_left, distance_to_right

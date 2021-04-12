@@ -82,7 +82,6 @@ if not training_flag:
         WIN.blit(Text2, TextRect2)
         pygame.display.update()
 
-print("just before main definition")
 
 def main(genomes="", config=""):
     """Main game method containing the main game loop"""
@@ -187,7 +186,8 @@ def main(genomes="", config=""):
     clock = pygame.time.Clock()
 
     # Create counter, timer and fonts for timer, counter
-    pygame.time.set_timer(pygame.USEREVENT, 1000)
+    timer_event = pygame.event.Event(pygame.USEREVENT, {})
+    pygame.time.set_timer(timer_event, 1000)
     text_font = pygame.font.SysFont('Times New Roman', 35)
 
     # Initialize genomes and neural networks if flag is set
@@ -205,8 +205,6 @@ def main(genomes="", config=""):
 
     run = True
 
-    print("just before main while loop")
-
     # Main game loop
     while run:
         clock.tick(FPS)
@@ -223,35 +221,40 @@ def main(genomes="", config=""):
                 run = False
 
             # Timer for player to complete game
-            if game_event.type == pygame.USEREVENT:
+            if game_event == timer_event:
                 timer -= 1
 
                 # if the timer has hit zero, kill all the players
-                if timer < 1:
-                    for player in players:
-                        player.kill()
-
-                else:
-                    timer_text = str(timer).rjust(5)
+                # if timer < 1:
+                #     for player in players:
+                #         player.kill()
+                #
+                # else:
+                #     timer_text = str(timer).rjust(5)
 
         text_timer_box = text_font.render(timer_text, True, (255, 255, 255))
 
         for i, player in enumerate(players):
+            # Neural net logic
             genome_list[i].fitness = player.score
 
             distance_to_sprite_ahead = player.find_distance_to_sprite("ahead", net_group, player_lines)
             distance_to_sprite_below = player.find_distance_to_sprite("down", net_group, player_lines)
             distance_to_left_sprite = player.find_distance_to_sprite("left", net_group, player_lines)
             distance_to_right_sprite = player.find_distance_to_sprite("right", net_group, player_lines)
+            distance_in_lane_ahead = player.find_sprite_in_next_lane("ahead", net_group, player_lines)
+            distance_in_lane_behind = player.find_sprite_in_next_lane("down", net_group, player_lines)
 
             frames_since_last_score_increase = frame_count - player.last_score_increase
 
-            if frame_count % 8 == 0:
+            if frame_count % 10 == 0:
                 # Feed values to the neural net to compute the action to be taken on the current frame
                 output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
                                                                frames_since_last_score_increase, distance_to_sprite_ahead,
                                                                distance_to_sprite_below, distance_to_left_sprite,
-                                                               distance_to_right_sprite, player.on_sinking_turtle))
+                                                               distance_to_right_sprite, player.on_sinking_turtle,
+                                                               distance_in_lane_ahead[0], distance_in_lane_ahead[1],
+                                                               distance_in_lane_behind[0], distance_in_lane_behind[1]))
 
                 max_node_index = output.index(max(output))
 
@@ -259,8 +262,16 @@ def main(genomes="", config=""):
                 key_to_press = determine_keypress(max_node_index)
                 player.move(key_to_press, frame_count)
 
-            if frames_since_last_score_increase >= 150:
+            if frames_since_last_score_increase >= 210:
                 player.kill()
+            # End neural net logic
+
+            # Handle player logic that does not involve neural net
+            check_kill_collisions(player, kill_group)
+            check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, [timer, timer_text])
+            river_group.check_if_sunk(player, river)
+            add_player_to_water_lane(water_lanes, player)
+            player.set_score(frame_count)
 
             # Input handling for movement
             for game_event in pygame.event.get():
@@ -274,12 +285,6 @@ def main(genomes="", config=""):
                     player.can_move = True
                     player.index = 0
                     player.image = player.images[player.index]
-
-            # Handle all other logic involving the player
-            check_kill_collisions(player, kill_group)
-            check_win_collisions(player, win_group, render_group, kill_group, disabled_nests)
-            river_group.check_if_sunk(player, river)
-            add_player_to_water_lane(water_lanes, player)
 
             if player.lives_left < 1:
                 players.remove(player)
@@ -297,7 +302,7 @@ def main(genomes="", config=""):
                         car_groups, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           log_turtle_groups, WIN)
-        animate_sprites(water_lane1, water_lane4, frame_count)
+        animate_sprites(water_lane1, water_lane4, frame_count, net_group)
         add_sprites_to_group(water_lanes, river_group)
         draw_sprites(render_group, WIN, background, text_timer_box, player_lines)
         add_sprites_to_group(water_lanes, river_group)
@@ -305,6 +310,8 @@ def main(genomes="", config=""):
         add_player_to_water_lane(water_lanes, player)
 
         # Initialize and render score text
+        empty_text = frogger_font.render("Score: 000", True, BLACK, BLACK)
+        background.blit(empty_text, (20, 10))
         score_text = frogger_font.render("Score: " + str(highest_score), True, WHITE, BLACK)
         background.blit(score_text, (20, 10))
 
@@ -324,6 +331,7 @@ def run_neat(generations):
                                 neat.DefaultStagnation, NEAT_CONFIG)
 
     population = neat.Population(config)
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint("neat-checkpoint-3598")
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)

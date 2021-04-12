@@ -30,8 +30,9 @@ class FrogNest(pygame.sprite.Sprite):
         else:
             self.rect.x = 710
 
-    def disable(self, win_group, render_group, kill_group, disabled_nests):
-        self.remove(win_group)
+    def disable(self, win_group, render_group, kill_group, disabled_nests, player):
+        # self.remove(win_group)
         self.image = AssetDictionary.asset_dict["win-frog"]
-        self.add(render_group, kill_group)
+        self.add(render_group)
         self.add(disabled_nests)
+        player.disabled_nests.add(self)
