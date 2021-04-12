@@ -71,7 +71,7 @@ class Player(pygame.sprite.Sprite):
             self.farthest_distance = self.rect.y
             self.score += 10
             if self.score > 60 and self.rect.y >= 109:
-                self.score += self.score + 10
+                self.score += 10
             self.last_score_increase = frame_count
 
     def move(self, key_pressed, frame_count):
