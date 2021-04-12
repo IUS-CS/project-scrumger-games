@@ -4,7 +4,19 @@
 ## John Cooke Project Reflections 
 
 ## Zion Emond Project Reflections 
+This project was one of the first big group development projects I had done.
+I was familiar with git and general source control concepts, but I had never really
+used them much before. One of my biggest takeaways from this project is the experience
+working on a development project in a group while using git to manage our code and while
+using the Scrum method of development.
 
+The biggest parts of the project that I contributed were the graphics for the game
+as well as most of the code that related to the player functionality. Additionally,
+I added the sound effects and music to the game.
+
+I learned a lot about the ins and outs of the pygame engine as well as general things about
+the Python language. I had never used or learned about unit testing before, so adding the unit
+tests for the sections of code I wrote helped me learn a lot about Test-Driven Development.
 
 ## Alex Stiner Project Reflections 
 Before starting on this project I had not had 
