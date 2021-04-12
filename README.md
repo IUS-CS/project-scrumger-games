@@ -27,7 +27,8 @@ using Pygame and Tensorflow.
 - `python --version` to verify python 3.7
 - `python -m venv venv && "venv\Scripts\activate.bat" && pip install -r requirements.txt`
   to install dependencies
-- `python src\main.py` to run
+- `python src\main.py -train <generations>` to train the neural network
+- `<generations>` determines the number of generations the neural network will be trained for using the NEAT algorithm
 
 # Unit Testing
 
