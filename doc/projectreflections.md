@@ -41,7 +41,7 @@ countdown and change the numbers
 without just overlapping the numbers was a bit of a challenge. 
 
 The unit tests were challenging to create, but discussing with my team
-different thoughts I had on how to go about it, I was able to 
+different thoughts I had on how to go about it. I was able to 
 create it. Creating the start screen and game over screen code to 
 was straight forward, but figuring out where they needed to go took 
 some thought. Also, when creating the start screen code I had to determine 
