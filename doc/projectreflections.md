@@ -2,6 +2,24 @@
 
 
 ## John Cooke Project Reflections 
+As the most experienced developer on my team, this project was my first opportunity 
+to take a leadership role on a development team. I had worked with teams on other
+projects before, but never in a leadership position, so I was excited about
+the opportunity to architect and lead a project. Additionally, I've never done any
+actual projects in machine learning, only read a lot about theory. These things 
+combined meant that this project was a great chance to learn a lot, both about myself
+and about an interesting topic within computer science. 
+
+Most of my contributions to the project involved core game engine functions such as
+collision detection, sprite spawning and movement, and the rendering system. I also
+handled laying out the general structure of the project, and much of the work
+involving the machine learning portion of the project was handled by me as well.
+
+In the end, I learned a lot about how to structure and design a machine learning 
+system, and how to design your systems to incentivize the AI to accomplish the task.
+Working with the automated unit testing system, and the number of times it exposed
+that I was clueless about, also cemented the importance of automated unit testing
+in my mind.
 
 ## Zion Emond Project Reflections 
 This project was one of the first big group development projects I had done.
