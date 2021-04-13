@@ -73,7 +73,7 @@ class Player(pygame.sprite.Sprite):
         up_image2 = AssetDictionary.get_asset("frog_jumping")
         self.images = [up_image, up_image2]
 
-    def set_score(self, frame_count):
+    def set_score(self):
         """Called on every frame. Handles logic determining when the player should receive more points for moving."""
         self.score += 0.01  # Reward the AI a little bit for staying alive another frame
 
@@ -83,13 +83,13 @@ class Player(pygame.sprite.Sprite):
             self.score += 10
             if self.score > 60 and self.rect.y >= 109:
                 self.score += 10
-            self.last_advancement = frame_count
 
-    def move(self, key_pressed):
+    def move(self, key_pressed, frame_count):
         """Called when the AI computes an output layer, takes a string containing w, a, s, or d, and moves the player
          in the corresponding direction. If any other input is passed, the player won't move at all."""
         if key_pressed == "w" and self.rect.y > 60:
             self.rect.y -= self.y_vel
+            self.last_advancement = frame_count
         elif key_pressed == "s" and self.rect.y < 800:
             self.rect.y += self.y_vel
         elif key_pressed == "a" and self.rect.x > 20:

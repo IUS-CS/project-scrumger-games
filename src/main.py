@@ -259,7 +259,7 @@ def main(genomes="", config=""):
 
                 # Move the player based on the output of the neural net
                 key_to_press = determine_keypress(max_node_index)
-                player.move(key_to_press)
+                player.move(key_to_press, frame_count)
 
             # If the player hasn't moved for 10 seconds or more, kill it
             if frames_since_last_advancement >= 300:
@@ -271,7 +271,7 @@ def main(genomes="", config=""):
             check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, [timer, timer_text])
             river_group.check_if_sunk(player, river)
             add_player_to_water_lane(water_lanes, player)
-            player.set_score(frame_count)
+            player.set_score()
             animate_sprites(water_lane1, water_lane4, frame_count, net_group)
 
             # Input handling for movement
