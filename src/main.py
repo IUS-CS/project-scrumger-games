@@ -208,7 +208,8 @@ def main(genomes="", config=""):
 
     # Main game loop
     while run:
-        clock.tick(FPS)
+        if not training_flag:  # If training the AI, let the game use all compute overhead
+            clock.tick(FPS)
         max_lives = 0
         highest_score = 0
         # keypress = False
@@ -248,15 +249,16 @@ def main(genomes="", config=""):
                 distance_in_lane_ahead = player.find_sprite_in_next_lane("ahead", net_group, player_lines)
                 distance_in_lane_behind = player.find_sprite_in_next_lane("down", net_group, player_lines)
 
-                frames_since_last_score_increase = frame_count - player.last_score_increase
+                frames_since_last_advancement = frame_count - player.last_advancement
 
                 # Feed values to the neural net to compute the action to be taken on the current frame
                 output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
-                                                               frames_since_last_score_increase, distance_to_sprite_ahead,
+                                                               frames_since_last_advancement, distance_to_sprite_ahead,
                                                                distance_to_sprite_below, distance_to_left_sprite,
                                                                distance_to_right_sprite, player.on_sinking_turtle,
                                                                distance_in_lane_ahead[0], distance_in_lane_ahead[1],
-                                                               distance_in_lane_behind[0], distance_in_lane_behind[1]))
+                                                               distance_in_lane_behind[0], distance_in_lane_behind[1],
+                                                               len(player.disabled_nests.sprites())))
 
                 max_node_index = output.index(max(output))
 
@@ -264,7 +266,8 @@ def main(genomes="", config=""):
                 key_to_press = determine_keypress(max_node_index)
                 player.move(key_to_press, frame_count)
 
-            if frames_since_last_score_increase >= 210:
+            # If the player hasn't moved for 7 seconds or more, kill it
+            if frames_since_last_advancement >= 210:
                 player.kill()
             # End neural net logic
 
@@ -274,6 +277,7 @@ def main(genomes="", config=""):
             river_group.check_if_sunk(player, river)
             add_player_to_water_lane(water_lanes, player)
             player.set_score(frame_count)
+            animate_sprites(water_lane1, water_lane4, frame_count, net_group)
 
             # Input handling for movement
             for game_event in pygame.event.get():
@@ -304,17 +308,13 @@ def main(genomes="", config=""):
                         car_groups, WIN)
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           log_turtle_groups, WIN)
-        animate_sprites(water_lane1, water_lane4, frame_count, net_group)
         add_sprites_to_group(water_lanes, river_group)
         draw_sprites(render_group, WIN, background, text_timer_box, player_lines)
-        add_sprites_to_group(water_lanes, river_group)
-        river_group.check_if_sunk(player, river)
-        add_player_to_water_lane(water_lanes, player)
 
         # Initialize and render score text
         empty_text = frogger_font.render("Score: 00000", True, BLACK, BLACK)
         background.blit(empty_text, (20, 10))
-        score_text = frogger_font.render("Score: " + str(highest_score), True, WHITE, BLACK)
+        score_text = frogger_font.render("Score: " + str(int(highest_score)), True, WHITE, BLACK)
         background.blit(score_text, (20, 10))
 
         # Initialize and render lives left
@@ -322,7 +322,7 @@ def main(genomes="", config=""):
         background.blit(lives_text, (650, 10))
 
         if len(players) <= 0:
-            pygame.event.post(pygame.event.Event(pygame.QUIT))
+            run = False
 
         # Iterate the frame counter
         frame_count += 1

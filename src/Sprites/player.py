@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.can_move = True
         self.x_vel = AssetDictionary.get_asset("frog").get_width() + 4
         self.y_vel = AssetDictionary.get_asset("frog").get_height() + 12
-        self.last_score_increase = 0
+        self.last_advancement = 0
         self.on_sinking_turtle = False
         self.disabled_nests = pygame.sprite.Group()
 
@@ -53,9 +53,6 @@ class Player(pygame.sprite.Sprite):
         Does not subtract points if the player has more than 10."""
         self.return_home()
         self.lives_left -= 1
-        # Avoid negative values - a frog that moves forward and then dies is more fit than one that never moves
-        if self.score > 10:
-            self.score - 10
 
         if self.lives_left < 0:
             print("player final score: " + str(self.score))
@@ -74,16 +71,17 @@ class Player(pygame.sprite.Sprite):
 
     def set_score(self, frame_count):
         """Called on every frame. Handles logic determining when the player should receive more points for moving."""
+        self.score += 0.01  # Reward the AI a little bit for staying alive another frame
         if self.farthest_distance > self.rect.y > 110:
             self.farthest_distance = self.rect.y
             self.score += 10
             if self.score > 60 and self.rect.y >= 109:
                 self.score += 10
-            self.last_score_increase = frame_count
+            self.last_advancement = frame_count
 
     def move(self, key_pressed, frame_count):
         """Called when the AI decides to move, takes a string containg w, a, s, or d, and moves the player in the
-        corresponding direction."""
+        corresponding direction. If any other input is passed, the player won't move at all."""
         if key_pressed == "w" and self.rect.y > 60:
             self.rect.y -= self.y_vel
         elif key_pressed == "s" and self.rect.y < 800:
