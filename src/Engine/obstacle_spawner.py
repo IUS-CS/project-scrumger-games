@@ -17,7 +17,12 @@ def sprite_despawner(sprite, win):
 
 
 def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, log_turtle_groups, win):
-    """Handle spawning and animating water platforms"""
+    """Called on every frame to handle spawning and animating water platforms. Param framecount should be the current
+    frame being rendered. Params lane1 through lane5 should be the water lane sprite groups, each representing one
+    lane starting from the bottom of the screen. So lane1 should be the group representing the lane of turtles
+    closest to the road, and lane5 should be the lane of logs closest to the frog nests. Param log_turtle_groups
+    should be a list of sprite groups that each log or turtle should be places in when it spawns. This should include
+    at least the render group and the neural network group, though this can be expanded."""
 
     # Spawns turtles in lane 1 every 2 seconds, spawning a sinking turtle every 4th spawn
     if framecount % 60 == 0:
@@ -78,7 +83,12 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, log_turtle_
 
 
 def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5, car_groups, win):
-    """Handle spawning and animating car platforms"""
+    """Called on every frame to handle spawning and animating car obstacles. Param framecount should be the current
+    frame being rendered. Params lane1 through lane5 should be the car lane sprite groups, each representing one
+    lane starting from the bottom of the screen. So lane1 should be the group representing the lane of cars closest
+    bottom of the window, and lane5 should be the lane of cars closest to the water. Param car_groups should be a list
+    of sprite groups that each car should be places in when it spawns. This should include at least the render group,
+    the kill group, and the neural network group, though this can be expanded."""
     # Spawns cars in lane 1 every 4 seconds, skipping every 4th spawn
     if framecount == 0 or (framecount % 120 == 0 and framecount % 360 != 0):
         Car(AssetDictionary.get_asset("car4"), win.get_width() + 1, 750, win).add(carlane1, car_groups)

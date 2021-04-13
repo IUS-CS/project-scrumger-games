@@ -59,19 +59,19 @@ def text_ob(text, font, color):
 
 if not training_flag:
     while start:
-        """Initialize font before beginning of game"""
+        # Initialize font before beginning of game
         pygame.font.init()
 
-        """Start Screen"""
+        # Start Screen
         blue = pygame.Color(0, 0, 255)
         aqua = pygame.Color(0, 255, 255)
 
-        """"When mouse or key is pressed end Start Screen"""
+        # When mouse or key is pressed end Start Screen
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 start = False
 
-        """"Fill in Start Screen with color and text"""
+        # Fill in Start Screen with color and text
         WIN.fill(BLACK)
         text = pygame.font.SysFont('Times New Roman', 100)
         Text, TextRect = text_ob("The Froggerithm", text, WHITE)
@@ -188,7 +188,7 @@ def main(genomes="", config=""):
 
     # Create counter, timer and fonts for timer, counter
     timer_event = pygame.event.Event(pygame.USEREVENT, {})
-    pygame.time.set_timer(timer_event, 1000)
+    # pygame.time.set_timer(timer_event, 1000)
     text_font = pygame.font.SysFont('Times New Roman', 35)
 
     # Initialize genomes and neural networks if flag is set
@@ -225,20 +225,15 @@ def main(genomes="", config=""):
             # Timer for player to complete game
             if game_event == timer_event:
                 timer -= 1
-
-                # if the timer has hit zero, kill all the players
-                # if timer < 1:
-                #     for player in players:
-                #         player.kill()
-                #
-                # else:
-                #     timer_text = str(timer).rjust(5)
-
-        text_timer_box = text_font.render(timer_text, True, (255, 255, 255))
+                timer_text = str(timer).rjust(5)
 
         for i, player in enumerate(players):
-            # Neural net logic
+            # Begin neural net logic
             genome_list[i].fitness = player.score
+
+            # If the timer has hit zero, kill the player before letting it compute its move
+            if timer < 1:
+                player.kill()
 
             # On every 10th frame, allow the neural net to move the frog
             if frame_count % 10 == 0:
@@ -264,10 +259,10 @@ def main(genomes="", config=""):
 
                 # Move the player based on the output of the neural net
                 key_to_press = determine_keypress(max_node_index)
-                player.move(key_to_press, frame_count)
+                player.move(key_to_press)
 
-            # If the player hasn't moved for 7 seconds or more, kill it
-            if frames_since_last_advancement >= 210:
+            # If the player hasn't moved for 10 seconds or more, kill it
+            if frames_since_last_advancement >= 300:
                 player.kill()
             # End neural net logic
 
@@ -280,19 +275,19 @@ def main(genomes="", config=""):
             animate_sprites(water_lane1, water_lane4, frame_count, net_group)
 
             # Input handling for movement
-            for game_event in pygame.event.get():
-                if game_event.type == pygame.KEYDOWN and player.can_move:
-                    player.can_move = False
-                    key_depressed = game_event.key
-                    move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
-                    player.index = 1
-                    player.image = player.images[player.index]
-                if game_event.type == pygame.KEYUP:
-                    player.can_move = True
-                    player.index = 0
-                    player.image = player.images[player.index]
+            # for game_event in pygame.event.get():
+            #     if game_event.type == pygame.KEYDOWN and player.can_move:
+            #         player.can_move = False
+            #         key_depressed = game_event.key
+            #         move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+            #         player.index = 1
+            #         player.image = player.images[player.index]
+            #     if game_event.type == pygame.KEYUP:
+            #         player.can_move = True
+            #         player.index = 0
+            #         player.image = player.images[player.index]
 
-            if player.lives_left < 1:
+            if player.lives_left < 0:
                 players.remove(player)
                 nets.remove(nets[i])
                 genome_list.remove(genome_list[i])
@@ -309,7 +304,7 @@ def main(genomes="", config=""):
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           log_turtle_groups, WIN)
         add_sprites_to_group(water_lanes, river_group)
-        draw_sprites(render_group, WIN, background, text_timer_box, player_lines)
+        draw_sprites(render_group, WIN, background, player_lines)
 
         # Initialize and render score text
         empty_text = frogger_font.render("Score: 00000", True, BLACK, BLACK)
@@ -321,11 +316,24 @@ def main(genomes="", config=""):
         lives_text = frogger_font.render("Lives: " + str(max_lives), True, WHITE, BLACK)
         background.blit(lives_text, (650, 10))
 
+        # Initialize and render timer
+        empty_text = frogger_font.render("Time: 00", True, BLACK, BLACK)
+        background.blit(empty_text, (355, 10))
+        timer_text = frogger_font.render("Time: " + str(timer), True, WHITE, BLACK)
+        background.blit(timer_text, (355, 10))
+
         if len(players) <= 0:
             run = False
 
         # Iterate the frame counter
         frame_count += 1
+
+        if timer < 1:
+            timer = 30
+
+        # Push a timer event to the event queue every second to iterate the timer
+        if frame_count % 30 == 0:
+            pygame.event.post(timer_event)
 
 
 def run_neat(generations):
@@ -335,11 +343,12 @@ def run_neat(generations):
                                 neat.DefaultStagnation, NEAT_CONFIG)
 
     population = neat.Population(config)
-    # population = neat.checkpoint.Checkpointer.restore_checkpoint("neat-checkpoint-149")
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint("neat-checkpoint-1224")
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
-    checkpointer = neat.checkpoint.Checkpointer(25)
+    checkpoint_file = os.path.join(current_dir, 'Checkpoints', 'neat-checkpoint-')
+    checkpointer = neat.checkpoint.Checkpointer(25, 300, checkpoint_file)
     population.add_reporter(checkpointer)
 
     best = population.run(main, int(generations))

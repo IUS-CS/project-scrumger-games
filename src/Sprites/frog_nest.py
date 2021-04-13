@@ -32,8 +32,9 @@ class FrogNest(pygame.sprite.Sprite):
         else:
             self.rect.x = 710
 
-    def disable(self, win_group, render_group, kill_group, disabled_nests, player):
+    def disable(self, render_group, disabled_nests, player):
         """Called when the player reaches a nest. Disables the nest for the given player."""
+        render_group
         # self.remove(win_group)
         self.image = AssetDictionary.asset_dict["win-frog"]
         self.add(render_group)

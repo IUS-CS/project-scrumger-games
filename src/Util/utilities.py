@@ -46,7 +46,7 @@ def check_win_collisions(player, win_group, render_group, kill_group, disabled_n
     if collide_list:
         for nest in collide_list:
             player.nest(timers[0], nest)
-            nest.disable(win_group, render_group, kill_group, disabled_nests, player)
+            nest.disable(render_group, disabled_nests, player)
 
         if disabled_nests.check_for_win(player):
             player.win_game()

@@ -1,3 +1,5 @@
+import pygame.sprite
+
 from Sprites.turtle import Turtle
 
 
