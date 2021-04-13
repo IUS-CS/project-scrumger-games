@@ -17,7 +17,7 @@ def sprite_despawner(sprite, win):
 
 
 def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, log_turtle_groups, win):
-    """Handle spawning water platforms"""
+    """Handle spawning and animating water platforms"""
 
     # Spawns turtles in lane 1 every 2 seconds, spawning a sinking turtle every 4th spawn
     if framecount % 60 == 0:
@@ -78,7 +78,7 @@ def spawn_water_lanes(framecount, lane1, lane2, lane3, lane4, lane5, log_turtle_
 
 
 def spawn_car_lanes(framecount, carlane1, carlane2, carlane3, carlane4, carlane5, car_groups, win):
-    """Handle spawning car platforms"""
+    """Handle spawning and animating car platforms"""
     # Spawns cars in lane 1 every 4 seconds, skipping every 4th spawn
     if framecount == 0 or (framecount % 120 == 0 and framecount % 360 != 0):
         Car(AssetDictionary.get_asset("car4"), win.get_width() + 1, 750, win).add(carlane1, car_groups)

@@ -48,7 +48,7 @@ def check_win_collisions(player, win_group, render_group, kill_group, disabled_n
             player.nest(timers[0], nest)
             nest.disable(win_group, render_group, kill_group, disabled_nests, player)
 
-        if disabled_nests.check_for_win():
+        if disabled_nests.check_for_win(player):
             player.win_game()
 
 
@@ -83,7 +83,7 @@ def parse_if_training_net(argv):
 
 
 def determine_keypress(index):
-    """Takes the index of the max value of a neural net output layer, and returns the appropriate keypress event"""
+    """Takes the index of the max value of a neural net output layer, and returns the appropriate keypress event."""
     if index == 0:
         return "w"
     elif index == 1:
@@ -97,6 +97,7 @@ def determine_keypress(index):
 
 
 def quit_game(player):
+    """Pushes pygame.QUIT event to the event queue to end the game."""
     pygame.event.post(pygame.event.Event(pygame.QUIT))
     Window.FINAL_SCORE = player.score
     return Window.FINAL_SCORE

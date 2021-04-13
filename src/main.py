@@ -10,6 +10,7 @@ import pygame
 import pygame.locals
 import sys
 import neat
+import pickle
 from Engine.logger import log_game
 from Engine.sprite_renderer import draw_sprites
 from Engine.movement_handler import move_player
@@ -168,12 +169,12 @@ def main(genomes="", config=""):
     FrogNest(5).add(win_group, net_group)
 
     # Initialize sprites for Riverbank
-    Riverbank(0).add(kill_group, net_group)
-    Riverbank(1).add(kill_group, net_group)
-    Riverbank(2).add(kill_group, net_group)
-    Riverbank(3).add(kill_group, net_group)
-    Riverbank(4).add(kill_group, net_group)
-    Riverbank(5).add(kill_group, net_group)
+    Riverbank(0).add(kill_group)
+    Riverbank(1).add(kill_group)
+    Riverbank(2).add(kill_group)
+    Riverbank(3).add(kill_group)
+    Riverbank(4).add(kill_group)
+    Riverbank(5).add(kill_group)
 
     # Initialize sprites for WaterSprite
     river = WaterSprite()
@@ -238,16 +239,17 @@ def main(genomes="", config=""):
             # Neural net logic
             genome_list[i].fitness = player.score
 
-            distance_to_sprite_ahead = player.find_distance_to_sprite("ahead", net_group, player_lines)
-            distance_to_sprite_below = player.find_distance_to_sprite("down", net_group, player_lines)
-            distance_to_left_sprite = player.find_distance_to_sprite("left", net_group, player_lines)
-            distance_to_right_sprite = player.find_distance_to_sprite("right", net_group, player_lines)
-            distance_in_lane_ahead = player.find_sprite_in_next_lane("ahead", net_group, player_lines)
-            distance_in_lane_behind = player.find_sprite_in_next_lane("down", net_group, player_lines)
-
-            frames_since_last_score_increase = frame_count - player.last_score_increase
-
+            # On every 10th frame, allow the neural net to move the frog
             if frame_count % 10 == 0:
+                distance_to_sprite_ahead = player.find_distance_to_sprite("ahead", net_group, player_lines)
+                distance_to_sprite_below = player.find_distance_to_sprite("down", net_group, player_lines)
+                distance_to_left_sprite = player.find_distance_to_sprite("left", net_group, player_lines)
+                distance_to_right_sprite = player.find_distance_to_sprite("right", net_group, player_lines)
+                distance_in_lane_ahead = player.find_sprite_in_next_lane("ahead", net_group, player_lines)
+                distance_in_lane_behind = player.find_sprite_in_next_lane("down", net_group, player_lines)
+
+                frames_since_last_score_increase = frame_count - player.last_score_increase
+
                 # Feed values to the neural net to compute the action to be taken on the current frame
                 output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
                                                                frames_since_last_score_increase, distance_to_sprite_ahead,
@@ -310,7 +312,7 @@ def main(genomes="", config=""):
         add_player_to_water_lane(water_lanes, player)
 
         # Initialize and render score text
-        empty_text = frogger_font.render("Score: 000", True, BLACK, BLACK)
+        empty_text = frogger_font.render("Score: 00000", True, BLACK, BLACK)
         background.blit(empty_text, (20, 10))
         score_text = frogger_font.render("Score: " + str(highest_score), True, WHITE, BLACK)
         background.blit(score_text, (20, 10))
@@ -327,11 +329,13 @@ def main(genomes="", config=""):
 
 
 def run_neat(generations):
+    """This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI."""
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
                                 neat.DefaultStagnation, NEAT_CONFIG)
 
     population = neat.Population(config)
-    # population = neat.checkpoint.Checkpointer.restore_checkpoint("neat-checkpoint-3598")
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint("neat-checkpoint-149")
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
@@ -339,6 +343,11 @@ def run_neat(generations):
     population.add_reporter(checkpointer)
 
     best = population.run(main, int(generations))
+    # If a genome reached our fitness threshold, save it to a file on disk
+    save_path = os.path.join(current_dir, 'best-genome.txt')
+    with open(save_path, 'wb+') as file:
+        pickle.dump(best, file)
+
     print('\nBest genome:\n{!s}'.format(best))
 
 

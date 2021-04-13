@@ -3,8 +3,10 @@ import pygame.sprite
 
 class DisabledNests(pygame.sprite.Group):
 
-    def check_for_win(self):
-        if len(self.sprites()) >= 5:
+    @staticmethod
+    def check_for_win(player):
+        """Returns true if the player has reached all 5 nests."""
+        if len(player.disabled_nests.sprites()) >= 5:
             return True
         else:
             return False

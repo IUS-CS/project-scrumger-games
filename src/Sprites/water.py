@@ -24,6 +24,6 @@ class RiverEdge(pygame.sprite.Sprite):
         self.rect.y = 25
 
         if side == "left":
-            self.rect.x = -50
+            self.rect.x = -60
         else:
-            self.rect.x = 850
+            self.rect.x = 860

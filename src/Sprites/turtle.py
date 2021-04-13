@@ -18,7 +18,7 @@ class Turtle(pygame.sprite.Sprite):
         self.rect.y = y
 
     def next_frame(self, framecount):
-
+        """Determines if the animation should advance a frame, and advances it if so."""
         if framecount - self.last_animation >= self.animation_speed:
 
             self.frame_index += 1

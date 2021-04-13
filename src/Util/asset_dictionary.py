@@ -6,6 +6,8 @@ current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 
 class AssetDictionary:
+    """A static class used for easily accessing the game's assets from any file in the project. Assets are stored
+    as a Python dictionary. When an asset is needed, it should be accessed by the static `get_asset()` method."""
 
     # Load assets into a static dictionary for easy reference
     asset_dict = {
@@ -53,4 +55,5 @@ class AssetDictionary:
 
     @classmethod
     def get_asset(cls, key):
+        """Returns the asset requested by the dictionary key passed to the method."""
         return cls.asset_dict[key]

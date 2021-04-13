@@ -15,6 +15,8 @@ class FrogNest(pygame.sprite.Sprite):
         self.set_pos(pos)
 
     def set_pos(self, pos):
+        """Takes the position argument passed to the constructor and places the nest in the proper slot. Pos = 1
+        represents the left-most nest on the screen and 5 the right-most nest."""
         if pos == 1:
             self.rect.x = 67
 
@@ -31,6 +33,7 @@ class FrogNest(pygame.sprite.Sprite):
             self.rect.x = 710
 
     def disable(self, win_group, render_group, kill_group, disabled_nests, player):
+        """Called when the player reaches a nest. Disables the nest for the given player."""
         # self.remove(win_group)
         self.image = AssetDictionary.asset_dict["win-frog"]
         self.add(render_group)

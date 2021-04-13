@@ -12,11 +12,15 @@ class TurtleSinker(Turtle):
         self.animation_speed = animation_speed
 
     def start_animation(self, framecount, net_group):
+        """Called when the turtle's sinking animation should start."""
         self.animation_started = True
         self.next_frame(framecount, net_group)
 
     def next_frame(self, framecount, net_group):
-
+        """Called on every frame, determines if the turtle's sinking animation should be advanced and advances it
+        if so. Also handles reversing it for the turtle's emerge animation. Additionally, this function handles the
+        removal of a turtle from the net_group used to let the AI 'see' sprites, so the AI knows when a turtle is
+        submerged and not safe to jump on."""
         if self.animation_started:
 
             if not self.submerged and not self.emerging and self.should_animate(framecount):  # start new submerge cycle
@@ -44,16 +48,20 @@ class TurtleSinker(Turtle):
                 self.last_animation = framecount
 
     def last_frame(self):
+        """Called when the turtle is emerging. Advance the animation fram backwards by one."""
         self.frame_index -= 1
         if self.frame_index < 1:
             self.finish_animation()
         self.image = self.frames[self.frame_index]
 
     def finish_animation(self):
+        """Called when the emerge animation is finished. Ensures that all the turtle attributes are reset to the
+        starting state."""
         self.frame_index = 0
         self.animation_started = False
         self.emerging = False
         self.submerged = False
 
     def should_animate(self, framecount):
+        """Determines if the turtle should advance to the next frame based on the animation speed attribute."""
         return framecount - self.last_animation >= self.animation_speed

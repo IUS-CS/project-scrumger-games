@@ -30,33 +30,39 @@ class Player(pygame.sprite.Sprite):
         self.disabled_nests = pygame.sprite.Group()
 
     def nest(self, timer, nest):
+        """Called when the player reaches a nest to return him home and handle the score increase."""
         if self.disabled_nests.has(nest):
             self.kill()
         else:
             self.return_home()
             self.farthest_distance = 900
             self.score += (50 + 2*timer)
-            print(str(self.farthest_distance))
             #pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren't still using the old clock
             #pygame.time.set_timer(pygame.USEREVENT, 1000)
             timer = 30
 
     def win_game(self):
+        """Called when the player reaches all nests and has won the game."""
         self.score += 1000
         for group in self.groups():
             self.remove(group)
         # quit_game(self)
 
     def kill(self):
+        """Called when the player dies. Returns him home, subtracts a life, and subtracts 10 points from his score.
+        Does not subtract points if the player has more than 10."""
         self.return_home()
         self.lives_left -= 1
-        self.score - 10
+        # Avoid negative values - a frog that moves forward and then dies is more fit than one that never moves
+        if self.score > 10:
+            self.score - 10
 
         if self.lives_left < 0:
             print("player final score: " + str(self.score))
             # quit_game(self)
 
     def return_home(self):
+        """Return the player to the starting position, with the starting sprite orientation."""
         self.rect.x = Window.WIN.get_width() / 2
         self.rect.y = Window.WIN.get_height() - self.rect.height - 11
         self.index = 0
@@ -67,6 +73,7 @@ class Player(pygame.sprite.Sprite):
         self.images = [up_image, up_image2]
 
     def set_score(self, frame_count):
+        """Called on every frame. Handles logic determining when the player should receive more points for moving."""
         if self.farthest_distance > self.rect.y > 110:
             self.farthest_distance = self.rect.y
             self.score += 10
@@ -75,6 +82,8 @@ class Player(pygame.sprite.Sprite):
             self.last_score_increase = frame_count
 
     def move(self, key_pressed, frame_count):
+        """Called when the AI decides to move, takes a string containg w, a, s, or d, and moves the player in the
+        corresponding direction."""
         if key_pressed == "w" and self.rect.y > 60:
             self.rect.y -= self.y_vel
         elif key_pressed == "s" and self.rect.y < 800:
