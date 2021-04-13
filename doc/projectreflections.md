@@ -40,9 +40,9 @@ The timer code was straight forward, but getting it to
 countdown and change the numbers
 without just overlapping the numbers was a bit of a challenge. 
 
-The unit tests were challenging to create, but working with John on how he 
-tested the log spawning I was able to create the car-spawning 
-unit test. Creating the start screen and game over screen code to 
+The unit tests were challenging to create, but discussing with my team
+different thoughts I had on how to go about it, I was able to 
+create it. Creating the start screen and game over screen code to 
 was straight forward, but figuring out where they needed to go took 
 some thought. Also, when creating the start screen code I had to determine 
 what action that would cause it to switch from the start screen
