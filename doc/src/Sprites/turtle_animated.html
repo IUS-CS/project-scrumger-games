@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>src.Sprites.turtle_animated API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.Sprites.turtle_animated</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import pygame.sprite
+
+from Sprites.turtle import Turtle
+
+
+class TurtleSinker(Turtle):
+    &#34;&#34;&#34;Pygame sprite class representing an animated turtle&#34;&#34;&#34;
+
+    def __init__(self, frames, frame_spawned_on, x, y, animation_speed=18):
+        &#34;&#34;&#34;
+        - :param frames:
+            A list of images which will be cycled through to animate the turtles.
+        - :param frame_spawned_on:
+            An int representing the frame that the turtle spawned on. Used to handle animation logic.
+        - :param x:
+            The starting x position of the turtle.
+        - :param y:
+            The startying y position of the turtle.
+        - :param animation_speed:
+            Optional. An int representing the speed at which the turtle will be animated. The animator will wait this many frames
+            before advancing the turtle&#39;s animation. Defaults to 18.
+        &#34;&#34;&#34;
+        Turtle.__init__(self, frames, frame_spawned_on, x, y)
+        self.animation_started = False
+        self.submerged = False
+        self.emerging = False
+        self.animation_speed = animation_speed
+
+    def start_animation(self, framecount, net_group):
+        &#34;&#34;&#34;
+        Called when the turtle&#39;s sinking animation should start.
+
+        - :param framecount:
+            An int containing the count of the current frame being rendered.
+        - :param net_group:
+            A pygame Group object containing all of the sprite that we want the neural network to &#34;see&#34;. Passed to a
+            next_frame call so that the turtle can be removed when it is submerged and added back when it has emerged.
+            We don&#39;t want the AI to see the turtle and think it has a safe platform when the turtle is underwater.
+        - :return:
+            None
+        &#34;&#34;&#34;
+        self.animation_started = True
+        self.next_frame(framecount, net_group)
+
+    def next_frame(self, framecount, net_group):
+        &#34;&#34;&#34;
+        Called on every frame, determines if the turtle&#39;s sinking animation should be advanced and advances it
+        if so. Also handles reversing it for the turtle&#39;s emerge animation. Additionally, this function handles the
+        removal of a turtle from the net_group used to let the AI &#39;see&#39; sprites, so the AI knows when a turtle is
+        submerged and not safe to jump on.
+
+        - :param framecount:
+            An int containing the count of the current frame being rendered.
+        - :param net_group:
+            A pygame Group object containing all of the sprite that we want the neural network to &#34;see&#34;. The turtle is
+            removed from this group when it has submerged, and is added back when it emerges.
+        - :return:
+            None
+        &#34;&#34;&#34;
+        if self.animation_started:
+
+            if not self.submerged and not self.emerging and self.should_animate(framecount):  # start new submerge cycle
+                self.frame_index += 1
+                if self.frame_index &gt; 2:  # if at the end of submerge animation, set submerged state
+                    self.submerged = True
+                    self.remove(net_group)
+                    self.image = self.frames[self.frame_index]
+                    self.last_animation = framecount
+                else:                                     # otherwise, advance the animation
+                    self.image = self.frames[self.frame_index]
+                    self.last_animation = framecount
+
+            # turtle is submerged - begin emerge animation
+            elif self.submerged and self.should_animate(framecount):
+                self.submerged = False
+                self.add(net_group)
+                self.emerging = True
+                self.last_frame()
+                self.last_animation = framecount
+
+            # turtle is emerging - play submerge animation backwards
+            elif self.emerging and self.should_animate(framecount):
+                self.last_frame()
+                self.last_animation = framecount
+
+    def last_frame(self):
+        &#34;&#34;&#34;
+        Called when the turtle is emerging. Advance the animation fram backwards by one and call finish_animation when
+        the frame has returned to the initial frame.
+
+        - :return:
+            None
+        &#34;&#34;&#34;
+        self.frame_index -= 1
+        if self.frame_index &lt; 1:
+            self.finish_animation()
+        self.image = self.frames[self.frame_index]
+
+    def finish_animation(self):
+        &#34;&#34;&#34;
+        Called when the emerge animation is finished. Ensures that all the turtle attributes are reset to the
+        initial state.
+
+        - :return:
+            None
+        &#34;&#34;&#34;
+        self.frame_index = 0
+        self.animation_started = False
+        self.emerging = False
+        self.submerged = False
+
+    def should_animate(self, framecount):
+        &#34;&#34;&#34;
+        Determines if the turtle should advance to the next frame based on the animation_speed attribute.
+
+        - :param framecount:
+            An int containing the count of the current frame being rendered
+        - :return:
+            None
+        &#34;&#34;&#34;
+        return framecount - self.last_animation &gt;= self.animation_speed</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="src.Sprites.turtle_animated.TurtleSinker"><code class="flex name class">
+<span>class <span class="ident">TurtleSinker</span></span>
+<span>(</span><span>frames, frame_spawned_on, x, y, animation_speed=18)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pygame sprite class representing an animated turtle</p>
+<ul>
+<li>:param frames:
+A list of images which will be cycled through to animate the turtles.</li>
+<li>:param frame_spawned_on:
+An int representing the frame that the turtle spawned on. Used to handle animation logic.</li>
+<li>:param x:
+The starting x position of the turtle.</li>
+<li>:param y:
+The startying y position of the turtle.</li>
+<li>:param animation_speed:
+Optional. An int representing the speed at which the turtle will be animated. The animator will wait this many frames
+before advancing the turtle's animation. Defaults to 18.</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TurtleSinker(Turtle):
+    &#34;&#34;&#34;Pygame sprite class representing an animated turtle&#34;&#34;&#34;
+
+    def __init__(self, frames, frame_spawned_on, x, y, animation_speed=18):
+        &#34;&#34;&#34;
+        - :param frames:
+            A list of images which will be cycled through to animate the turtles.
+        - :param frame_spawned_on:
+            An int representing the frame that the turtle spawned on. Used to handle animation logic.
+        - :param x:
+            The starting x position of the turtle.
+        - :param y:
+            The startying y position of the turtle.
+        - :param animation_speed:
+            Optional. An int representing the speed at which the turtle will be animated. The animator will wait this many frames
+            before advancing the turtle&#39;s animation. Defaults to 18.
+        &#34;&#34;&#34;
+        Turtle.__init__(self, frames, frame_spawned_on, x, y)
+        self.animation_started = False
+        self.submerged = False
+        self.emerging = False
+        self.animation_speed = animation_speed
+
+    def start_animation(self, framecount, net_group):
+        &#34;&#34;&#34;
+        Called when the turtle&#39;s sinking animation should start.
+
+        - :param framecount:
+            An int containing the count of the current frame being rendered.
+        - :param net_group:
+            A pygame Group object containing all of the sprite that we want the neural network to &#34;see&#34;. Passed to a
+            next_frame call so that the turtle can be removed when it is submerged and added back when it has emerged.
+            We don&#39;t want the AI to see the turtle and think it has a safe platform when the turtle is underwater.
+        - :return:
+            None
+        &#34;&#34;&#34;
+        self.animation_started = True
+        self.next_frame(framecount, net_group)
+
+    def next_frame(self, framecount, net_group):
+        &#34;&#34;&#34;
+        Called on every frame, determines if the turtle&#39;s sinking animation should be advanced and advances it
+        if so. Also handles reversing it for the turtle&#39;s emerge animation. Additionally, this function handles the
+        removal of a turtle from the net_group used to let the AI &#39;see&#39; sprites, so the AI knows when a turtle is
+        submerged and not safe to jump on.
+
+        - :param framecount:
+            An int containing the count of the current frame being rendered.
+        - :param net_group:
+            A pygame Group object containing all of the sprite that we want the neural network to &#34;see&#34;. The turtle is
+            removed from this group when it has submerged, and is added back when it emerges.
+        - :return:
+            None
+        &#34;&#34;&#34;
+        if self.animation_started:
+
+            if not self.submerged and not self.emerging and self.should_animate(framecount):  # start new submerge cycle
+                self.frame_index += 1
+                if self.frame_index &gt; 2:  # if at the end of submerge animation, set submerged state
+                    self.submerged = True
+                    self.remove(net_group)
+                    self.image = self.frames[self.frame_index]
+                    self.last_animation = framecount
+                else:                                     # otherwise, advance the animation
+                    self.image = self.frames[self.frame_index]
+                    self.last_animation = framecount
+
+            # turtle is submerged - begin emerge animation
+            elif self.submerged and self.should_animate(framecount):
+                self.submerged = False
+                self.add(net_group)
+                self.emerging = True
+                self.last_frame()
+                self.last_animation = framecount
+
+            # turtle is emerging - play submerge animation backwards
+            elif self.emerging and self.should_animate(framecount):
+                self.last_frame()
+                self.last_animation = framecount
+
+    def last_frame(self):
+        &#34;&#34;&#34;
+        Called when the turtle is emerging. Advance the animation fram backwards by one and call finish_animation when
+        the frame has returned to the initial frame.
+
+        - :return:
+            None
+        &#34;&#34;&#34;
+        self.frame_index -= 1
+        if self.frame_index &lt; 1:
+            self.finish_animation()
+        self.image = self.frames[self.frame_index]
+
+    def finish_animation(self):
+        &#34;&#34;&#34;
+        Called when the emerge animation is finished. Ensures that all the turtle attributes are reset to the
+        initial state.
+
+        - :return:
+            None
+        &#34;&#34;&#34;
+        self.frame_index = 0
+        self.animation_started = False
+        self.emerging = False
+        self.submerged = False
+
+    def should_animate(self, framecount):
+        &#34;&#34;&#34;
+        Determines if the turtle should advance to the next frame based on the animation_speed attribute.
+
+        - :param framecount:
+            An int containing the count of the current frame being rendered
+        - :return:
+            None
+        &#34;&#34;&#34;
+        return framecount - self.last_animation &gt;= self.animation_speed</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>Sprites.turtle.Turtle</li>
+<li>pygame.sprite.Sprite</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="src.Sprites.turtle_animated.TurtleSinker.finish_animation"><code class="name flex">
+<span>def <span class="ident">finish_animation</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Called when the emerge animation is finished. Ensures that all the turtle attributes are reset to the
+initial state.</p>
+<ul>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def finish_animation(self):
+    &#34;&#34;&#34;
+    Called when the emerge animation is finished. Ensures that all the turtle attributes are reset to the
+    initial state.
+
+    - :return:
+        None
+    &#34;&#34;&#34;
+    self.frame_index = 0
+    self.animation_started = False
+    self.emerging = False
+    self.submerged = False</code></pre>
+</details>
+</dd>
+<dt id="src.Sprites.turtle_animated.TurtleSinker.last_frame"><code class="name flex">
+<span>def <span class="ident">last_frame</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Called when the turtle is emerging. Advance the animation fram backwards by one and call finish_animation when
+the frame has returned to the initial frame.</p>
+<ul>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def last_frame(self):
+    &#34;&#34;&#34;
+    Called when the turtle is emerging. Advance the animation fram backwards by one and call finish_animation when
+    the frame has returned to the initial frame.
+
+    - :return:
+        None
+    &#34;&#34;&#34;
+    self.frame_index -= 1
+    if self.frame_index &lt; 1:
+        self.finish_animation()
+    self.image = self.frames[self.frame_index]</code></pre>
+</details>
+</dd>
+<dt id="src.Sprites.turtle_animated.TurtleSinker.next_frame"><code class="name flex">
+<span>def <span class="ident">next_frame</span></span>(<span>self, framecount, net_group)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Called on every frame, determines if the turtle's sinking animation should be advanced and advances it
+if so. Also handles reversing it for the turtle's emerge animation. Additionally, this function handles the
+removal of a turtle from the net_group used to let the AI 'see' sprites, so the AI knows when a turtle is
+submerged and not safe to jump on.</p>
+<ul>
+<li>:param framecount:
+An int containing the count of the current frame being rendered.</li>
+<li>:param net_group:
+A pygame Group object containing all of the sprite that we want the neural network to "see". The turtle is
+removed from this group when it has submerged, and is added back when it emerges.</li>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def next_frame(self, framecount, net_group):
+    &#34;&#34;&#34;
+    Called on every frame, determines if the turtle&#39;s sinking animation should be advanced and advances it
+    if so. Also handles reversing it for the turtle&#39;s emerge animation. Additionally, this function handles the
+    removal of a turtle from the net_group used to let the AI &#39;see&#39; sprites, so the AI knows when a turtle is
+    submerged and not safe to jump on.
+
+    - :param framecount:
+        An int containing the count of the current frame being rendered.
+    - :param net_group:
+        A pygame Group object containing all of the sprite that we want the neural network to &#34;see&#34;. The turtle is
+        removed from this group when it has submerged, and is added back when it emerges.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    if self.animation_started:
+
+        if not self.submerged and not self.emerging and self.should_animate(framecount):  # start new submerge cycle
+            self.frame_index += 1
+            if self.frame_index &gt; 2:  # if at the end of submerge animation, set submerged state
+                self.submerged = True
+                self.remove(net_group)
+                self.image = self.frames[self.frame_index]
+                self.last_animation = framecount
+            else:                                     # otherwise, advance the animation
+                self.image = self.frames[self.frame_index]
+                self.last_animation = framecount
+
+        # turtle is submerged - begin emerge animation
+        elif self.submerged and self.should_animate(framecount):
+            self.submerged = False
+            self.add(net_group)
+            self.emerging = True
+            self.last_frame()
+            self.last_animation = framecount
+
+        # turtle is emerging - play submerge animation backwards
+        elif self.emerging and self.should_animate(framecount):
+            self.last_frame()
+            self.last_animation = framecount</code></pre>
+</details>
+</dd>
+<dt id="src.Sprites.turtle_animated.TurtleSinker.should_animate"><code class="name flex">
+<span>def <span class="ident">should_animate</span></span>(<span>self, framecount)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines if the turtle should advance to the next frame based on the animation_speed attribute.</p>
+<ul>
+<li>:param framecount:
+An int containing the count of the current frame being rendered</li>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def should_animate(self, framecount):
+    &#34;&#34;&#34;
+    Determines if the turtle should advance to the next frame based on the animation_speed attribute.
+
+    - :param framecount:
+        An int containing the count of the current frame being rendered
+    - :return:
+        None
+    &#34;&#34;&#34;
+    return framecount - self.last_animation &gt;= self.animation_speed</code></pre>
+</details>
+</dd>
+<dt id="src.Sprites.turtle_animated.TurtleSinker.start_animation"><code class="name flex">
+<span>def <span class="ident">start_animation</span></span>(<span>self, framecount, net_group)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Called when the turtle's sinking animation should start.</p>
+<ul>
+<li>:param framecount:
+An int containing the count of the current frame being rendered.</li>
+<li>:param net_group:
+A pygame Group object containing all of the sprite that we want the neural network to "see". Passed to a
+next_frame call so that the turtle can be removed when it is submerged and added back when it has emerged.
+We don't want the AI to see the turtle and think it has a safe platform when the turtle is underwater.</li>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_animation(self, framecount, net_group):
+    &#34;&#34;&#34;
+    Called when the turtle&#39;s sinking animation should start.
+
+    - :param framecount:
+        An int containing the count of the current frame being rendered.
+    - :param net_group:
+        A pygame Group object containing all of the sprite that we want the neural network to &#34;see&#34;. Passed to a
+        next_frame call so that the turtle can be removed when it is submerged and added back when it has emerged.
+        We don&#39;t want the AI to see the turtle and think it has a safe platform when the turtle is underwater.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    self.animation_started = True
+    self.next_frame(framecount, net_group)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src.Sprites" href="index.html">src.Sprites</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="src.Sprites.turtle_animated.TurtleSinker" href="#src.Sprites.turtle_animated.TurtleSinker">TurtleSinker</a></code></h4>
+<ul class="">
+<li><code><a title="src.Sprites.turtle_animated.TurtleSinker.finish_animation" href="#src.Sprites.turtle_animated.TurtleSinker.finish_animation">finish_animation</a></code></li>
+<li><code><a title="src.Sprites.turtle_animated.TurtleSinker.last_frame" href="#src.Sprites.turtle_animated.TurtleSinker.last_frame">last_frame</a></code></li>
+<li><code><a title="src.Sprites.turtle_animated.TurtleSinker.next_frame" href="#src.Sprites.turtle_animated.TurtleSinker.next_frame">next_frame</a></code></li>
+<li><code><a title="src.Sprites.turtle_animated.TurtleSinker.should_animate" href="#src.Sprites.turtle_animated.TurtleSinker.should_animate">should_animate</a></code></li>
+<li><code><a title="src.Sprites.turtle_animated.TurtleSinker.start_animation" href="#src.Sprites.turtle_animated.TurtleSinker.start_animation">start_animation</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
