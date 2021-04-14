@@ -272,11 +272,13 @@ def main(genomes="", config=""):
                                                                distance_in_lane_behind[0], distance_in_lane_behind[1],
                                                                len(player.disabled_nests.sprites())))
 
-                max_node_index = output.index(max(output))
+                # If no node in the output layer is greater than 0.5, the player will do nothing on this frame
+                if max(output) > 0.5:
+                    max_node_index = output.index(max(output))
 
-                # Move the player based on the output of the neural net
-                key_to_press = determine_keypress(max_node_index)
-                player.move(key_to_press, frame_count)
+                    # Move the player based on the output of the neural net
+                    key_to_press = determine_keypress(max_node_index)
+                    player.move(key_to_press, frame_count)
 
             # If the player hasn't moved for 10 seconds or more, kill it
             if frames_since_last_advancement >= 300:

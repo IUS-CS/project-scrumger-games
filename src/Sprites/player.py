@@ -113,7 +113,6 @@ class Player(pygame.sprite.Sprite):
         - :return:
             None
         """
-        self.score += 0.01  # Reward the AI a little bit for staying alive another frame
 
         # If the current position is a new farthest distance, increase the score
         if self.farthest_distance > self.rect.y > 110:
