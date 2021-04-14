@@ -88,7 +88,17 @@ def start_screen():
 
 
 def main(genomes="", config=""):
-    """Main game method containing the main game loop"""
+    """
+    Main game method containing the main game loop. Also handles the logic regarding spawning in all of the
+    players for a training generation and assessing their fitness.
+
+    - :param genomes:
+        Genomes passed in by NEAT-python library.
+    - :param config:
+        Configuration passed in by NEAT-python library.
+    - :return:
+        Exit code
+    """
 
     if not training_flag:
         start_screen()
@@ -344,8 +354,15 @@ def main(genomes="", config=""):
 
 
 def run_neat(generations):
-    """This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
-    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI."""
+    """
+    This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.
+
+    - :param generations:
+        An int representing the number of generations the neural network should be trained for.
+    - :return:
+        None
+    """
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
                                 neat.DefaultStagnation, NEAT_CONFIG)
 

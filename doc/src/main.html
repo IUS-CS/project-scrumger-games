@@ -117,7 +117,17 @@ def start_screen():
 
 
 def main(genomes=&#34;&#34;, config=&#34;&#34;):
-    &#34;&#34;&#34;Main game method containing the main game loop&#34;&#34;&#34;
+    &#34;&#34;&#34;
+    Main game method containing the main game loop. Also handles the logic regarding spawning in all of the
+    players for a training generation and assessing their fitness.
+
+    - :param genomes:
+        Genomes passed in by NEAT-python library.
+    - :param config:
+        Configuration passed in by NEAT-python library.
+    - :return:
+        Exit code
+    &#34;&#34;&#34;
 
     if not training_flag:
         start_screen()
@@ -373,13 +383,21 @@ def main(genomes=&#34;&#34;, config=&#34;&#34;):
 
 
 def run_neat(generations):
-    &#34;&#34;&#34;This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
-    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.&#34;&#34;&#34;
+    &#34;&#34;&#34;
+    This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.
+
+    - :param generations:
+        An int representing the number of generations the neural network should be trained for.
+    - :return:
+        None
+    &#34;&#34;&#34;
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
                                 neat.DefaultStagnation, NEAT_CONFIG)
 
     population = neat.Population(config)
-    # population = neat.checkpoint.Checkpointer.restore_checkpoint(&#34;neat-checkpoint-1224&#34;)
+    # Uncomment the next line to load a checkpoint, change the number after &#39;neat-checkpoint-&#39; to whichever checkpoint number you wish to load
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint(os.path.join(current_dir, &#39;Checkpoints&#39;, &#39;neat-checkpoint-1161&#39;))
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
@@ -415,13 +433,32 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">main</span></span>(<span>genomes='', config='')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Main game method containing the main game loop</p></div>
+<div class="desc"><p>Main game method containing the main game loop. Also handles the logic regarding spawning in all of the
+players for a training generation and assessing their fitness.</p>
+<ul>
+<li>:param genomes:
+Genomes passed in by NEAT-python library.</li>
+<li>:param config:
+Configuration passed in by NEAT-python library.</li>
+<li>:return:
+Exit code</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def main(genomes=&#34;&#34;, config=&#34;&#34;):
-    &#34;&#34;&#34;Main game method containing the main game loop&#34;&#34;&#34;
+    &#34;&#34;&#34;
+    Main game method containing the main game loop. Also handles the logic regarding spawning in all of the
+    players for a training generation and assessing their fitness.
+
+    - :param genomes:
+        Genomes passed in by NEAT-python library.
+    - :param config:
+        Configuration passed in by NEAT-python library.
+    - :return:
+        Exit code
+    &#34;&#34;&#34;
 
     if not training_flag:
         start_screen()
@@ -681,19 +718,33 @@ if __name__ == &#34;__main__&#34;:
 </code></dt>
 <dd>
 <div class="desc"><p>This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
-and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.</p></div>
+and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.</p>
+<ul>
+<li>:param generations:
+An int representing the number of generations the neural network should be trained for.</li>
+<li>:return:
+None</li>
+</ul></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def run_neat(generations):
-    &#34;&#34;&#34;This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
-    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.&#34;&#34;&#34;
+    &#34;&#34;&#34;
+    This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.
+
+    - :param generations:
+        An int representing the number of generations the neural network should be trained for.
+    - :return:
+        None
+    &#34;&#34;&#34;
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
                                 neat.DefaultStagnation, NEAT_CONFIG)
 
     population = neat.Population(config)
-    # population = neat.checkpoint.Checkpointer.restore_checkpoint(&#34;neat-checkpoint-1224&#34;)
+    # Uncomment the next line to load a checkpoint, change the number after &#39;neat-checkpoint-&#39; to whichever checkpoint number you wish to load
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint(os.path.join(current_dir, &#39;Checkpoints&#39;, &#39;neat-checkpoint-1161&#39;))
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
