@@ -3,7 +3,9 @@ import pygame.sprite
 
 
 class Window:
-    """Static window class containing information about the game window."""
+    """
+    Static window class containing information about the game window.
+    """
     WIDTH = 820
     HEIGHT = 876
     WIN = pygame.display.set_mode((WIDTH, HEIGHT))

@@ -5,12 +5,21 @@ from Util.asset_dictionary import AssetDictionary
 
 
 class Player(pygame.sprite.Sprite):
-    """Pygame sprite class representing the player. Constructor should be passed a pygame LayeredUpdates object to
+    """
+    Pygame sprite class representing the player. Constructor should be passed a pygame LayeredUpdates object to
     which the Player object will be added. By default, this class will get the list of image assets used for animating
     the frog's jump, but a different list of two image assets can be passed. The frog will animate between these
-    two images when the player (not the AI) moves the frog."""
+    two images when the player (not the AI) moves the frog.
+    """
 
     def __init__(self, render_group, images=AssetDictionary.get_asset("player")):
+        """
+        - :param render_group:
+            The pygame Group object containing all of the sprites to be rendered on the current frame
+        - :param images:
+            Optional. A list of image assets between which the sprite will animate when a human player moves the frog.
+            Defaults to the "player" image asset found in the asset dictionary in utilities.
+        """
         pygame.sprite.Sprite.__init__(self)
         self.images = images
         self.rect = self.images[0].get_rect()
@@ -32,7 +41,16 @@ class Player(pygame.sprite.Sprite):
         self.disabled_nests = pygame.sprite.Group()
 
     def nest(self, timer, nest):
-        """Called when the player reaches a nest to return him home and handle the score increase."""
+        """
+        Called when the player reaches a nest to return him home and handle the score increase.
+
+        - :param timer:
+            An int representing the current timer value.
+        - :param nest:
+            A Nest object, should be the nest that the player reached to trigger this method to be called
+        - :return:
+            None
+        """
         if self.disabled_nests.has(nest):
             self.kill()
         else:
@@ -46,15 +64,25 @@ class Player(pygame.sprite.Sprite):
             self.disabled_nests.add(nest)
 
     def win_game(self):
-        """Called when the player reaches all nests and has won the game."""
+        """
+        Called when the player reaches all nests and has won the game. Adds 2000 to the player's score and removes them
+        from all groups they are in so they will no longer be rendered.
+
+        - :return:
+            None
+        """
         self.score += 2000
         for group in self.groups():
             self.remove(group)
         # quit_game(self)
 
     def kill(self):
-        """Called when the player dies. Returns him home, subtracts a life, and subtracts 10 points from his score.
-        Does not subtract points if the player has more than 10."""
+        """
+        Called when the player dies. Returns him home, and subtracts a life from his life_count.
+
+        - :return:
+            None
+        """
         self.return_home()
         self.lives_left -= 1
 
@@ -63,7 +91,12 @@ class Player(pygame.sprite.Sprite):
         #     quit_game(self)
 
     def return_home(self):
-        """Return the player to the starting position, with the starting sprite orientation."""
+        """
+        Return the player to the starting position, with the starting sprite orientation.
+
+        - :return:
+            None
+        """
         self.rect.x = Window.WIN.get_width() / 2
         self.rect.y = Window.WIN.get_height() - self.rect.height - 11
         self.index = 0
@@ -74,7 +107,12 @@ class Player(pygame.sprite.Sprite):
         self.images = [up_image, up_image2]
 
     def set_score(self):
-        """Called on every frame. Handles logic determining when the player should receive more points for moving."""
+        """
+        Called on every frame. Handles the logic determining when the player should receive more points for moving.
+
+        - :return:
+            None
+        """
         self.score += 0.01  # Reward the AI a little bit for staying alive another frame
 
         # If the current position is a new farthest distance, increase the score
@@ -85,8 +123,18 @@ class Player(pygame.sprite.Sprite):
                 self.score += 10
 
     def move(self, key_pressed, frame_count):
-        """Called when the AI computes an output layer, takes a string containing w, a, s, or d, and moves the player
-         in the corresponding direction. If any other input is passed, the player won't move at all."""
+        """
+        Called when the AI computes an output layer. Takes a string containing w, a, s, or d, and moves the player
+        in the corresponding direction. If any other input is passed, the player won't move at all.
+
+        - :param key_pressed:
+            A string that should contain w, a, s, or d corresponding to the desired direction to move. Anything else
+            causes the player to do nothing.
+        - :param frame_count:
+            An int representing the current frame count of the game.
+        - :return:
+            None
+        """
         if key_pressed == "w" and self.rect.y > 60:
             self.rect.y -= self.y_vel
             self.last_advancement = frame_count
@@ -100,13 +148,27 @@ class Player(pygame.sprite.Sprite):
             return
 
     def find_distance_to_sprite(self, direction, sprites, player_lines=[]):
-        """Find the distance to the nearest sprite in a given direction. Calculates from the center point of the
+        """
+        Find the distance to the nearest sprite in a given direction. Calculates from the center point of the
         player to the sprite.rect.x or sprite.rect.y coordinate of the nearest sprite. Whether x or y is used depends
         on whether the direction being computed is vertical or horizontal - y for up or down and x for left or right.
         Parameter direction should be a string containing 'ahead', 'down', 'left', or 'right' indicating the
         direction we wish to scan. Sprites should be a list of all the sprites that we want to 'see', which will be
         iterated over to scan for a sprite in the given direction. The player_lines parameter can be used to draw
-        lines to the sprite for debugging, but defaults to empty."""
+        lines to the sprite for debugging, but defaults to empty.
+
+        - :param direction:
+            A string containing the direction to be searched. Should be "ahead", "down", "left", or "right". Anything else,
+            and the function will return nothing.
+        - :param sprites:
+            A pygame Group object containing the sprites to be searched. Should be the Group object used for the AI to "see"
+            other sprites.
+        - :param player_lines:
+            Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
+            in order to render the collision lines for debugging purposes.
+        - :return:
+            None
+        """
         # Player's current position will be the start point of a line that is used to check the nearest sprite
         player_x = self.rect.center[0]
         player_y = self.rect.center[1]
@@ -181,10 +243,24 @@ class Player(pygame.sprite.Sprite):
             return distance_to_nearest
 
     def find_sprite_in_next_lane(self, direction, sprites, player_lines=[]):
-        """Find the distance to the nearest sprite in the lane ahead or the lane behind the player. Returns a tuple
+        """
+        Find the distance to the nearest sprite in the lane ahead or the lane behind the player. Returns a tuple
         containing the distance in the corresponding lane to the edge of the closest sprite on the left,
         and the closest sprite on the right, respectively. These distances will be measured from the x position of the
-        center of the player rect."""
+        center of the player rect.
+
+        - :param direction:
+            A string indicating whether the lane ahead is being searched or the lane behind. Should be "ahead" or "down".
+            Anything else, and the method won't return anything.
+        - :param sprites:
+            A pygame Group object containing the sprites to be searched. Should be the Group object used for the AI to "see"
+            other sprites.
+        - :param player_lines:
+            Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
+            in order to render the collision lines for debugging purposes.
+        - :return:
+            None
+        """
 
         startpoint_x = self.rect.center[0]
 

@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>src.main API documentation</title>
+<meta name="description" content="This module will contain the main high level functions of the game, as well as the main game loop" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.main</code></h1>
+</header>
+<section id="section-intro">
+<p>This module will contain the main high level functions of the game, as well as the main game loop</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># File: main.py
+# Authors: John Cooke, Zion Emond, Alex Stiner
+# Since: 2/12/2021
+# This file contains the main game loop and will initialize all the game systems
+&#34;&#34;&#34;
+This module will contain the main high level functions of the game, as well as the main game loop
+&#34;&#34;&#34;
+import os
+import pygame
+import pygame.locals
+import sys
+import neat
+import pickle
+from Engine.logger import log_game
+from Engine.sprite_renderer import draw_sprites
+from Engine.movement_handler import move_player
+from Engine.obstacle_spawner import spawn_water_lanes, spawn_car_lanes
+from Engine.sprite_animator import animate_sprites
+from Sprites.Groups.river_sprites import RiverSprites
+from Util.utilities import check_kill_collisions, check_win_collisions, add_sprites_to_group, \
+    add_player_to_water_lane, parse_if_training_net, determine_keypress
+from Engine.gameover import game_over
+from Util.asset_dictionary import AssetDictionary
+from Util.window import Window
+from Sprites.player import Player
+from Sprites.car import Car
+from Sprites.log import Log
+from Sprites.frog_nest import FrogNest
+from Sprites.riverbank import Riverbank
+from Sprites.turtle import Turtle
+from Sprites.water import WaterSprite, RiverEdge
+from Sprites.turtle_animated import TurtleSinker
+from Sprites.Groups.death_sprites import DeathSprites
+from Sprites.Groups.nests import DisabledNests
+
+WIN = Window.WIN
+pygame.display.set_caption(&#34;The Froggerithm&#34;)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+FPS = 30
+current_dir = os.path.dirname(os.path.abspath(__file__))
+NEAT_CONFIG = os.path.join(current_dir, &#34;neat_config.txt&#34;)
+training_flag = parse_if_training_net(sys.argv)
+
+# Load background image
+background_image = pygame.image.load(os.path.join(current_dir, &#34;Assets/Images&#34;, &#34;background.png&#34;))
+background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIGHT))
+
+MOVEMENT_DISTANCE_X = AssetDictionary.get_asset(&#34;frog&#34;).get_width() + 4
+MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset(&#34;frog&#34;).get_height() + 12
+
+def text_ob(text, font, color):
+    textforscreen = font.render(text, True, color)
+    return textforscreen, textforscreen.get_rect()
+
+
+def start_screen():
+    &#34;&#34;&#34;
+    Renders the start screen until the player clicks to start the game. Should only appear if the AI is not being trained.
+
+    :return: None
+    &#34;&#34;&#34;
+    start = True
+    while start:
+        # Initialize font before beginning of game
+        pygame.font.init()
+
+        # Start Screen
+        blue = pygame.Color(0, 0, 255)
+        aqua = pygame.Color(0, 255, 255)
+
+        # When mouse or key is pressed end Start Screen
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+                start = False
+
+        # Fill in Start Screen with color and text
+        WIN.fill(BLACK)
+        text = pygame.font.SysFont(&#39;Times New Roman&#39;, 100)
+        Text, TextRect = text_ob(&#34;The Froggerithm&#34;, text, WHITE)
+        text2 = pygame.font.SysFont(&#39;Times New Roman&#39;, 35)
+        Text2, TextRect2 = text_ob(&#34;Click on the Screen to Start the Game&#34;, text2, aqua)
+        TextRect.center = ((Window.WIDTH / 2), (Window.HEIGHT / 2))
+        TextRect2.center = (((Window.WIDTH) / 2), ((Window.HEIGHT + 200) / 2))
+        WIN.blit(Text, TextRect)
+        WIN.blit(Text2, TextRect2)
+        pygame.display.update()
+
+
+def main(genomes=&#34;&#34;, config=&#34;&#34;):
+    &#34;&#34;&#34;Main game method containing the main game loop&#34;&#34;&#34;
+
+    if not training_flag:
+        start_screen()
+
+    timer = 30
+    timer_text = str(timer).rjust(5)
+    pygame.init()
+    pygame.mixer.init()
+    log_game()
+    player_lines = []
+
+    WIN.blit(background, (0, 0))
+    frame_count = 0
+
+    # Load the sounds
+    if not training_flag:
+        hop_sound = pygame.mixer.Sound(&#34;src/Assets/Sounds/hop.wav&#34;)
+        pygame.mixer.music.load(&#34;src/Assets/Sounds/Frogger_music.mp3&#34;)
+        pygame.mixer.music.play(-1)  # Loops the music indefinitely
+
+    # Initialize on-screen text
+    pygame.font.init()
+    frogger_font = pygame.font.SysFont(&#34;Consolas&#34;, 30)
+
+    # Initialize sprite groups
+    render_group = pygame.sprite.LayeredUpdates()
+    kill_group = DeathSprites()
+    win_group = pygame.sprite.Group()
+    disabled_nests = DisabledNests()
+    river_group = RiverSprites()
+    net_group = pygame.sprite.Group()  # A group used for any sprites we want the neural net to see
+
+    # A list of sprite groups that all logs and turtles should go in
+    log_turtle_groups = [render_group, net_group]
+    # A list of sprite groups that all cars should go in
+    car_groups = [render_group, net_group, kill_group]
+
+    # Initialize sprite groups for the water &#34;lanes&#34;
+    water_lane1 = pygame.sprite.Group()
+    water_lane2 = pygame.sprite.Group()
+    water_lane3 = pygame.sprite.Group()
+    water_lane4 = pygame.sprite.Group()
+    water_lane5 = pygame.sprite.Group()
+    water_lanes = [water_lane1, water_lane2, water_lane3, water_lane4, water_lane5]
+
+    # Initialize logs and turtles already on the screen at game start
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 779, 308).add(water_lane2, log_turtle_groups)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 539, 308).add(water_lane2, log_turtle_groups)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 299, 308).add(water_lane2, log_turtle_groups)
+
+    TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), -30, -79, 372).add(water_lane1, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), frame_count, 221, 372).add(water_lane1, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), frame_count, 521, 372).add(water_lane1, log_turtle_groups)
+
+    Log(AssetDictionary.get_asset(&#34;log-long&#34;), 425, 244).add(water_lane3, render_group, log_turtle_groups)
+
+    TurtleSinker(AssetDictionary.get_asset(&#34;double-turtle-sink&#34;), -30, 0, 180).add(water_lane4, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), frame_count, 270, 180).add(water_lane4, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), frame_count, 540, 180).add(water_lane4, log_turtle_groups)
+
+    Log(AssetDictionary.get_asset(&#34;log-medium&#34;), 219, 116).add(water_lane5, log_turtle_groups)
+    Log(AssetDictionary.get_asset(&#34;log-medium&#34;), 719, 116).add(water_lane5, log_turtle_groups)
+
+    # Initialize sprite groups for the car lanes
+    car_lane1 = pygame.sprite.Group()
+    car_lane2 = pygame.sprite.Group()
+    car_lane3 = pygame.sprite.Group()
+    car_lane4 = pygame.sprite.Group()
+    car_lane5 = pygame.sprite.Group()
+
+    # Initialize the cars at start of game
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), WIN.get_width() - 500, 750, WIN).add(car_lane1, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), WIN.get_width() - 260, 750, WIN).add(car_lane1, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 660, 700, WIN).add(car_lane2, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 300, 700, WIN).add(car_lane2, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car2&#34;), WIN.get_width() - 400, 630, WIN).add(car_lane3, car_groups)
+    Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), WIN.get_width() - 360, 500, WIN).add(car_lane5, car_groups)
+
+    # Initialize sprites for Frog
+    # player = Player(render_group)
+    FrogNest(1).add(win_group, net_group)
+    FrogNest(2).add(win_group, net_group)
+    FrogNest(3).add(win_group, net_group)
+    FrogNest(4).add(win_group, net_group)
+    FrogNest(5).add(win_group, net_group)
+
+    # Initialize sprites for Riverbank
+    Riverbank(0).add(kill_group)
+    Riverbank(1).add(kill_group)
+    Riverbank(2).add(kill_group)
+    Riverbank(3).add(kill_group)
+    Riverbank(4).add(kill_group)
+    Riverbank(5).add(kill_group)
+
+    # Initialize sprites for WaterSprite
+    river = WaterSprite()
+    river.add(river_group)
+
+    # Initialize sprites on the edges of the river for checking if the player is offscreen
+    RiverEdge(&#34;left&#34;).add(kill_group)
+    RiverEdge(&#34;right&#34;).add(kill_group)
+
+    clock = pygame.time.Clock()
+
+    # Create counter, timer and fonts for timer, counter
+    timer_event = pygame.event.Event(pygame.USEREVENT, {})
+    # pygame.time.set_timer(timer_event, 1000)
+    text_font = pygame.font.SysFont(&#39;Times New Roman&#39;, 35)
+
+    # Initialize genomes and neural networks if flag is set
+    if training_flag:
+        nets = []
+        players = []
+        genome_list = []
+
+        for genome_id, genome in genomes:
+            genome.fitness = 0
+            net = neat.nn.FeedForwardNetwork.create(genome, config)
+            nets.append(net)
+            players.append(Player(render_group))
+            genome_list.append(genome)
+
+    run = True
+
+    # Main game loop
+    while run:
+        if not training_flag:  # If training the AI, let the game use all compute overhead
+            clock.tick(FPS)
+        max_lives = 0
+        highest_score = 0
+        # keypress = False
+        # while not keypress:
+        #     for game_event in pygame.event.get():
+        #         if game_event.type == pygame.KEYDOWN:
+        #             keypress = True
+
+        for game_event in pygame.event.get():
+            if game_event.type == pygame.QUIT:
+                run = False
+
+            # Timer for player to complete game
+            if game_event == timer_event:
+                timer -= 1
+                timer_text = str(timer).rjust(5)
+
+        for i, player in enumerate(players):
+            # Begin neural net logic
+            genome_list[i].fitness = player.score
+
+            # If the timer has hit zero, kill the player before letting it compute its move
+            if timer &lt; 1:
+                player.kill()
+
+            # On every 10th frame, allow the neural net to move the frog
+            if frame_count % 10 == 0:
+                distance_to_sprite_ahead = player.find_distance_to_sprite(&#34;ahead&#34;, net_group, player_lines)
+                distance_to_sprite_below = player.find_distance_to_sprite(&#34;down&#34;, net_group, player_lines)
+                distance_to_left_sprite = player.find_distance_to_sprite(&#34;left&#34;, net_group, player_lines)
+                distance_to_right_sprite = player.find_distance_to_sprite(&#34;right&#34;, net_group, player_lines)
+                distance_in_lane_ahead = player.find_sprite_in_next_lane(&#34;ahead&#34;, net_group, player_lines)
+                distance_in_lane_behind = player.find_sprite_in_next_lane(&#34;down&#34;, net_group, player_lines)
+
+                frames_since_last_advancement = frame_count - player.last_advancement
+
+                # Feed values to the neural net to compute the action to be taken on the current frame
+                output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
+                                                               frames_since_last_advancement, distance_to_sprite_ahead,
+                                                               distance_to_sprite_below, distance_to_left_sprite,
+                                                               distance_to_right_sprite, player.on_sinking_turtle,
+                                                               distance_in_lane_ahead[0], distance_in_lane_ahead[1],
+                                                               distance_in_lane_behind[0], distance_in_lane_behind[1],
+                                                               len(player.disabled_nests.sprites())))
+
+                max_node_index = output.index(max(output))
+
+                # Move the player based on the output of the neural net
+                key_to_press = determine_keypress(max_node_index)
+                player.move(key_to_press, frame_count)
+
+            # If the player hasn&#39;t moved for 10 seconds or more, kill it
+            if frames_since_last_advancement &gt;= 300:
+                player.kill()
+            # End neural net logic
+
+            # Handle player logic that does not involve neural net
+            check_kill_collisions(player, kill_group)
+            check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, timer)
+            river_group.check_if_sunk(player, river)
+            add_player_to_water_lane(water_lanes, player)
+            player.set_score()
+            animate_sprites(water_lane1, water_lane4, frame_count, net_group)
+
+            # Input handling for movement
+            # for game_event in pygame.event.get():
+            #     if game_event.type == pygame.KEYDOWN and player.can_move:
+            #         player.can_move = False
+            #         key_depressed = game_event.key
+            #         move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+            #         player.index = 1
+            #         player.image = player.images[player.index]
+            #     if game_event.type == pygame.KEYUP:
+            #         player.can_move = True
+            #         player.index = 0
+            #         player.image = player.images[player.index]
+
+            if player.lives_left &lt; 0:
+                players.remove(player)
+                nets.remove(nets[i])
+                genome_list.remove(genome_list[i])
+
+            if player.score &gt; highest_score:
+                highest_score = player.score
+
+            if player.lives_left &gt; max_lives:
+                max_lives = player.lives_left
+
+        # Handle all logic that does not involve the player that must be done on every frame
+        spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
+                        car_groups, WIN)
+        spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
+                          log_turtle_groups, WIN)
+        add_sprites_to_group(water_lanes, river_group)
+        draw_sprites(render_group, WIN, background)
+
+        # Initialize and render score text
+        empty_text = frogger_font.render(&#34;Score: 00000&#34;, True, BLACK, BLACK)
+        background.blit(empty_text, (20, 10))
+        score_text = frogger_font.render(&#34;Score: &#34; + str(int(highest_score)), True, WHITE, BLACK)
+        background.blit(score_text, (20, 10))
+
+        # Initialize and render lives left
+        lives_text = frogger_font.render(&#34;Lives: &#34; + str(max_lives), True, WHITE, BLACK)
+        background.blit(lives_text, (650, 10))
+
+        # Initialize and render timer
+        empty_text = frogger_font.render(&#34;Time: 00&#34;, True, BLACK, BLACK)
+        background.blit(empty_text, (355, 10))
+        timer_text = frogger_font.render(&#34;Time: &#34; + str(timer), True, WHITE, BLACK)
+        background.blit(timer_text, (355, 10))
+
+        if len(players) &lt;= 0:
+            run = False
+
+        # Iterate the frame counter
+        frame_count += 1
+
+        if timer &lt; 1:
+            timer = 30
+
+        # Push a timer event to the event queue every second to iterate the timer
+        if frame_count % 30 == 0:
+            pygame.event.post(timer_event)
+
+
+def run_neat(generations):
+    &#34;&#34;&#34;This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.&#34;&#34;&#34;
+    config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
+                                neat.DefaultStagnation, NEAT_CONFIG)
+
+    population = neat.Population(config)
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint(&#34;neat-checkpoint-1224&#34;)
+    population.add_reporter(neat.StdOutReporter(True))
+    stats = neat.StatisticsReporter()
+    population.add_reporter(stats)
+    checkpoint_file = os.path.join(current_dir, &#39;Checkpoints&#39;, &#39;neat-checkpoint-&#39;)
+    checkpointer = neat.checkpoint.Checkpointer(25, 300, checkpoint_file)
+    population.add_reporter(checkpointer)
+
+    best = population.run(main, int(generations))
+    # If a genome reached our fitness threshold, save it to a file on disk
+    save_path = os.path.join(current_dir, &#39;best-genome.txt&#39;)
+    with open(save_path, &#39;wb+&#39;) as file:
+        pickle.dump(best, file)
+
+    print(&#39;\nBest genome:\n{!s}&#39;.format(best))
+
+
+if __name__ == &#34;__main__&#34;:
+    if training_flag:
+        run_neat(training_flag)
+    else:
+        main()
+        game_over()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.main.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>genomes='', config='')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Main game method containing the main game loop</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main(genomes=&#34;&#34;, config=&#34;&#34;):
+    &#34;&#34;&#34;Main game method containing the main game loop&#34;&#34;&#34;
+
+    if not training_flag:
+        start_screen()
+
+    timer = 30
+    timer_text = str(timer).rjust(5)
+    pygame.init()
+    pygame.mixer.init()
+    log_game()
+    player_lines = []
+
+    WIN.blit(background, (0, 0))
+    frame_count = 0
+
+    # Load the sounds
+    if not training_flag:
+        hop_sound = pygame.mixer.Sound(&#34;src/Assets/Sounds/hop.wav&#34;)
+        pygame.mixer.music.load(&#34;src/Assets/Sounds/Frogger_music.mp3&#34;)
+        pygame.mixer.music.play(-1)  # Loops the music indefinitely
+
+    # Initialize on-screen text
+    pygame.font.init()
+    frogger_font = pygame.font.SysFont(&#34;Consolas&#34;, 30)
+
+    # Initialize sprite groups
+    render_group = pygame.sprite.LayeredUpdates()
+    kill_group = DeathSprites()
+    win_group = pygame.sprite.Group()
+    disabled_nests = DisabledNests()
+    river_group = RiverSprites()
+    net_group = pygame.sprite.Group()  # A group used for any sprites we want the neural net to see
+
+    # A list of sprite groups that all logs and turtles should go in
+    log_turtle_groups = [render_group, net_group]
+    # A list of sprite groups that all cars should go in
+    car_groups = [render_group, net_group, kill_group]
+
+    # Initialize sprite groups for the water &#34;lanes&#34;
+    water_lane1 = pygame.sprite.Group()
+    water_lane2 = pygame.sprite.Group()
+    water_lane3 = pygame.sprite.Group()
+    water_lane4 = pygame.sprite.Group()
+    water_lane5 = pygame.sprite.Group()
+    water_lanes = [water_lane1, water_lane2, water_lane3, water_lane4, water_lane5]
+
+    # Initialize logs and turtles already on the screen at game start
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 779, 308).add(water_lane2, log_turtle_groups)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 539, 308).add(water_lane2, log_turtle_groups)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 299, 308).add(water_lane2, log_turtle_groups)
+
+    TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), -30, -79, 372).add(water_lane1, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), frame_count, 221, 372).add(water_lane1, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), frame_count, 521, 372).add(water_lane1, log_turtle_groups)
+
+    Log(AssetDictionary.get_asset(&#34;log-long&#34;), 425, 244).add(water_lane3, render_group, log_turtle_groups)
+
+    TurtleSinker(AssetDictionary.get_asset(&#34;double-turtle-sink&#34;), -30, 0, 180).add(water_lane4, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), frame_count, 270, 180).add(water_lane4, log_turtle_groups)
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), frame_count, 540, 180).add(water_lane4, log_turtle_groups)
+
+    Log(AssetDictionary.get_asset(&#34;log-medium&#34;), 219, 116).add(water_lane5, log_turtle_groups)
+    Log(AssetDictionary.get_asset(&#34;log-medium&#34;), 719, 116).add(water_lane5, log_turtle_groups)
+
+    # Initialize sprite groups for the car lanes
+    car_lane1 = pygame.sprite.Group()
+    car_lane2 = pygame.sprite.Group()
+    car_lane3 = pygame.sprite.Group()
+    car_lane4 = pygame.sprite.Group()
+    car_lane5 = pygame.sprite.Group()
+
+    # Initialize the cars at start of game
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), WIN.get_width() - 500, 750, WIN).add(car_lane1, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), WIN.get_width() - 260, 750, WIN).add(car_lane1, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 660, 700, WIN).add(car_lane2, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 300, 700, WIN).add(car_lane2, car_groups)
+    Car(AssetDictionary.get_asset(&#34;car2&#34;), WIN.get_width() - 400, 630, WIN).add(car_lane3, car_groups)
+    Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), WIN.get_width() - 360, 500, WIN).add(car_lane5, car_groups)
+
+    # Initialize sprites for Frog
+    # player = Player(render_group)
+    FrogNest(1).add(win_group, net_group)
+    FrogNest(2).add(win_group, net_group)
+    FrogNest(3).add(win_group, net_group)
+    FrogNest(4).add(win_group, net_group)
+    FrogNest(5).add(win_group, net_group)
+
+    # Initialize sprites for Riverbank
+    Riverbank(0).add(kill_group)
+    Riverbank(1).add(kill_group)
+    Riverbank(2).add(kill_group)
+    Riverbank(3).add(kill_group)
+    Riverbank(4).add(kill_group)
+    Riverbank(5).add(kill_group)
+
+    # Initialize sprites for WaterSprite
+    river = WaterSprite()
+    river.add(river_group)
+
+    # Initialize sprites on the edges of the river for checking if the player is offscreen
+    RiverEdge(&#34;left&#34;).add(kill_group)
+    RiverEdge(&#34;right&#34;).add(kill_group)
+
+    clock = pygame.time.Clock()
+
+    # Create counter, timer and fonts for timer, counter
+    timer_event = pygame.event.Event(pygame.USEREVENT, {})
+    # pygame.time.set_timer(timer_event, 1000)
+    text_font = pygame.font.SysFont(&#39;Times New Roman&#39;, 35)
+
+    # Initialize genomes and neural networks if flag is set
+    if training_flag:
+        nets = []
+        players = []
+        genome_list = []
+
+        for genome_id, genome in genomes:
+            genome.fitness = 0
+            net = neat.nn.FeedForwardNetwork.create(genome, config)
+            nets.append(net)
+            players.append(Player(render_group))
+            genome_list.append(genome)
+
+    run = True
+
+    # Main game loop
+    while run:
+        if not training_flag:  # If training the AI, let the game use all compute overhead
+            clock.tick(FPS)
+        max_lives = 0
+        highest_score = 0
+        # keypress = False
+        # while not keypress:
+        #     for game_event in pygame.event.get():
+        #         if game_event.type == pygame.KEYDOWN:
+        #             keypress = True
+
+        for game_event in pygame.event.get():
+            if game_event.type == pygame.QUIT:
+                run = False
+
+            # Timer for player to complete game
+            if game_event == timer_event:
+                timer -= 1
+                timer_text = str(timer).rjust(5)
+
+        for i, player in enumerate(players):
+            # Begin neural net logic
+            genome_list[i].fitness = player.score
+
+            # If the timer has hit zero, kill the player before letting it compute its move
+            if timer &lt; 1:
+                player.kill()
+
+            # On every 10th frame, allow the neural net to move the frog
+            if frame_count % 10 == 0:
+                distance_to_sprite_ahead = player.find_distance_to_sprite(&#34;ahead&#34;, net_group, player_lines)
+                distance_to_sprite_below = player.find_distance_to_sprite(&#34;down&#34;, net_group, player_lines)
+                distance_to_left_sprite = player.find_distance_to_sprite(&#34;left&#34;, net_group, player_lines)
+                distance_to_right_sprite = player.find_distance_to_sprite(&#34;right&#34;, net_group, player_lines)
+                distance_in_lane_ahead = player.find_sprite_in_next_lane(&#34;ahead&#34;, net_group, player_lines)
+                distance_in_lane_behind = player.find_sprite_in_next_lane(&#34;down&#34;, net_group, player_lines)
+
+                frames_since_last_advancement = frame_count - player.last_advancement
+
+                # Feed values to the neural net to compute the action to be taken on the current frame
+                output = nets[players.index(player)].activate((player.rect.x, player.rect.y,
+                                                               frames_since_last_advancement, distance_to_sprite_ahead,
+                                                               distance_to_sprite_below, distance_to_left_sprite,
+                                                               distance_to_right_sprite, player.on_sinking_turtle,
+                                                               distance_in_lane_ahead[0], distance_in_lane_ahead[1],
+                                                               distance_in_lane_behind[0], distance_in_lane_behind[1],
+                                                               len(player.disabled_nests.sprites())))
+
+                max_node_index = output.index(max(output))
+
+                # Move the player based on the output of the neural net
+                key_to_press = determine_keypress(max_node_index)
+                player.move(key_to_press, frame_count)
+
+            # If the player hasn&#39;t moved for 10 seconds or more, kill it
+            if frames_since_last_advancement &gt;= 300:
+                player.kill()
+            # End neural net logic
+
+            # Handle player logic that does not involve neural net
+            check_kill_collisions(player, kill_group)
+            check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, timer)
+            river_group.check_if_sunk(player, river)
+            add_player_to_water_lane(water_lanes, player)
+            player.set_score()
+            animate_sprites(water_lane1, water_lane4, frame_count, net_group)
+
+            # Input handling for movement
+            # for game_event in pygame.event.get():
+            #     if game_event.type == pygame.KEYDOWN and player.can_move:
+            #         player.can_move = False
+            #         key_depressed = game_event.key
+            #         move_player(player, key_depressed, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y)
+            #         player.index = 1
+            #         player.image = player.images[player.index]
+            #     if game_event.type == pygame.KEYUP:
+            #         player.can_move = True
+            #         player.index = 0
+            #         player.image = player.images[player.index]
+
+            if player.lives_left &lt; 0:
+                players.remove(player)
+                nets.remove(nets[i])
+                genome_list.remove(genome_list[i])
+
+            if player.score &gt; highest_score:
+                highest_score = player.score
+
+            if player.lives_left &gt; max_lives:
+                max_lives = player.lives_left
+
+        # Handle all logic that does not involve the player that must be done on every frame
+        spawn_car_lanes(frame_count, car_lane1, car_lane2, car_lane3, car_lane4, car_lane5,
+                        car_groups, WIN)
+        spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
+                          log_turtle_groups, WIN)
+        add_sprites_to_group(water_lanes, river_group)
+        draw_sprites(render_group, WIN, background)
+
+        # Initialize and render score text
+        empty_text = frogger_font.render(&#34;Score: 00000&#34;, True, BLACK, BLACK)
+        background.blit(empty_text, (20, 10))
+        score_text = frogger_font.render(&#34;Score: &#34; + str(int(highest_score)), True, WHITE, BLACK)
+        background.blit(score_text, (20, 10))
+
+        # Initialize and render lives left
+        lives_text = frogger_font.render(&#34;Lives: &#34; + str(max_lives), True, WHITE, BLACK)
+        background.blit(lives_text, (650, 10))
+
+        # Initialize and render timer
+        empty_text = frogger_font.render(&#34;Time: 00&#34;, True, BLACK, BLACK)
+        background.blit(empty_text, (355, 10))
+        timer_text = frogger_font.render(&#34;Time: &#34; + str(timer), True, WHITE, BLACK)
+        background.blit(timer_text, (355, 10))
+
+        if len(players) &lt;= 0:
+            run = False
+
+        # Iterate the frame counter
+        frame_count += 1
+
+        if timer &lt; 1:
+            timer = 30
+
+        # Push a timer event to the event queue every second to iterate the timer
+        if frame_count % 30 == 0:
+            pygame.event.post(timer_event)</code></pre>
+</details>
+</dd>
+<dt id="src.main.run_neat"><code class="name flex">
+<span>def <span class="ident">run_neat</span></span>(<span>generations)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run_neat(generations):
+    &#34;&#34;&#34;This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.&#34;&#34;&#34;
+    config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
+                                neat.DefaultStagnation, NEAT_CONFIG)
+
+    population = neat.Population(config)
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint(&#34;neat-checkpoint-1224&#34;)
+    population.add_reporter(neat.StdOutReporter(True))
+    stats = neat.StatisticsReporter()
+    population.add_reporter(stats)
+    checkpoint_file = os.path.join(current_dir, &#39;Checkpoints&#39;, &#39;neat-checkpoint-&#39;)
+    checkpointer = neat.checkpoint.Checkpointer(25, 300, checkpoint_file)
+    population.add_reporter(checkpointer)
+
+    best = population.run(main, int(generations))
+    # If a genome reached our fitness threshold, save it to a file on disk
+    save_path = os.path.join(current_dir, &#39;best-genome.txt&#39;)
+    with open(save_path, &#39;wb+&#39;) as file:
+        pickle.dump(best, file)
+
+    print(&#39;\nBest genome:\n{!s}&#39;.format(best))</code></pre>
+</details>
+</dd>
+<dt id="src.main.start_screen"><code class="name flex">
+<span>def <span class="ident">start_screen</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renders the start screen until the player clicks to start the game. Should only appear if the AI is not being trained.</p>
+<p>:return: None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def start_screen():
+    &#34;&#34;&#34;
+    Renders the start screen until the player clicks to start the game. Should only appear if the AI is not being trained.
+
+    :return: None
+    &#34;&#34;&#34;
+    start = True
+    while start:
+        # Initialize font before beginning of game
+        pygame.font.init()
+
+        # Start Screen
+        blue = pygame.Color(0, 0, 255)
+        aqua = pygame.Color(0, 255, 255)
+
+        # When mouse or key is pressed end Start Screen
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+                start = False
+
+        # Fill in Start Screen with color and text
+        WIN.fill(BLACK)
+        text = pygame.font.SysFont(&#39;Times New Roman&#39;, 100)
+        Text, TextRect = text_ob(&#34;The Froggerithm&#34;, text, WHITE)
+        text2 = pygame.font.SysFont(&#39;Times New Roman&#39;, 35)
+        Text2, TextRect2 = text_ob(&#34;Click on the Screen to Start the Game&#34;, text2, aqua)
+        TextRect.center = ((Window.WIDTH / 2), (Window.HEIGHT / 2))
+        TextRect2.center = (((Window.WIDTH) / 2), ((Window.HEIGHT + 200) / 2))
+        WIN.blit(Text, TextRect)
+        WIN.blit(Text2, TextRect2)
+        pygame.display.update()</code></pre>
+</details>
+</dd>
+<dt id="src.main.text_ob"><code class="name flex">
+<span>def <span class="ident">text_ob</span></span>(<span>text, font, color)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text_ob(text, font, color):
+    textforscreen = font.render(text, True, color)
+    return textforscreen, textforscreen.get_rect()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src" href="index.html">src</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="src.main.main" href="#src.main.main">main</a></code></li>
+<li><code><a title="src.main.run_neat" href="#src.main.run_neat">run_neat</a></code></li>
+<li><code><a title="src.main.start_screen" href="#src.main.start_screen">start_screen</a></code></li>
+<li><code><a title="src.main.text_ob" href="#src.main.text_ob">text_ob</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
