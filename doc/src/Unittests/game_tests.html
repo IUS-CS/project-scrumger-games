@@ -1,0 +1,2974 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>src.Unittests.game_tests API documentation</title>
+<meta name="description" content="Contains all the unit tests for the main functions of the game" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.Unittests.game_tests</code></h1>
+</header>
+<section id="section-intro">
+<p>Contains all the unit tests for the main functions of the game</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># File: game_tests.py
+# Authors: John Cooke, Zion Emond, Alex Stiner
+# Since: 2/12/2021
+# This file contains all the unit tests for the main functions of the game
+&#34;&#34;&#34;Contains all the unit tests for the main functions of the game&#34;&#34;&#34;
+import unittest
+import pygame
+import Engine.obstacle_spawner as obstacle_spawner
+from Sprites.Groups.death_sprites import DeathSprites
+from Sprites.car import Car
+from Util.window import Window
+import Engine.sprite_animator as sprite_animator
+from Sprites.frog_nest import FrogNest
+from Util.asset_dictionary import AssetDictionary
+from Sprites.turtle import Turtle
+from Sprites.turtle_animated import TurtleSinker
+from Sprites.log import Log
+from Sprites.player import Player
+from Sprites.Groups.nests import DisabledNests
+from Engine.movement_handler import move_player
+
+
+class TestGameMethods(unittest.TestCase):
+    &#34;&#34;&#34;Contains the main game unit testing methods&#34;&#34;&#34;
+
+    def test_sprite_despawner(self):
+        test_win = pygame.Surface((820, 876))
+        test_sprite = Log(AssetDictionary.get_asset(&#34;log-short&#34;), 100, 100)
+        test_group = pygame.sprite.Group()
+
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertTrue(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 0 - test_sprite.image.get_width() - 1
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 825
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.y = 0 - test_sprite.image.get_height() - 1
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.y = test_win.get_height() + 1
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 481856
+        test_sprite.rect.y = 156135
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = -748964
+        test_sprite.rect.y = -156489
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+    def test_water_spawner(self):
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # test that all lanes spawn properly
+        obstacle_spawner.spawn_water_lanes(0, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                           test_render_group, test_win)
+
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 816, 372).add(assert_groups[0])
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), -180, 308).add(assert_groups[1])
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), -377, 244).add(assert_groups[2])
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 817, 180).add(assert_groups[3])
+        Log(AssetDictionary.get_asset(&#34;log-medium&#34;), -278, 116).add(assert_groups[4])
+
+        for test_lane, assert_group in zip(test_lanes, assert_groups):
+            for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            test_lane.empty()
+
+        test_render_group.empty()
+
+    def test_water_mover(self):
+
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 300, 308).add(assert_groups[0], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 779, 308).add(test_lanes[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 539, 308).add(test_lanes[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 299, 308).add(test_lanes[1], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), 425, 244).add(test_lanes[2], test_render_group)
+
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 121, 308).add(test_lanes[3], test_render_group)
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 625, 308).add(test_lanes[3], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 119, 116).add(test_lanes[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 419, 116).add(test_lanes[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 719, 116).add(test_lanes[4], test_render_group)
+
+        # expected sprites
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 305, 308).add(assert_groups[0], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 780, 308).add(assert_groups[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 540, 308).add(assert_groups[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 300, 308).add(assert_groups[1], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), 433, 244).add(assert_groups[2], test_render_group)
+
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 117, 308).add(assert_groups[3], test_render_group)
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 621, 308).add(assert_groups[3], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 122, 116).add(assert_groups[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 422, 116).add(assert_groups[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 722, 116).add(assert_groups[4], test_render_group)
+
+        # call function on actual sprites and test it
+        obstacle_spawner.spawn_water_lanes(12, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3],
+                                           test_lanes[4], test_render_group, test_win)
+
+        for test_lane, assert_group in zip(test_lanes, assert_groups):
+            for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            test_lane.empty()
+
+        test_render_group.empty()
+
+    def test_water_despawner(self):
+
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, -100, 308).add(assert_groups[0], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 877, 308).add(test_lanes[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), 900, 244).add(test_lanes[2], test_render_group)
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, -50, 308).add(test_lanes[3], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 1050, 116).add(test_lanes[4], test_render_group)
+
+        # call function on the actual sprites and test
+        obstacle_spawner.spawn_water_lanes(1, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                           test_render_group, test_win)
+
+        for lane in test_lanes:
+            self.assertFalse(lane.has())
+
+        test_render_group.empty()
+
+    def test_animated_turtle(self):
+        test_net_group = pygame.sprite.Group()
+        test_sinker = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372, 1)
+        test_net_group.add(test_sinker)
+
+        self.assertFalse(test_sinker.animation_started)
+        self.assertFalse(test_sinker.submerged)
+        self.assertFalse(test_sinker.emerging)
+        self.assertEqual(test_sinker.frame_index, 0)
+        self.assertEqual(test_sinker.last_animation, 0)
+
+        test_sinker.start_animation(1, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 1)
+        self.assertEqual(test_sinker.last_animation, 1)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(2, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 2)
+        self.assertEqual(test_sinker.last_animation, 2)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(3, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 3)
+        self.assertEqual(test_sinker.last_animation, 3)
+        self.assertTrue(test_sinker.submerged)
+        self.assertFalse(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(4, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 2)
+        self.assertEqual(test_sinker.last_animation, 4)
+        self.assertFalse(test_sinker.submerged)
+        self.assertTrue(test_sinker.emerging)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(5, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 1)
+        self.assertEqual(test_sinker.last_animation, 5)
+        self.assertFalse(test_sinker.submerged)
+        self.assertTrue(test_sinker.emerging)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(6, test_net_group)
+        self.assertFalse(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 0)
+        self.assertEqual(test_sinker.last_animation, 6)
+        self.assertFalse(test_sinker.submerged)
+        self.assertFalse(test_sinker.emerging)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+    def test_turtle_animator(self):
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group()]
+        test_frame_count = 29
+        test_turtle_0 = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372)
+        test_turtle_1 = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372)
+        test_lanes[0].add(test_turtle_0)
+        test_lanes[1].add(test_turtle_1)
+
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+        self.assertFalse(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 0)
+        self.assertEqual(test_turtle_0.last_animation, 0)
+
+        self.assertFalse(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 0)
+        self.assertEqual(test_turtle_1.last_animation, 0)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 1)
+        self.assertEqual(test_turtle_0.last_animation, 30)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 1)
+        self.assertEqual(test_turtle_1.last_animation, 30)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 1)
+        self.assertEqual(test_turtle_0.last_animation, 30)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 1)
+        self.assertEqual(test_turtle_1.last_animation, 30)
+
+        test_frame_count += 17
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 2)
+        self.assertEqual(test_turtle_0.last_animation, 48)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 2)
+        self.assertEqual(test_turtle_1.last_animation, 48)
+
+        test_frame_count += 18
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertTrue(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 3)
+        self.assertEqual(test_turtle_0.last_animation, 66)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertTrue(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 3)
+        self.assertEqual(test_turtle_1.last_animation, 66)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertTrue(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 3)
+        self.assertEqual(test_turtle_0.last_animation, 66)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertTrue(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 3)
+        self.assertEqual(test_turtle_1.last_animation, 66)
+
+        test_frame_count += 17
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertTrue(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 2)
+        self.assertEqual(test_turtle_0.last_animation, 84)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertTrue(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 2)
+        self.assertEqual(test_turtle_1.last_animation, 84)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertTrue(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 2)
+        self.assertEqual(test_turtle_0.last_animation, 84)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertTrue(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 2)
+        self.assertEqual(test_turtle_1.last_animation, 84)
+
+        test_frame_count += 17
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertTrue(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 1)
+        self.assertEqual(test_turtle_0.last_animation, 102)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertTrue(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 1)
+        self.assertEqual(test_turtle_1.last_animation, 102)
+
+        test_frame_count += 18
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertFalse(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 0)
+        self.assertEqual(test_turtle_0.last_animation, 120)
+
+        self.assertFalse(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 0)
+        self.assertEqual(test_turtle_1.last_animation, 120)
+
+    def test_player(self):
+        pygame.init()
+        test_render_group = pygame.sprite.LayeredUpdates()
+        actual = Player(test_render_group)
+        test_timer = 20
+        nest = FrogNest(1)
+
+        actual.rect.x = 101
+        actual.rect.y = 415
+        actual.index = 1
+        actual.direction = &#34;right&#34;
+
+        expected = Player(test_render_group)
+
+        actual.return_home()
+
+        self.assertEqual(actual.rect.x, expected.rect.x)
+        self.assertEqual(actual.rect.y, expected.rect.y)
+        self.assertEqual(actual.index, expected.index)
+        self.assertEqual(actual.direction, expected.direction)
+
+        actual.farthest_distance = 265
+        expected.score += 50 + 2 * test_timer
+
+        actual.nest(test_timer, nest)
+
+        self.assertEqual(actual.farthest_distance, expected.farthest_distance)
+        self.assertEqual(actual.score, expected.score)
+        self.assertTrue(actual.disabled_nests.has(nest))
+
+        actual.win_game()
+        expected.score += 2000
+
+        self.assertEqual(actual.score, expected.score)
+
+        actual.kill()
+        expected.lives_left -= 1
+
+        self.assertEqual(actual.lives_left, expected.lives_left)
+
+    def test_nests_group(self):
+        test_render_group = pygame.sprite.LayeredUpdates()
+        test_player = Player(test_render_group)
+        test_disabled_nests = DisabledNests()
+        test_timer = 0
+
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(1)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(2)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(3)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(4)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(5)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertTrue(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(1)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertTrue(DisabledNests.check_for_win(test_player))
+
+    def test_car_spawner(self):
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                          pygame.sprite.Group(), pygame.sprite.Group()]
+        test_groups = [pygame.sprite.RenderUpdates(), DeathSprites()]
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # test that all lanes spawn properly
+        obstacle_spawner.spawn_car_lanes(0, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                         car_test_lanes[4], test_groups, test_win)
+
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 819, 750, test_win).add(assert_groups[0])
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 817, 700, test_win).add(assert_groups[1])
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 818, 630, test_win).add(assert_groups[2])
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), -57, 560, test_win).add(assert_groups[3])
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 817, 500, test_win).add(assert_groups[4])
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_groups[0].empty()
+        test_groups[1].empty()
+
+    def test_car_mover(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                          pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = [pygame.sprite.RenderUpdates()]
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # expected sprites
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 798, 750, test_win).add(assert_groups[0], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 802, 700, test_win).add(assert_groups[1], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 797, 630, test_win).add(assert_groups[2], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), 803, 560, test_win).add(assert_groups[3], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 796, 500, test_win).add(assert_groups[4], test_render_group)
+
+        # call function for actual sprites and test it
+        obstacle_spawner.spawn_car_lanes(10, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                         car_test_lanes[4], test_render_group, test_win)
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_render_group[0].empty()
+
+    def test_car_despawner(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                          pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = [pygame.sprite.RenderUpdates()]
+        test_kill_group = DeathSprites()
+        test_win = pygame.Surface((820, 876))
+
+        # actual sprites
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # call function on the actual sprites and test
+        obstacle_spawner.spawn_car_lanes(1, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                         car_test_lanes[4], test_render_group, test_win)
+
+        for lane in car_test_lanes:
+            self.assertFalse(lane.has())
+
+        test_render_group[0].empty()
+
+    def test_move_player(self):
+        &#34;&#34;&#34;Test whether the movement system works as expected&#34;&#34;&#34;
+        test_render_group = pygame.sprite.LayeredUpdates()
+        test_player = Player(test_render_group)
+        pygame.mixer.init()
+        test_sound = pygame.mixer.Sound(&#34;../Assets/Sounds/hop.wav&#34;)
+        up = 119  # &#39;w&#39; key ascii
+        left = 97  # &#39;a&#39; key ascii
+        right = 100  # &#39;d&#39; key ascii
+        down = 115  # &#39;s&#39; key ascii
+
+        MOVEMENT_DISTANCE_X = AssetDictionary.get_asset(&#34;frog&#34;).get_width() + 4
+        MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset(&#34;frog&#34;).get_height() + 12
+
+        # Test move up
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.y, 400 - MOVEMENT_DISTANCE_Y)
+
+        # Test move left
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 400 - MOVEMENT_DISTANCE_X)
+
+        # Test move right
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 400 + MOVEMENT_DISTANCE_X)
+
+        # Test move down
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.y, 400 + MOVEMENT_DISTANCE_Y)
+
+        # Test move left if player is at left edge
+        test_player.rect.x = 20
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 20)
+
+        # Test move right if player is at right edge
+        test_player.rect.x = 750
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 750)
+
+        # Test move up if player is at top edge
+        test_player.rect.x = 400
+        test_player.rect.y = 20
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.y, 20)
+
+        # Test move down if player is at bottom edge
+        test_player.rect.x = 800
+        test_player.rect.y = 400
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 800)
+
+    def test_player_score(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+
+        self.assertEqual(test_player.score, 0)
+
+        test_player.set_score(0)
+        self.assertEqual(test_player.score, 0.01)
+
+        test_player.move(&#34;w&#34;)
+        test_player.set_score(10)
+        self.assertEqual(round(test_player.score, 2), 10.02)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;d&#34;)
+        test_player.set_score(11)
+        self.assertEqual(round(test_player.score, 2), 10.03)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;a&#34;)
+        test_player.set_score(12)
+        self.assertEqual(round(test_player.score, 2), 10.04)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;s&#34;)
+        test_player.set_score(13)
+        self.assertEqual(round(test_player.score, 2), 10.05)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;w&#34;)
+        test_player.move(&#34;w&#34;)
+        test_player.set_score(14)
+        self.assertEqual(round(test_player.score, 2), 20.06)
+        self.assertEqual(test_player.last_advancement, 14)
+
+    def test_find_distance_to_sprite_ahead(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car in front of the player
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = test_player.rect.y - 50
+        test_net_group.add(test_car)
+
+        expected = test_player.rect.center[1] - test_car.rect.y
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x -= 10
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 20
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 1000
+        expected = test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car.rect.y += 150
+        test_car2.rect.x = test_player.rect.x
+        test_car2.rect.y = test_player.rect.y - 50
+        expected = test_player.rect.center[1] - test_car2.rect.y
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = 0
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+
+    def test_find_distance_to_sprite_behind(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_player.rect.y -= 500
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = Window.HEIGHT - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car behind the player
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = test_player.rect.y + 50
+        test_net_group.add(test_car)
+
+        expected = test_car.rect.y - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x -= 10
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 20
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 1000
+        expected = Window.HEIGHT - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y += 150
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car2.rect.x = test_player.rect.x
+        test_car2.rect.y = test_player.rect.y + 50
+        expected = test_car2.rect.y - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = Window.HEIGHT - test_car.rect.height
+        expected = test_car2.rect.y - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+
+    def test_find_distance_to_left_sprite(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the left side of the player
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = test_player.rect.x - 50
+        test_car.add(test_net_group)
+
+        expected = test_player.rect.center[0] - (test_car.rect.x + test_car.rect.width)
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y += 10
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 10
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 1000
+        expected = test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 150
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car2.rect.y = test_player.rect.y
+        test_car2.rect.x = test_player.rect.x - 50
+        expected = test_player.rect.center[0] - (test_car2.rect.x + test_car.rect.width)
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = 0
+        expected = test_player.rect.center[0] - (test_car2.rect.x + test_car.rect.width)
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+    def test_find_distance_to_right_sprite(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = Window.WIDTH - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the right side of the player
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = test_player.rect.x + 50
+        test_car.add(test_net_group)
+
+        expected = test_car.rect.x - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y += 10
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 10
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 1000
+        expected = Window.WIDTH - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x -= 150
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car2.rect.y = test_player.rect.y
+        test_car2.rect.x = test_player.rect.x + 50
+        expected = test_car2.rect.x - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = Window.WIDTH
+        expected = test_car2.rect.x - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+    def test_distance_in_lane_ahead(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_carL = Player(pygame.sprite.LayeredUpdates())
+        test_carR = Player(pygame.sprite.LayeredUpdates())
+
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the lane ahead, left of the player
+        test_carL.rect.y -= 64
+        test_carL.rect.x = test_player.rect.x - 50
+        test_carR.rect.y -= 64
+        test_carR.rect.x = test_player.rect.x + 50
+
+        test_net_group.add(test_carL, test_carR)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL2 = Player(pygame.sprite.LayeredUpdates())
+        test_carR2 = Player(pygame.sprite.LayeredUpdates())
+        test_carL2.rect.y -= 64
+        test_carL2.rect.x = test_player.rect.x - 200
+        test_carR2.rect.y -= 64
+        test_carR2.rect.x = test_player.rect.x + 200
+        test_net_group.add(test_carL2, test_carR2)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL.rect.y, test_carR.rect.y, test_carL2.rect.y, test_carR2.rect.y = 500, 500, 500, 500
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+
+    def test_distance_in_lane_behind(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_carL = Player(pygame.sprite.LayeredUpdates())
+        test_carR = Player(pygame.sprite.LayeredUpdates())
+
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the lane ahead, left of the player
+        test_carL.rect.y += 64
+        test_carL.rect.x = test_player.rect.x - 50
+        test_carR.rect.y += 64
+        test_carR.rect.x = test_player.rect.x + 50
+
+        test_net_group.add(test_carL, test_carR)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL2 = Player(pygame.sprite.LayeredUpdates())
+        test_carR2 = Player(pygame.sprite.LayeredUpdates())
+        test_carL2.rect.y += 64
+        test_carL2.rect.x = test_player.rect.x - 200
+        test_carR2.rect.y += 64
+        test_carR2.rect.x = test_player.rect.x + 200
+        test_net_group.add(test_carL2, test_carR2)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL.rect.y, test_carR.rect.y, test_carL2.rect.y, test_carR2.rect.y = 500, 500, 500, 500
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="src.Unittests.game_tests.TestGameMethods"><code class="flex name class">
+<span>class <span class="ident">TestGameMethods</span></span>
+<span>(</span><span>methodName='runTest')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contains the main game unit testing methods</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TestGameMethods(unittest.TestCase):
+    &#34;&#34;&#34;Contains the main game unit testing methods&#34;&#34;&#34;
+
+    def test_sprite_despawner(self):
+        test_win = pygame.Surface((820, 876))
+        test_sprite = Log(AssetDictionary.get_asset(&#34;log-short&#34;), 100, 100)
+        test_group = pygame.sprite.Group()
+
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertTrue(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 0 - test_sprite.image.get_width() - 1
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 825
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.y = 0 - test_sprite.image.get_height() - 1
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.y = test_win.get_height() + 1
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = 481856
+        test_sprite.rect.y = 156135
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+        test_sprite.rect.x = -748964
+        test_sprite.rect.y = -156489
+        test_group.add(test_sprite)
+        obstacle_spawner.sprite_despawner(test_sprite, test_win)
+        self.assertFalse(test_group.has(test_sprite))
+
+    def test_water_spawner(self):
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # test that all lanes spawn properly
+        obstacle_spawner.spawn_water_lanes(0, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                           test_render_group, test_win)
+
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 816, 372).add(assert_groups[0])
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), -180, 308).add(assert_groups[1])
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), -377, 244).add(assert_groups[2])
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 817, 180).add(assert_groups[3])
+        Log(AssetDictionary.get_asset(&#34;log-medium&#34;), -278, 116).add(assert_groups[4])
+
+        for test_lane, assert_group in zip(test_lanes, assert_groups):
+            for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            test_lane.empty()
+
+        test_render_group.empty()
+
+    def test_water_mover(self):
+
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 300, 308).add(assert_groups[0], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 779, 308).add(test_lanes[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 539, 308).add(test_lanes[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 299, 308).add(test_lanes[1], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), 425, 244).add(test_lanes[2], test_render_group)
+
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 121, 308).add(test_lanes[3], test_render_group)
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 625, 308).add(test_lanes[3], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 119, 116).add(test_lanes[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 419, 116).add(test_lanes[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 719, 116).add(test_lanes[4], test_render_group)
+
+        # expected sprites
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 305, 308).add(assert_groups[0], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 780, 308).add(assert_groups[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 540, 308).add(assert_groups[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 300, 308).add(assert_groups[1], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), 433, 244).add(assert_groups[2], test_render_group)
+
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 117, 308).add(assert_groups[3], test_render_group)
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 621, 308).add(assert_groups[3], test_render_group)
+
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 122, 116).add(assert_groups[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 422, 116).add(assert_groups[4], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 722, 116).add(assert_groups[4], test_render_group)
+
+        # call function on actual sprites and test it
+        obstacle_spawner.spawn_water_lanes(12, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3],
+                                           test_lanes[4], test_render_group, test_win)
+
+        for test_lane, assert_group in zip(test_lanes, assert_groups):
+            for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            test_lane.empty()
+
+        test_render_group.empty()
+
+    def test_water_despawner(self):
+
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = pygame.sprite.RenderUpdates()
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, -100, 308).add(assert_groups[0], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 877, 308).add(test_lanes[1], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-long&#34;), 900, 244).add(test_lanes[2], test_render_group)
+        Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, -50, 308).add(test_lanes[3], test_render_group)
+        Log(AssetDictionary.get_asset(&#34;log-short&#34;), 1050, 116).add(test_lanes[4], test_render_group)
+
+        # call function on the actual sprites and test
+        obstacle_spawner.spawn_water_lanes(1, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                           test_render_group, test_win)
+
+        for lane in test_lanes:
+            self.assertFalse(lane.has())
+
+        test_render_group.empty()
+
+    def test_animated_turtle(self):
+        test_net_group = pygame.sprite.Group()
+        test_sinker = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372, 1)
+        test_net_group.add(test_sinker)
+
+        self.assertFalse(test_sinker.animation_started)
+        self.assertFalse(test_sinker.submerged)
+        self.assertFalse(test_sinker.emerging)
+        self.assertEqual(test_sinker.frame_index, 0)
+        self.assertEqual(test_sinker.last_animation, 0)
+
+        test_sinker.start_animation(1, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 1)
+        self.assertEqual(test_sinker.last_animation, 1)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(2, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 2)
+        self.assertEqual(test_sinker.last_animation, 2)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(3, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 3)
+        self.assertEqual(test_sinker.last_animation, 3)
+        self.assertTrue(test_sinker.submerged)
+        self.assertFalse(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(4, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 2)
+        self.assertEqual(test_sinker.last_animation, 4)
+        self.assertFalse(test_sinker.submerged)
+        self.assertTrue(test_sinker.emerging)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(5, test_net_group)
+        self.assertTrue(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 1)
+        self.assertEqual(test_sinker.last_animation, 5)
+        self.assertFalse(test_sinker.submerged)
+        self.assertTrue(test_sinker.emerging)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+        test_sinker.next_frame(6, test_net_group)
+        self.assertFalse(test_sinker.animation_started)
+        self.assertEqual(test_sinker.frame_index, 0)
+        self.assertEqual(test_sinker.last_animation, 6)
+        self.assertFalse(test_sinker.submerged)
+        self.assertFalse(test_sinker.emerging)
+        self.assertTrue(test_net_group.has(test_sinker))
+
+    def test_turtle_animator(self):
+        test_lanes = [pygame.sprite.Group(), pygame.sprite.Group()]
+        test_frame_count = 29
+        test_turtle_0 = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372)
+        test_turtle_1 = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372)
+        test_lanes[0].add(test_turtle_0)
+        test_lanes[1].add(test_turtle_1)
+
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+        self.assertFalse(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 0)
+        self.assertEqual(test_turtle_0.last_animation, 0)
+
+        self.assertFalse(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 0)
+        self.assertEqual(test_turtle_1.last_animation, 0)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 1)
+        self.assertEqual(test_turtle_0.last_animation, 30)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 1)
+        self.assertEqual(test_turtle_1.last_animation, 30)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 1)
+        self.assertEqual(test_turtle_0.last_animation, 30)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 1)
+        self.assertEqual(test_turtle_1.last_animation, 30)
+
+        test_frame_count += 17
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 2)
+        self.assertEqual(test_turtle_0.last_animation, 48)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 2)
+        self.assertEqual(test_turtle_1.last_animation, 48)
+
+        test_frame_count += 18
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertTrue(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 3)
+        self.assertEqual(test_turtle_0.last_animation, 66)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertTrue(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 3)
+        self.assertEqual(test_turtle_1.last_animation, 66)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertTrue(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 3)
+        self.assertEqual(test_turtle_0.last_animation, 66)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertTrue(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 3)
+        self.assertEqual(test_turtle_1.last_animation, 66)
+
+        test_frame_count += 17
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertTrue(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 2)
+        self.assertEqual(test_turtle_0.last_animation, 84)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertTrue(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 2)
+        self.assertEqual(test_turtle_1.last_animation, 84)
+
+        test_frame_count += 1
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertTrue(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 2)
+        self.assertEqual(test_turtle_0.last_animation, 84)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertTrue(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 2)
+        self.assertEqual(test_turtle_1.last_animation, 84)
+
+        test_frame_count += 17
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertTrue(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertTrue(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 1)
+        self.assertEqual(test_turtle_0.last_animation, 102)
+
+        self.assertTrue(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertTrue(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 1)
+        self.assertEqual(test_turtle_1.last_animation, 102)
+
+        test_frame_count += 18
+        sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+        self.assertFalse(test_turtle_0.animation_started)
+        self.assertFalse(test_turtle_0.submerged)
+        self.assertFalse(test_turtle_0.emerging)
+        self.assertEqual(test_turtle_0.frame_index, 0)
+        self.assertEqual(test_turtle_0.last_animation, 120)
+
+        self.assertFalse(test_turtle_1.animation_started)
+        self.assertFalse(test_turtle_1.submerged)
+        self.assertFalse(test_turtle_1.emerging)
+        self.assertEqual(test_turtle_1.frame_index, 0)
+        self.assertEqual(test_turtle_1.last_animation, 120)
+
+    def test_player(self):
+        pygame.init()
+        test_render_group = pygame.sprite.LayeredUpdates()
+        actual = Player(test_render_group)
+        test_timer = 20
+        nest = FrogNest(1)
+
+        actual.rect.x = 101
+        actual.rect.y = 415
+        actual.index = 1
+        actual.direction = &#34;right&#34;
+
+        expected = Player(test_render_group)
+
+        actual.return_home()
+
+        self.assertEqual(actual.rect.x, expected.rect.x)
+        self.assertEqual(actual.rect.y, expected.rect.y)
+        self.assertEqual(actual.index, expected.index)
+        self.assertEqual(actual.direction, expected.direction)
+
+        actual.farthest_distance = 265
+        expected.score += 50 + 2 * test_timer
+
+        actual.nest(test_timer, nest)
+
+        self.assertEqual(actual.farthest_distance, expected.farthest_distance)
+        self.assertEqual(actual.score, expected.score)
+        self.assertTrue(actual.disabled_nests.has(nest))
+
+        actual.win_game()
+        expected.score += 2000
+
+        self.assertEqual(actual.score, expected.score)
+
+        actual.kill()
+        expected.lives_left -= 1
+
+        self.assertEqual(actual.lives_left, expected.lives_left)
+
+    def test_nests_group(self):
+        test_render_group = pygame.sprite.LayeredUpdates()
+        test_player = Player(test_render_group)
+        test_disabled_nests = DisabledNests()
+        test_timer = 0
+
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(1)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(2)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(3)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(4)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertFalse(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(5)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertTrue(DisabledNests.check_for_win(test_player))
+
+        nest = FrogNest(1)
+        nest.disable(test_render_group, test_disabled_nests, test_player)
+        self.assertTrue(DisabledNests.check_for_win(test_player))
+
+    def test_car_spawner(self):
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                          pygame.sprite.Group(), pygame.sprite.Group()]
+        test_groups = [pygame.sprite.RenderUpdates(), DeathSprites()]
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # test that all lanes spawn properly
+        obstacle_spawner.spawn_car_lanes(0, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                         car_test_lanes[4], test_groups, test_win)
+
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 819, 750, test_win).add(assert_groups[0])
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 817, 700, test_win).add(assert_groups[1])
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 818, 630, test_win).add(assert_groups[2])
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), -57, 560, test_win).add(assert_groups[3])
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 817, 500, test_win).add(assert_groups[4])
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_groups[0].empty()
+        test_groups[1].empty()
+
+    def test_car_mover(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                          pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = [pygame.sprite.RenderUpdates()]
+        test_win = pygame.Surface((820, 876))
+        assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                         pygame.sprite.Group(), pygame.sprite.Group()]
+
+        # actual sprites
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # expected sprites
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 798, 750, test_win).add(assert_groups[0], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 802, 700, test_win).add(assert_groups[1], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 797, 630, test_win).add(assert_groups[2], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), 803, 560, test_win).add(assert_groups[3], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 796, 500, test_win).add(assert_groups[4], test_render_group)
+
+        # call function for actual sprites and test it
+        obstacle_spawner.spawn_car_lanes(10, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                         car_test_lanes[4], test_render_group, test_win)
+
+        for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+            for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+                self.assertEqual(i.rect.x, j.rect.x)
+                self.assertEqual(i.rect.y, j.rect.y)
+            assert_group.empty()
+            car_test_lanes.empty()
+
+        test_render_group[0].empty()
+
+    def test_car_despawner(self):
+
+        car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                          pygame.sprite.Group(), pygame.sprite.Group()]
+        test_render_group = [pygame.sprite.RenderUpdates()]
+        test_kill_group = DeathSprites()
+        test_win = pygame.Surface((820, 876))
+
+        # actual sprites
+        Car(AssetDictionary.get_asset(&#34;car1&#34;), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;car2&#34;), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car3&#34;), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+        Car(AssetDictionary.get_asset(&#34;car4&#34;), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+        Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+        # call function on the actual sprites and test
+        obstacle_spawner.spawn_car_lanes(1, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                         car_test_lanes[4], test_render_group, test_win)
+
+        for lane in car_test_lanes:
+            self.assertFalse(lane.has())
+
+        test_render_group[0].empty()
+
+    def test_move_player(self):
+        &#34;&#34;&#34;Test whether the movement system works as expected&#34;&#34;&#34;
+        test_render_group = pygame.sprite.LayeredUpdates()
+        test_player = Player(test_render_group)
+        pygame.mixer.init()
+        test_sound = pygame.mixer.Sound(&#34;../Assets/Sounds/hop.wav&#34;)
+        up = 119  # &#39;w&#39; key ascii
+        left = 97  # &#39;a&#39; key ascii
+        right = 100  # &#39;d&#39; key ascii
+        down = 115  # &#39;s&#39; key ascii
+
+        MOVEMENT_DISTANCE_X = AssetDictionary.get_asset(&#34;frog&#34;).get_width() + 4
+        MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset(&#34;frog&#34;).get_height() + 12
+
+        # Test move up
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.y, 400 - MOVEMENT_DISTANCE_Y)
+
+        # Test move left
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 400 - MOVEMENT_DISTANCE_X)
+
+        # Test move right
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 400 + MOVEMENT_DISTANCE_X)
+
+        # Test move down
+        test_player.rect.x = 400
+        test_player.rect.y = 400
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.y, 400 + MOVEMENT_DISTANCE_Y)
+
+        # Test move left if player is at left edge
+        test_player.rect.x = 20
+        test_player.rect.y = 400
+        move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 20)
+
+        # Test move right if player is at right edge
+        test_player.rect.x = 750
+        test_player.rect.y = 400
+        move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 750)
+
+        # Test move up if player is at top edge
+        test_player.rect.x = 400
+        test_player.rect.y = 20
+        move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.y, 20)
+
+        # Test move down if player is at bottom edge
+        test_player.rect.x = 800
+        test_player.rect.y = 400
+        move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+        self.assertEqual(test_player.rect.x, 800)
+
+    def test_player_score(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+
+        self.assertEqual(test_player.score, 0)
+
+        test_player.set_score(0)
+        self.assertEqual(test_player.score, 0.01)
+
+        test_player.move(&#34;w&#34;)
+        test_player.set_score(10)
+        self.assertEqual(round(test_player.score, 2), 10.02)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;d&#34;)
+        test_player.set_score(11)
+        self.assertEqual(round(test_player.score, 2), 10.03)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;a&#34;)
+        test_player.set_score(12)
+        self.assertEqual(round(test_player.score, 2), 10.04)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;s&#34;)
+        test_player.set_score(13)
+        self.assertEqual(round(test_player.score, 2), 10.05)
+        self.assertEqual(test_player.last_advancement, 10)
+
+        test_player.move(&#34;w&#34;)
+        test_player.move(&#34;w&#34;)
+        test_player.set_score(14)
+        self.assertEqual(round(test_player.score, 2), 20.06)
+        self.assertEqual(test_player.last_advancement, 14)
+
+    def test_find_distance_to_sprite_ahead(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car in front of the player
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = test_player.rect.y - 50
+        test_net_group.add(test_car)
+
+        expected = test_player.rect.center[1] - test_car.rect.y
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x -= 10
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 20
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 1000
+        expected = test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car.rect.y += 150
+        test_car2.rect.x = test_player.rect.x
+        test_car2.rect.y = test_player.rect.y - 50
+        expected = test_player.rect.center[1] - test_car2.rect.y
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = 0
+        actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+
+    def test_find_distance_to_sprite_behind(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_player.rect.y -= 500
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = Window.HEIGHT - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car behind the player
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = test_player.rect.y + 50
+        test_net_group.add(test_car)
+
+        expected = test_car.rect.y - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x -= 10
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 20
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 1000
+        expected = Window.HEIGHT - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y += 150
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car2.rect.x = test_player.rect.x
+        test_car2.rect.y = test_player.rect.y + 50
+        expected = test_car2.rect.y - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x = test_player.rect.x
+        test_car.rect.y = Window.HEIGHT - test_car.rect.height
+        expected = test_car2.rect.y - test_player.rect.center[1]
+        actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+
+    def test_find_distance_to_left_sprite(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the left side of the player
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = test_player.rect.x - 50
+        test_car.add(test_net_group)
+
+        expected = test_player.rect.center[0] - (test_car.rect.x + test_car.rect.width)
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y += 10
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 10
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 1000
+        expected = test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x += 150
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car2.rect.y = test_player.rect.y
+        test_car2.rect.x = test_player.rect.x - 50
+        expected = test_player.rect.center[0] - (test_car2.rect.x + test_car.rect.width)
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = 0
+        expected = test_player.rect.center[0] - (test_car2.rect.x + test_car.rect.width)
+        actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+    def test_find_distance_to_right_sprite(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_car = Player(pygame.sprite.LayeredUpdates())
+
+        expected = Window.WIDTH - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the right side of the player
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = test_player.rect.x + 50
+        test_car.add(test_net_group)
+
+        expected = test_car.rect.x - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y += 10
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 10
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y -= 1000
+        expected = Window.WIDTH - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.x -= 150
+        test_car2 = Player(pygame.sprite.LayeredUpdates())
+        test_net_group.add(test_car2)
+        test_car2.rect.y = test_player.rect.y
+        test_car2.rect.x = test_player.rect.x + 50
+        expected = test_car2.rect.x - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_car.rect.y = test_player.rect.y
+        test_car.rect.x = Window.WIDTH
+        expected = test_car2.rect.x - test_player.rect.center[0]
+        actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+    def test_distance_in_lane_ahead(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_carL = Player(pygame.sprite.LayeredUpdates())
+        test_carR = Player(pygame.sprite.LayeredUpdates())
+
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the lane ahead, left of the player
+        test_carL.rect.y -= 64
+        test_carL.rect.x = test_player.rect.x - 50
+        test_carR.rect.y -= 64
+        test_carR.rect.x = test_player.rect.x + 50
+
+        test_net_group.add(test_carL, test_carR)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL2 = Player(pygame.sprite.LayeredUpdates())
+        test_carR2 = Player(pygame.sprite.LayeredUpdates())
+        test_carL2.rect.y -= 64
+        test_carL2.rect.x = test_player.rect.x - 200
+        test_carR2.rect.y -= 64
+        test_carR2.rect.x = test_player.rect.x + 200
+        test_net_group.add(test_carL2, test_carR2)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL.rect.y, test_carR.rect.y, test_carL2.rect.y, test_carR2.rect.y = 500, 500, 500, 500
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+
+    def test_distance_in_lane_behind(self):
+        test_player = Player(pygame.sprite.LayeredUpdates())
+        test_net_group = pygame.sprite.Group()
+        test_carL = Player(pygame.sprite.LayeredUpdates())
+        test_carR = Player(pygame.sprite.LayeredUpdates())
+
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        # Move the test car to the lane ahead, left of the player
+        test_carL.rect.y += 64
+        test_carL.rect.x = test_player.rect.x - 50
+        test_carR.rect.y += 64
+        test_carR.rect.x = test_player.rect.x + 50
+
+        test_net_group.add(test_carL, test_carR)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL2 = Player(pygame.sprite.LayeredUpdates())
+        test_carR2 = Player(pygame.sprite.LayeredUpdates())
+        test_carL2.rect.y += 64
+        test_carL2.rect.x = test_player.rect.x - 200
+        test_carR2.rect.y += 64
+        test_carR2.rect.x = test_player.rect.x + 200
+        test_net_group.add(test_carL2, test_carR2)
+        expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                    test_carR.rect.x - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)
+
+        test_carL.rect.y, test_carR.rect.y, test_carL2.rect.y, test_carR2.rect.y = 500, 500, 500, 500
+        expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+        actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+        self.assertEqual(expected, actual)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>unittest.case.TestCase</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_animated_turtle"><code class="name flex">
+<span>def <span class="ident">test_animated_turtle</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_animated_turtle(self):
+    test_net_group = pygame.sprite.Group()
+    test_sinker = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372, 1)
+    test_net_group.add(test_sinker)
+
+    self.assertFalse(test_sinker.animation_started)
+    self.assertFalse(test_sinker.submerged)
+    self.assertFalse(test_sinker.emerging)
+    self.assertEqual(test_sinker.frame_index, 0)
+    self.assertEqual(test_sinker.last_animation, 0)
+
+    test_sinker.start_animation(1, test_net_group)
+    self.assertTrue(test_sinker.animation_started)
+    self.assertEqual(test_sinker.frame_index, 1)
+    self.assertEqual(test_sinker.last_animation, 1)
+    self.assertTrue(test_net_group.has(test_sinker))
+
+    test_sinker.next_frame(2, test_net_group)
+    self.assertTrue(test_sinker.animation_started)
+    self.assertEqual(test_sinker.frame_index, 2)
+    self.assertEqual(test_sinker.last_animation, 2)
+    self.assertTrue(test_net_group.has(test_sinker))
+
+    test_sinker.next_frame(3, test_net_group)
+    self.assertTrue(test_sinker.animation_started)
+    self.assertEqual(test_sinker.frame_index, 3)
+    self.assertEqual(test_sinker.last_animation, 3)
+    self.assertTrue(test_sinker.submerged)
+    self.assertFalse(test_net_group.has(test_sinker))
+
+    test_sinker.next_frame(4, test_net_group)
+    self.assertTrue(test_sinker.animation_started)
+    self.assertEqual(test_sinker.frame_index, 2)
+    self.assertEqual(test_sinker.last_animation, 4)
+    self.assertFalse(test_sinker.submerged)
+    self.assertTrue(test_sinker.emerging)
+    self.assertTrue(test_net_group.has(test_sinker))
+
+    test_sinker.next_frame(5, test_net_group)
+    self.assertTrue(test_sinker.animation_started)
+    self.assertEqual(test_sinker.frame_index, 1)
+    self.assertEqual(test_sinker.last_animation, 5)
+    self.assertFalse(test_sinker.submerged)
+    self.assertTrue(test_sinker.emerging)
+    self.assertTrue(test_net_group.has(test_sinker))
+
+    test_sinker.next_frame(6, test_net_group)
+    self.assertFalse(test_sinker.animation_started)
+    self.assertEqual(test_sinker.frame_index, 0)
+    self.assertEqual(test_sinker.last_animation, 6)
+    self.assertFalse(test_sinker.submerged)
+    self.assertFalse(test_sinker.emerging)
+    self.assertTrue(test_net_group.has(test_sinker))</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_car_despawner"><code class="name flex">
+<span>def <span class="ident">test_car_despawner</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_car_despawner(self):
+
+    car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+    test_render_group = [pygame.sprite.RenderUpdates()]
+    test_kill_group = DeathSprites()
+    test_win = pygame.Surface((820, 876))
+
+    # actual sprites
+    Car(AssetDictionary.get_asset(&#34;car1&#34;), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+    Car(AssetDictionary.get_asset(&#34;car2&#34;), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+    Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+    # call function on the actual sprites and test
+    obstacle_spawner.spawn_car_lanes(1, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                     car_test_lanes[4], test_render_group, test_win)
+
+    for lane in car_test_lanes:
+        self.assertFalse(lane.has())
+
+    test_render_group[0].empty()</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_car_mover"><code class="name flex">
+<span>def <span class="ident">test_car_mover</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_car_mover(self):
+
+    car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+    test_render_group = [pygame.sprite.RenderUpdates()]
+    test_win = pygame.Surface((820, 876))
+    assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                     pygame.sprite.Group(), pygame.sprite.Group()]
+
+    # actual sprites
+    Car(AssetDictionary.get_asset(&#34;car1&#34;), 800, 750, test_win).add(car_test_lanes[0], test_render_group)
+
+    Car(AssetDictionary.get_asset(&#34;car2&#34;), 800, 700, test_win).add(car_test_lanes[1], test_render_group)
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 800, 630, test_win).add(car_test_lanes[2], test_render_group)
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), 800, 560, test_win).add(car_test_lanes[3], test_render_group)
+
+    Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 800, 500, test_win).add(car_test_lanes[4], test_render_group)
+
+    # expected sprites
+    Car(AssetDictionary.get_asset(&#34;car1&#34;), 798, 750, test_win).add(assert_groups[0], test_render_group)
+
+    Car(AssetDictionary.get_asset(&#34;car2&#34;), 802, 700, test_win).add(assert_groups[1], test_render_group)
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 797, 630, test_win).add(assert_groups[2], test_render_group)
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), 803, 560, test_win).add(assert_groups[3], test_render_group)
+
+    Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 796, 500, test_win).add(assert_groups[4], test_render_group)
+
+    # call function for actual sprites and test it
+    obstacle_spawner.spawn_car_lanes(10, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                     car_test_lanes[4], test_render_group, test_win)
+
+    for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+        for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+            self.assertEqual(i.rect.x, j.rect.x)
+            self.assertEqual(i.rect.y, j.rect.y)
+        assert_group.empty()
+        car_test_lanes.empty()
+
+    test_render_group[0].empty()</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_car_spawner"><code class="name flex">
+<span>def <span class="ident">test_car_spawner</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_car_spawner(self):
+    car_test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                      pygame.sprite.Group(), pygame.sprite.Group()]
+    test_groups = [pygame.sprite.RenderUpdates(), DeathSprites()]
+    test_win = pygame.Surface((820, 876))
+    assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                     pygame.sprite.Group(), pygame.sprite.Group()]
+
+    # test that all lanes spawn properly
+    obstacle_spawner.spawn_car_lanes(0, car_test_lanes[0], car_test_lanes[1], car_test_lanes[2], car_test_lanes[3],
+                                     car_test_lanes[4], test_groups, test_win)
+
+    Car(AssetDictionary.get_asset(&#34;car1&#34;), 819, 750, test_win).add(assert_groups[0])
+    Car(AssetDictionary.get_asset(&#34;car2&#34;), 817, 700, test_win).add(assert_groups[1])
+    Car(AssetDictionary.get_asset(&#34;car3&#34;), 818, 630, test_win).add(assert_groups[2])
+    Car(AssetDictionary.get_asset(&#34;car4&#34;), -57, 560, test_win).add(assert_groups[3])
+    Car(AssetDictionary.get_asset(&#34;semi-truck&#34;), 817, 500, test_win).add(assert_groups[4])
+
+    for car_test_lanes, assert_group in zip(car_test_lanes, assert_groups):
+        for i, j in zip(car_test_lanes.sprites(), assert_group.sprites()):
+            self.assertEqual(i.rect.x, j.rect.x)
+            self.assertEqual(i.rect.y, j.rect.y)
+        assert_group.empty()
+        car_test_lanes.empty()
+
+    test_groups[0].empty()
+    test_groups[1].empty()</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_distance_in_lane_ahead"><code class="name flex">
+<span>def <span class="ident">test_distance_in_lane_ahead</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_distance_in_lane_ahead(self):
+    test_player = Player(pygame.sprite.LayeredUpdates())
+    test_net_group = pygame.sprite.Group()
+    test_carL = Player(pygame.sprite.LayeredUpdates())
+    test_carR = Player(pygame.sprite.LayeredUpdates())
+
+    expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    # Move the test car to the lane ahead, left of the player
+    test_carL.rect.y -= 64
+    test_carL.rect.x = test_player.rect.x - 50
+    test_carR.rect.y -= 64
+    test_carR.rect.x = test_player.rect.x + 50
+
+    test_net_group.add(test_carL, test_carR)
+    expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                test_carR.rect.x - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_carL2 = Player(pygame.sprite.LayeredUpdates())
+    test_carR2 = Player(pygame.sprite.LayeredUpdates())
+    test_carL2.rect.y -= 64
+    test_carL2.rect.x = test_player.rect.x - 200
+    test_carR2.rect.y -= 64
+    test_carR2.rect.x = test_player.rect.x + 200
+    test_net_group.add(test_carL2, test_carR2)
+    expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                test_carR.rect.x - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_carL.rect.y, test_carR.rect.y, test_carL2.rect.y, test_carR2.rect.y = 500, 500, 500, 500
+    expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_distance_in_lane_behind"><code class="name flex">
+<span>def <span class="ident">test_distance_in_lane_behind</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_distance_in_lane_behind(self):
+    test_player = Player(pygame.sprite.LayeredUpdates())
+    test_net_group = pygame.sprite.Group()
+    test_carL = Player(pygame.sprite.LayeredUpdates())
+    test_carR = Player(pygame.sprite.LayeredUpdates())
+
+    expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    # Move the test car to the lane ahead, left of the player
+    test_carL.rect.y += 64
+    test_carL.rect.x = test_player.rect.x - 50
+    test_carR.rect.y += 64
+    test_carR.rect.x = test_player.rect.x + 50
+
+    test_net_group.add(test_carL, test_carR)
+    expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                test_carR.rect.x - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_carL2 = Player(pygame.sprite.LayeredUpdates())
+    test_carR2 = Player(pygame.sprite.LayeredUpdates())
+    test_carL2.rect.y += 64
+    test_carL2.rect.x = test_player.rect.x - 200
+    test_carR2.rect.y += 64
+    test_carR2.rect.x = test_player.rect.x + 200
+    test_net_group.add(test_carL2, test_carR2)
+    expected = (test_player.rect.center[0] - (test_carL.rect.x + test_carL.rect.width),
+                test_carR.rect.x - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_carL.rect.y, test_carR.rect.y, test_carL2.rect.y, test_carR2.rect.y = 500, 500, 500, 500
+    expected = (test_player.rect.center[0], Window.WIDTH - test_player.rect.center[0])
+    actual = test_player.find_sprite_in_next_lane(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_left_sprite"><code class="name flex">
+<span>def <span class="ident">test_find_distance_to_left_sprite</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_find_distance_to_left_sprite(self):
+    test_player = Player(pygame.sprite.LayeredUpdates())
+    test_net_group = pygame.sprite.Group()
+    test_car = Player(pygame.sprite.LayeredUpdates())
+
+    expected = test_player.rect.center[0]
+    actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    # Move the test car to the left side of the player
+    test_car.rect.y = test_player.rect.y
+    test_car.rect.x = test_player.rect.x - 50
+    test_car.add(test_net_group)
+
+    expected = test_player.rect.center[0] - (test_car.rect.x + test_car.rect.width)
+    actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y += 10
+    actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y -= 10
+    actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y -= 1000
+    expected = test_player.rect.center[0]
+    actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x += 150
+    test_car2 = Player(pygame.sprite.LayeredUpdates())
+    test_net_group.add(test_car2)
+    test_car2.rect.y = test_player.rect.y
+    test_car2.rect.x = test_player.rect.x - 50
+    expected = test_player.rect.center[0] - (test_car2.rect.x + test_car.rect.width)
+    actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y = test_player.rect.y
+    test_car.rect.x = 0
+    expected = test_player.rect.center[0] - (test_car2.rect.x + test_car.rect.width)
+    actual = test_player.find_distance_to_sprite(&#34;left&#34;, test_net_group)
+    self.assertEqual(expected, actual)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_right_sprite"><code class="name flex">
+<span>def <span class="ident">test_find_distance_to_right_sprite</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_find_distance_to_right_sprite(self):
+    test_player = Player(pygame.sprite.LayeredUpdates())
+    test_net_group = pygame.sprite.Group()
+    test_car = Player(pygame.sprite.LayeredUpdates())
+
+    expected = Window.WIDTH - test_player.rect.center[0]
+    actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    # Move the test car to the right side of the player
+    test_car.rect.y = test_player.rect.y
+    test_car.rect.x = test_player.rect.x + 50
+    test_car.add(test_net_group)
+
+    expected = test_car.rect.x - test_player.rect.center[0]
+    actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y += 10
+    actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y -= 10
+    actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y -= 1000
+    expected = Window.WIDTH - test_player.rect.center[0]
+    actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x -= 150
+    test_car2 = Player(pygame.sprite.LayeredUpdates())
+    test_net_group.add(test_car2)
+    test_car2.rect.y = test_player.rect.y
+    test_car2.rect.x = test_player.rect.x + 50
+    expected = test_car2.rect.x - test_player.rect.center[0]
+    actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y = test_player.rect.y
+    test_car.rect.x = Window.WIDTH
+    expected = test_car2.rect.x - test_player.rect.center[0]
+    actual = test_player.find_distance_to_sprite(&#34;right&#34;, test_net_group)
+    self.assertEqual(expected, actual)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_sprite_ahead"><code class="name flex">
+<span>def <span class="ident">test_find_distance_to_sprite_ahead</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_find_distance_to_sprite_ahead(self):
+    test_player = Player(pygame.sprite.LayeredUpdates())
+    test_net_group = pygame.sprite.Group()
+    test_car = Player(pygame.sprite.LayeredUpdates())
+
+    expected = test_player.rect.center[1]
+    actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    # Move the test car in front of the player
+    test_car.rect.x = test_player.rect.x
+    test_car.rect.y = test_player.rect.y - 50
+    test_net_group.add(test_car)
+
+    expected = test_player.rect.center[1] - test_car.rect.y
+    actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x -= 10
+    actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x += 20
+    actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x += 1000
+    expected = test_player.rect.center[1]
+    actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car2 = Player(pygame.sprite.LayeredUpdates())
+    test_net_group.add(test_car2)
+    test_car.rect.y += 150
+    test_car2.rect.x = test_player.rect.x
+    test_car2.rect.y = test_player.rect.y - 50
+    expected = test_player.rect.center[1] - test_car2.rect.y
+    actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x = test_player.rect.x
+    test_car.rect.y = 0
+    actual = test_player.find_distance_to_sprite(&#34;ahead&#34;, test_net_group)
+    self.assertEqual(expected, actual)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_sprite_behind"><code class="name flex">
+<span>def <span class="ident">test_find_distance_to_sprite_behind</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_find_distance_to_sprite_behind(self):
+    test_player = Player(pygame.sprite.LayeredUpdates())
+    test_player.rect.y -= 500
+    test_net_group = pygame.sprite.Group()
+    test_car = Player(pygame.sprite.LayeredUpdates())
+
+    expected = Window.HEIGHT - test_player.rect.center[1]
+    actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    # Move the test car behind the player
+    test_car.rect.x = test_player.rect.x
+    test_car.rect.y = test_player.rect.y + 50
+    test_net_group.add(test_car)
+
+    expected = test_car.rect.y - test_player.rect.center[1]
+    actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x -= 10
+    actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x += 20
+    actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x += 1000
+    expected = Window.HEIGHT - test_player.rect.center[1]
+    actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.y += 150
+    test_car2 = Player(pygame.sprite.LayeredUpdates())
+    test_net_group.add(test_car2)
+    test_car2.rect.x = test_player.rect.x
+    test_car2.rect.y = test_player.rect.y + 50
+    expected = test_car2.rect.y - test_player.rect.center[1]
+    actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)
+
+    test_car.rect.x = test_player.rect.x
+    test_car.rect.y = Window.HEIGHT - test_car.rect.height
+    expected = test_car2.rect.y - test_player.rect.center[1]
+    actual = test_player.find_distance_to_sprite(&#34;down&#34;, test_net_group)
+    self.assertEqual(expected, actual)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_move_player"><code class="name flex">
+<span>def <span class="ident">test_move_player</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test whether the movement system works as expected</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_move_player(self):
+    &#34;&#34;&#34;Test whether the movement system works as expected&#34;&#34;&#34;
+    test_render_group = pygame.sprite.LayeredUpdates()
+    test_player = Player(test_render_group)
+    pygame.mixer.init()
+    test_sound = pygame.mixer.Sound(&#34;../Assets/Sounds/hop.wav&#34;)
+    up = 119  # &#39;w&#39; key ascii
+    left = 97  # &#39;a&#39; key ascii
+    right = 100  # &#39;d&#39; key ascii
+    down = 115  # &#39;s&#39; key ascii
+
+    MOVEMENT_DISTANCE_X = AssetDictionary.get_asset(&#34;frog&#34;).get_width() + 4
+    MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset(&#34;frog&#34;).get_height() + 12
+
+    # Test move up
+    test_player.rect.x = 400
+    test_player.rect.y = 400
+    move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.y, 400 - MOVEMENT_DISTANCE_Y)
+
+    # Test move left
+    test_player.rect.x = 400
+    test_player.rect.y = 400
+    move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.x, 400 - MOVEMENT_DISTANCE_X)
+
+    # Test move right
+    test_player.rect.x = 400
+    test_player.rect.y = 400
+    move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.x, 400 + MOVEMENT_DISTANCE_X)
+
+    # Test move down
+    test_player.rect.x = 400
+    test_player.rect.y = 400
+    move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.y, 400 + MOVEMENT_DISTANCE_Y)
+
+    # Test move left if player is at left edge
+    test_player.rect.x = 20
+    test_player.rect.y = 400
+    move_player(test_player, left, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.x, 20)
+
+    # Test move right if player is at right edge
+    test_player.rect.x = 750
+    test_player.rect.y = 400
+    move_player(test_player, right, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.x, 750)
+
+    # Test move up if player is at top edge
+    test_player.rect.x = 400
+    test_player.rect.y = 20
+    move_player(test_player, up, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.y, 20)
+
+    # Test move down if player is at bottom edge
+    test_player.rect.x = 800
+    test_player.rect.y = 400
+    move_player(test_player, down, MOVEMENT_DISTANCE_X, MOVEMENT_DISTANCE_Y, test_sound)
+    self.assertEqual(test_player.rect.x, 800)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_nests_group"><code class="name flex">
+<span>def <span class="ident">test_nests_group</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_nests_group(self):
+    test_render_group = pygame.sprite.LayeredUpdates()
+    test_player = Player(test_render_group)
+    test_disabled_nests = DisabledNests()
+    test_timer = 0
+
+    self.assertFalse(DisabledNests.check_for_win(test_player))
+
+    nest = FrogNest(1)
+    nest.disable(test_render_group, test_disabled_nests, test_player)
+    self.assertFalse(DisabledNests.check_for_win(test_player))
+
+    nest = FrogNest(2)
+    nest.disable(test_render_group, test_disabled_nests, test_player)
+    self.assertFalse(DisabledNests.check_for_win(test_player))
+
+    nest = FrogNest(3)
+    nest.disable(test_render_group, test_disabled_nests, test_player)
+    self.assertFalse(DisabledNests.check_for_win(test_player))
+
+    nest = FrogNest(4)
+    nest.disable(test_render_group, test_disabled_nests, test_player)
+    self.assertFalse(DisabledNests.check_for_win(test_player))
+
+    nest = FrogNest(5)
+    nest.disable(test_render_group, test_disabled_nests, test_player)
+    self.assertTrue(DisabledNests.check_for_win(test_player))
+
+    nest = FrogNest(1)
+    nest.disable(test_render_group, test_disabled_nests, test_player)
+    self.assertTrue(DisabledNests.check_for_win(test_player))</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_player"><code class="name flex">
+<span>def <span class="ident">test_player</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_player(self):
+    pygame.init()
+    test_render_group = pygame.sprite.LayeredUpdates()
+    actual = Player(test_render_group)
+    test_timer = 20
+    nest = FrogNest(1)
+
+    actual.rect.x = 101
+    actual.rect.y = 415
+    actual.index = 1
+    actual.direction = &#34;right&#34;
+
+    expected = Player(test_render_group)
+
+    actual.return_home()
+
+    self.assertEqual(actual.rect.x, expected.rect.x)
+    self.assertEqual(actual.rect.y, expected.rect.y)
+    self.assertEqual(actual.index, expected.index)
+    self.assertEqual(actual.direction, expected.direction)
+
+    actual.farthest_distance = 265
+    expected.score += 50 + 2 * test_timer
+
+    actual.nest(test_timer, nest)
+
+    self.assertEqual(actual.farthest_distance, expected.farthest_distance)
+    self.assertEqual(actual.score, expected.score)
+    self.assertTrue(actual.disabled_nests.has(nest))
+
+    actual.win_game()
+    expected.score += 2000
+
+    self.assertEqual(actual.score, expected.score)
+
+    actual.kill()
+    expected.lives_left -= 1
+
+    self.assertEqual(actual.lives_left, expected.lives_left)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_player_score"><code class="name flex">
+<span>def <span class="ident">test_player_score</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_player_score(self):
+    test_player = Player(pygame.sprite.LayeredUpdates())
+
+    self.assertEqual(test_player.score, 0)
+
+    test_player.set_score(0)
+    self.assertEqual(test_player.score, 0.01)
+
+    test_player.move(&#34;w&#34;)
+    test_player.set_score(10)
+    self.assertEqual(round(test_player.score, 2), 10.02)
+    self.assertEqual(test_player.last_advancement, 10)
+
+    test_player.move(&#34;d&#34;)
+    test_player.set_score(11)
+    self.assertEqual(round(test_player.score, 2), 10.03)
+    self.assertEqual(test_player.last_advancement, 10)
+
+    test_player.move(&#34;a&#34;)
+    test_player.set_score(12)
+    self.assertEqual(round(test_player.score, 2), 10.04)
+    self.assertEqual(test_player.last_advancement, 10)
+
+    test_player.move(&#34;s&#34;)
+    test_player.set_score(13)
+    self.assertEqual(round(test_player.score, 2), 10.05)
+    self.assertEqual(test_player.last_advancement, 10)
+
+    test_player.move(&#34;w&#34;)
+    test_player.move(&#34;w&#34;)
+    test_player.set_score(14)
+    self.assertEqual(round(test_player.score, 2), 20.06)
+    self.assertEqual(test_player.last_advancement, 14)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_sprite_despawner"><code class="name flex">
+<span>def <span class="ident">test_sprite_despawner</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_sprite_despawner(self):
+    test_win = pygame.Surface((820, 876))
+    test_sprite = Log(AssetDictionary.get_asset(&#34;log-short&#34;), 100, 100)
+    test_group = pygame.sprite.Group()
+
+    test_group.add(test_sprite)
+    obstacle_spawner.sprite_despawner(test_sprite, test_win)
+    self.assertTrue(test_group.has(test_sprite))
+
+    test_sprite.rect.x = 0 - test_sprite.image.get_width() - 1
+    obstacle_spawner.sprite_despawner(test_sprite, test_win)
+    self.assertFalse(test_group.has(test_sprite))
+
+    test_sprite.rect.x = 825
+    test_group.add(test_sprite)
+    obstacle_spawner.sprite_despawner(test_sprite, test_win)
+    self.assertFalse(test_group.has(test_sprite))
+
+    test_sprite.rect.y = 0 - test_sprite.image.get_height() - 1
+    test_group.add(test_sprite)
+    obstacle_spawner.sprite_despawner(test_sprite, test_win)
+    self.assertFalse(test_group.has(test_sprite))
+
+    test_sprite.rect.y = test_win.get_height() + 1
+    test_group.add(test_sprite)
+    obstacle_spawner.sprite_despawner(test_sprite, test_win)
+    self.assertFalse(test_group.has(test_sprite))
+
+    test_sprite.rect.x = 481856
+    test_sprite.rect.y = 156135
+    test_group.add(test_sprite)
+    obstacle_spawner.sprite_despawner(test_sprite, test_win)
+    self.assertFalse(test_group.has(test_sprite))
+
+    test_sprite.rect.x = -748964
+    test_sprite.rect.y = -156489
+    test_group.add(test_sprite)
+    obstacle_spawner.sprite_despawner(test_sprite, test_win)
+    self.assertFalse(test_group.has(test_sprite))</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_turtle_animator"><code class="name flex">
+<span>def <span class="ident">test_turtle_animator</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_turtle_animator(self):
+    test_lanes = [pygame.sprite.Group(), pygame.sprite.Group()]
+    test_frame_count = 29
+    test_turtle_0 = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372)
+    test_turtle_1 = TurtleSinker(AssetDictionary.get_asset(&#34;triple-turtle-sink&#34;), 0, -79, 372)
+    test_lanes[0].add(test_turtle_0)
+    test_lanes[1].add(test_turtle_1)
+
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+    self.assertFalse(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertFalse(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 0)
+    self.assertEqual(test_turtle_0.last_animation, 0)
+
+    self.assertFalse(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertFalse(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 0)
+    self.assertEqual(test_turtle_1.last_animation, 0)
+
+    test_frame_count += 1
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertFalse(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 1)
+    self.assertEqual(test_turtle_0.last_animation, 30)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertFalse(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 1)
+    self.assertEqual(test_turtle_1.last_animation, 30)
+
+    test_frame_count += 1
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertFalse(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 1)
+    self.assertEqual(test_turtle_0.last_animation, 30)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertFalse(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 1)
+    self.assertEqual(test_turtle_1.last_animation, 30)
+
+    test_frame_count += 17
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertFalse(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 2)
+    self.assertEqual(test_turtle_0.last_animation, 48)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertFalse(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 2)
+    self.assertEqual(test_turtle_1.last_animation, 48)
+
+    test_frame_count += 18
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertTrue(test_turtle_0.submerged)
+    self.assertFalse(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 3)
+    self.assertEqual(test_turtle_0.last_animation, 66)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertTrue(test_turtle_1.submerged)
+    self.assertFalse(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 3)
+    self.assertEqual(test_turtle_1.last_animation, 66)
+
+    test_frame_count += 1
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertTrue(test_turtle_0.submerged)
+    self.assertFalse(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 3)
+    self.assertEqual(test_turtle_0.last_animation, 66)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertTrue(test_turtle_1.submerged)
+    self.assertFalse(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 3)
+    self.assertEqual(test_turtle_1.last_animation, 66)
+
+    test_frame_count += 17
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertTrue(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 2)
+    self.assertEqual(test_turtle_0.last_animation, 84)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertTrue(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 2)
+    self.assertEqual(test_turtle_1.last_animation, 84)
+
+    test_frame_count += 1
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertTrue(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 2)
+    self.assertEqual(test_turtle_0.last_animation, 84)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertTrue(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 2)
+    self.assertEqual(test_turtle_1.last_animation, 84)
+
+    test_frame_count += 17
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertTrue(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertTrue(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 1)
+    self.assertEqual(test_turtle_0.last_animation, 102)
+
+    self.assertTrue(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertTrue(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 1)
+    self.assertEqual(test_turtle_1.last_animation, 102)
+
+    test_frame_count += 18
+    sprite_animator.animate_turtles(test_lanes[0], test_lanes[1], test_frame_count)
+
+    self.assertFalse(test_turtle_0.animation_started)
+    self.assertFalse(test_turtle_0.submerged)
+    self.assertFalse(test_turtle_0.emerging)
+    self.assertEqual(test_turtle_0.frame_index, 0)
+    self.assertEqual(test_turtle_0.last_animation, 120)
+
+    self.assertFalse(test_turtle_1.animation_started)
+    self.assertFalse(test_turtle_1.submerged)
+    self.assertFalse(test_turtle_1.emerging)
+    self.assertEqual(test_turtle_1.frame_index, 0)
+    self.assertEqual(test_turtle_1.last_animation, 120)</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_water_despawner"><code class="name flex">
+<span>def <span class="ident">test_water_despawner</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_water_despawner(self):
+
+    test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                  pygame.sprite.Group(), pygame.sprite.Group()]
+    test_render_group = pygame.sprite.RenderUpdates()
+    test_win = pygame.Surface((820, 876))
+    assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                     pygame.sprite.Group(), pygame.sprite.Group()]
+
+    # actual sprites
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, -100, 308).add(assert_groups[0], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 877, 308).add(test_lanes[1], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-long&#34;), 900, 244).add(test_lanes[2], test_render_group)
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, -50, 308).add(test_lanes[3], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 1050, 116).add(test_lanes[4], test_render_group)
+
+    # call function on the actual sprites and test
+    obstacle_spawner.spawn_water_lanes(1, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                       test_render_group, test_win)
+
+    for lane in test_lanes:
+        self.assertFalse(lane.has())
+
+    test_render_group.empty()</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_water_mover"><code class="name flex">
+<span>def <span class="ident">test_water_mover</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_water_mover(self):
+
+    test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                  pygame.sprite.Group(), pygame.sprite.Group()]
+    test_render_group = pygame.sprite.RenderUpdates()
+    test_win = pygame.Surface((820, 876))
+    assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                     pygame.sprite.Group(), pygame.sprite.Group()]
+
+    # actual sprites
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 300, 308).add(assert_groups[0], test_render_group)
+
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 779, 308).add(test_lanes[1], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 539, 308).add(test_lanes[1], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 299, 308).add(test_lanes[1], test_render_group)
+
+    Log(AssetDictionary.get_asset(&#34;log-long&#34;), 425, 244).add(test_lanes[2], test_render_group)
+
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 121, 308).add(test_lanes[3], test_render_group)
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 625, 308).add(test_lanes[3], test_render_group)
+
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 119, 116).add(test_lanes[4], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 419, 116).add(test_lanes[4], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 719, 116).add(test_lanes[4], test_render_group)
+
+    # expected sprites
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 305, 308).add(assert_groups[0], test_render_group)
+
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 780, 308).add(assert_groups[1], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 540, 308).add(assert_groups[1], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 300, 308).add(assert_groups[1], test_render_group)
+
+    Log(AssetDictionary.get_asset(&#34;log-long&#34;), 433, 244).add(assert_groups[2], test_render_group)
+
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 117, 308).add(assert_groups[3], test_render_group)
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 621, 308).add(assert_groups[3], test_render_group)
+
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 122, 116).add(assert_groups[4], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 422, 116).add(assert_groups[4], test_render_group)
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), 722, 116).add(assert_groups[4], test_render_group)
+
+    # call function on actual sprites and test it
+    obstacle_spawner.spawn_water_lanes(12, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3],
+                                       test_lanes[4], test_render_group, test_win)
+
+    for test_lane, assert_group in zip(test_lanes, assert_groups):
+        for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+            self.assertEqual(i.rect.x, j.rect.x)
+            self.assertEqual(i.rect.y, j.rect.y)
+        assert_group.empty()
+        test_lane.empty()
+
+    test_render_group.empty()</code></pre>
+</details>
+</dd>
+<dt id="src.Unittests.game_tests.TestGameMethods.test_water_spawner"><code class="name flex">
+<span>def <span class="ident">test_water_spawner</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_water_spawner(self):
+    test_lanes = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                  pygame.sprite.Group(), pygame.sprite.Group()]
+    test_render_group = pygame.sprite.RenderUpdates()
+    test_win = pygame.Surface((820, 876))
+    assert_groups = [pygame.sprite.Group(), pygame.sprite.Group(), pygame.sprite.Group(),
+                     pygame.sprite.Group(), pygame.sprite.Group()]
+
+    # test that all lanes spawn properly
+    obstacle_spawner.spawn_water_lanes(0, test_lanes[0], test_lanes[1], test_lanes[2], test_lanes[3], test_lanes[4],
+                                       test_render_group, test_win)
+
+    Turtle(AssetDictionary.get_asset(&#34;triple-turtle&#34;), 0, 816, 372).add(assert_groups[0])
+    Log(AssetDictionary.get_asset(&#34;log-short&#34;), -180, 308).add(assert_groups[1])
+    Log(AssetDictionary.get_asset(&#34;log-long&#34;), -377, 244).add(assert_groups[2])
+    Turtle(AssetDictionary.get_asset(&#34;double-turtle&#34;), 0, 817, 180).add(assert_groups[3])
+    Log(AssetDictionary.get_asset(&#34;log-medium&#34;), -278, 116).add(assert_groups[4])
+
+    for test_lane, assert_group in zip(test_lanes, assert_groups):
+        for i, j in zip(test_lane.sprites(), assert_group.sprites()):
+            self.assertEqual(i.rect.x, j.rect.x)
+            self.assertEqual(i.rect.y, j.rect.y)
+        assert_group.empty()
+        test_lane.empty()
+
+    test_render_group.empty()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src.Unittests" href="index.html">src.Unittests</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="src.Unittests.game_tests.TestGameMethods" href="#src.Unittests.game_tests.TestGameMethods">TestGameMethods</a></code></h4>
+<ul class="">
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_animated_turtle" href="#src.Unittests.game_tests.TestGameMethods.test_animated_turtle">test_animated_turtle</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_car_despawner" href="#src.Unittests.game_tests.TestGameMethods.test_car_despawner">test_car_despawner</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_car_mover" href="#src.Unittests.game_tests.TestGameMethods.test_car_mover">test_car_mover</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_car_spawner" href="#src.Unittests.game_tests.TestGameMethods.test_car_spawner">test_car_spawner</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_distance_in_lane_ahead" href="#src.Unittests.game_tests.TestGameMethods.test_distance_in_lane_ahead">test_distance_in_lane_ahead</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_distance_in_lane_behind" href="#src.Unittests.game_tests.TestGameMethods.test_distance_in_lane_behind">test_distance_in_lane_behind</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_left_sprite" href="#src.Unittests.game_tests.TestGameMethods.test_find_distance_to_left_sprite">test_find_distance_to_left_sprite</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_right_sprite" href="#src.Unittests.game_tests.TestGameMethods.test_find_distance_to_right_sprite">test_find_distance_to_right_sprite</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_sprite_ahead" href="#src.Unittests.game_tests.TestGameMethods.test_find_distance_to_sprite_ahead">test_find_distance_to_sprite_ahead</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_find_distance_to_sprite_behind" href="#src.Unittests.game_tests.TestGameMethods.test_find_distance_to_sprite_behind">test_find_distance_to_sprite_behind</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_move_player" href="#src.Unittests.game_tests.TestGameMethods.test_move_player">test_move_player</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_nests_group" href="#src.Unittests.game_tests.TestGameMethods.test_nests_group">test_nests_group</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_player" href="#src.Unittests.game_tests.TestGameMethods.test_player">test_player</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_player_score" href="#src.Unittests.game_tests.TestGameMethods.test_player_score">test_player_score</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_sprite_despawner" href="#src.Unittests.game_tests.TestGameMethods.test_sprite_despawner">test_sprite_despawner</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_turtle_animator" href="#src.Unittests.game_tests.TestGameMethods.test_turtle_animator">test_turtle_animator</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_water_despawner" href="#src.Unittests.game_tests.TestGameMethods.test_water_despawner">test_water_despawner</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_water_mover" href="#src.Unittests.game_tests.TestGameMethods.test_water_mover">test_water_mover</a></code></li>
+<li><code><a title="src.Unittests.game_tests.TestGameMethods.test_water_spawner" href="#src.Unittests.game_tests.TestGameMethods.test_water_spawner">test_water_spawner</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

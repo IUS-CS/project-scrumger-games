@@ -4,7 +4,23 @@ from Util.asset_dictionary import AssetDictionary
 
 
 def move_player(player: Player, key_depressed, movement_distance_x, movement_distance_y, sound_effect):
-    """Handles player movement"""
+    """
+    Handles player movement when the AI is not being trained. This should only be called when the game is being played
+    by a human.
+
+    - :param player:
+        A Player object.
+    - :param key_depressed:
+        An int representing the key that was pressed to call the function. 119 for moving up, 97 for left, 100 for right, 115 for down. These correspond to WASD.
+    -:param movement_distance_x:
+        An int representing the distance a player will move in the horizontal directions
+    :param movement_distance_y:
+        An int representing the distance a player will move in the vertical directions
+    - :param sound_effect:
+        A sound effect asset to be played when the player moves
+    - :return:
+        None
+    """
     x_change = 0
     y_change = 0
     up = 119  # 'w' key ascii

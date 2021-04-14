@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>src.Util.utilities API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.Util.utilities</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import pygame
+import pygame.locals
+from Util.window import Window
+
+
+# Image scaling function for all assets
+def scale_image(image):
+    return pygame.transform.scale(image, (image.get_width()*4, image.get_height()*4))
+
+
+def add_sprites_to_group(lanes, group):
+    &#34;&#34;&#34;Adds all of the sprites in the water lanes to the river group for kill detection&#34;&#34;&#34;
+    for lane in lanes:
+        for sprite in lane:
+            sprite.add(group)
+
+
+def add_player_to_water_lane(lanes, player):
+    &#34;&#34;&#34;Checks the position of the player and adds them to the appropriate water lane group for log and turtle riding&#34;&#34;&#34;
+    for lane in lanes:
+        lane.remove(player)
+
+    if player.rect.y == 365:
+        player.add(lanes[0])
+    elif player.rect.y == 301:
+        player.add(lanes[1])
+    elif player.rect.y == 237:
+        player.add(lanes[2])
+    elif player.rect.y == 173:
+        player.add(lanes[3])
+    elif player.rect.y == 109:
+        player.add(lanes[4])
+
+
+def check_kill_collisions(player, kill_group):
+    &#34;&#34;&#34;
+    Checks the player sprite object against a group object
+    and kills the sprite if it collides with any sprite in the group
+
+    - :param player:
+        A Player object to be checked against the kill group to see if it has collided with a sprite that should kill it.
+    - :param kill_group:
+        A pygame Group object containing all of the deadly sprites. If the player has collided with one of these sprites,
+        it will be killed.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    collide_list = pygame.sprite.spritecollide(player, kill_group, False)
+    if collide_list:
+        player.kill()
+
+
+def check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, timer):
+    &#34;&#34;&#34;
+    Checks the player sprite object against a group object for the game&#39;s win condition. If the player collides with a
+    nest sprite, it will be disabled and player.nest() will be called. If the player has reached all of the nests,
+    player.win_game() will be called.
+
+    - :param player:
+        A Player object to be checked against the win group to see if it has entered one of the nests.
+    - :param win_group:
+        A pygame Group object containing all of the Nest sprites that constitute the game&#39;s win condition.
+    - :param render_group:
+        A pygame Group object containing all of the sprites to be rendered on the current frame. If the player has reached
+        a nest, it will be added to the render group so a visual indication can be seen that the nest has been reached.
+    - :param kill_group:
+        A pygame Group object containing all of the deadly sprites. When a nest is reached, it is disabled and added to
+        this group so that subsequent collisions with that nest will result in a death.
+    - :param disabled_nests:
+        A DisabledNests object containing all of the nests that have been disabled so far in the game.
+    - :param timer:
+        An int representing the number of seconds left on the game timer.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    collide_list = pygame.sprite.spritecollide(player, win_group, True)
+    if collide_list:
+        for nest in collide_list:
+            player.nest(timer, nest)
+            nest.disable(render_group, disabled_nests, player)
+
+        if disabled_nests.check_for_win(player):
+            player.win_game()
+
+
+def pointcollidelist(point, sprite_list: pygame.sprite.Group):
+    &#34;&#34;&#34;
+    Checks a point against a list of sprites for collisions, and returns the first sprite in the list if a collision
+    is found, otherwise returns false.
+
+    - :param point:
+        A tuple containing the coordinates of a point in (x, y) format.
+    - :param sprite_list:
+        A pygame Group object containing the sprites to be checked for collision with the point.
+    - :return:
+        A pygame Sprite class, or an extension of one, that is the first sprite in the list that the point is found to
+        collide with.
+    &#34;&#34;&#34;
+    for sprite in sprite_list:
+        if sprite.rect.collidepoint(point):
+            return sprite
+
+    return False
+
+
+def parse_if_training_net(argv):
+    &#34;&#34;&#34;
+    Parses the list of command line arguments, returns the argument after -t or -train if it is present,
+    returns false otherwise. If not false, the argument after -t argument should be the number of generations the user
+    wishes to train for.
+
+    - :param argv:
+        The list of command line argyments retrieved from sys.argv.
+    :return:
+        The argument after -t or -train if either of those flags are present. If they are not, returns false.
+    &#34;&#34;&#34;
+    arg_list = []
+    for arg in enumerate(argv):
+        arg_list.append(arg[1])
+
+    try:
+        index = arg_list.index(&#34;-t&#34;)
+
+    except ValueError:
+        try:
+            index = arg_list.index(&#34;-train&#34;)
+
+        except ValueError:
+            return False
+
+    return arg_list[index + 1]
+
+
+def determine_keypress(index):
+    &#34;&#34;&#34;
+    Determines the appropriate key to press for a given index. Utility function to convert the index of the maximum
+    output value from the neural net into a string containing w, a, s, or d. Returns None if the maximum value from the
+    output layer is found at index 4.
+
+    - :param index:
+        An int containing the index of the maximum value from the output layer of the neural network.
+    - :return:
+        A string containing &#34;w&#34;, &#34;a&#34;, &#34;s&#34;, or &#34;d&#34;, or None.
+    &#34;&#34;&#34;
+    if index == 0:
+        return &#34;w&#34;
+    elif index == 1:
+        return &#34;a&#34;
+    elif index == 2:
+        return &#34;s&#34;
+    elif index == 3:
+        return &#34;d&#34;
+    else:
+        return None
+
+
+def quit_game(player):
+    &#34;&#34;&#34;
+    Pushes pygame.QUIT event to the event queue to end the game.
+
+    - :param player:
+        A Player object. Its score is set as the Window.FINAL_SCORE value.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    pygame.event.post(pygame.event.Event(pygame.QUIT))
+    Window.FINAL_SCORE = player.score
+    return Window.FINAL_SCORE</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.Util.utilities.add_player_to_water_lane"><code class="name flex">
+<span>def <span class="ident">add_player_to_water_lane</span></span>(<span>lanes, player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks the position of the player and adds them to the appropriate water lane group for log and turtle riding</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_player_to_water_lane(lanes, player):
+    &#34;&#34;&#34;Checks the position of the player and adds them to the appropriate water lane group for log and turtle riding&#34;&#34;&#34;
+    for lane in lanes:
+        lane.remove(player)
+
+    if player.rect.y == 365:
+        player.add(lanes[0])
+    elif player.rect.y == 301:
+        player.add(lanes[1])
+    elif player.rect.y == 237:
+        player.add(lanes[2])
+    elif player.rect.y == 173:
+        player.add(lanes[3])
+    elif player.rect.y == 109:
+        player.add(lanes[4])</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.add_sprites_to_group"><code class="name flex">
+<span>def <span class="ident">add_sprites_to_group</span></span>(<span>lanes, group)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Adds all of the sprites in the water lanes to the river group for kill detection</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_sprites_to_group(lanes, group):
+    &#34;&#34;&#34;Adds all of the sprites in the water lanes to the river group for kill detection&#34;&#34;&#34;
+    for lane in lanes:
+        for sprite in lane:
+            sprite.add(group)</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.check_kill_collisions"><code class="name flex">
+<span>def <span class="ident">check_kill_collisions</span></span>(<span>player, kill_group)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks the player sprite object against a group object
+and kills the sprite if it collides with any sprite in the group</p>
+<ul>
+<li>:param player:
+A Player object to be checked against the kill group to see if it has collided with a sprite that should kill it.</li>
+<li>:param kill_group:
+A pygame Group object containing all of the deadly sprites. If the player has collided with one of these sprites,
+it will be killed.</li>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_kill_collisions(player, kill_group):
+    &#34;&#34;&#34;
+    Checks the player sprite object against a group object
+    and kills the sprite if it collides with any sprite in the group
+
+    - :param player:
+        A Player object to be checked against the kill group to see if it has collided with a sprite that should kill it.
+    - :param kill_group:
+        A pygame Group object containing all of the deadly sprites. If the player has collided with one of these sprites,
+        it will be killed.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    collide_list = pygame.sprite.spritecollide(player, kill_group, False)
+    if collide_list:
+        player.kill()</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.check_win_collisions"><code class="name flex">
+<span>def <span class="ident">check_win_collisions</span></span>(<span>player, win_group, render_group, kill_group, disabled_nests, timer)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks the player sprite object against a group object for the game's win condition. If the player collides with a
+nest sprite, it will be disabled and player.nest() will be called. If the player has reached all of the nests,
+player.win_game() will be called.</p>
+<ul>
+<li>:param player:
+A Player object to be checked against the win group to see if it has entered one of the nests.</li>
+<li>:param win_group:
+A pygame Group object containing all of the Nest sprites that constitute the game's win condition.</li>
+<li>:param render_group:
+A pygame Group object containing all of the sprites to be rendered on the current frame. If the player has reached
+a nest, it will be added to the render group so a visual indication can be seen that the nest has been reached.</li>
+<li>:param kill_group:
+A pygame Group object containing all of the deadly sprites. When a nest is reached, it is disabled and added to
+this group so that subsequent collisions with that nest will result in a death.</li>
+<li>:param disabled_nests:
+A DisabledNests object containing all of the nests that have been disabled so far in the game.</li>
+<li>:param timer:
+An int representing the number of seconds left on the game timer.</li>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, timer):
+    &#34;&#34;&#34;
+    Checks the player sprite object against a group object for the game&#39;s win condition. If the player collides with a
+    nest sprite, it will be disabled and player.nest() will be called. If the player has reached all of the nests,
+    player.win_game() will be called.
+
+    - :param player:
+        A Player object to be checked against the win group to see if it has entered one of the nests.
+    - :param win_group:
+        A pygame Group object containing all of the Nest sprites that constitute the game&#39;s win condition.
+    - :param render_group:
+        A pygame Group object containing all of the sprites to be rendered on the current frame. If the player has reached
+        a nest, it will be added to the render group so a visual indication can be seen that the nest has been reached.
+    - :param kill_group:
+        A pygame Group object containing all of the deadly sprites. When a nest is reached, it is disabled and added to
+        this group so that subsequent collisions with that nest will result in a death.
+    - :param disabled_nests:
+        A DisabledNests object containing all of the nests that have been disabled so far in the game.
+    - :param timer:
+        An int representing the number of seconds left on the game timer.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    collide_list = pygame.sprite.spritecollide(player, win_group, True)
+    if collide_list:
+        for nest in collide_list:
+            player.nest(timer, nest)
+            nest.disable(render_group, disabled_nests, player)
+
+        if disabled_nests.check_for_win(player):
+            player.win_game()</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.determine_keypress"><code class="name flex">
+<span>def <span class="ident">determine_keypress</span></span>(<span>index)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines the appropriate key to press for a given index. Utility function to convert the index of the maximum
+output value from the neural net into a string containing w, a, s, or d. Returns None if the maximum value from the
+output layer is found at index 4.</p>
+<ul>
+<li>:param index:
+An int containing the index of the maximum value from the output layer of the neural network.</li>
+<li>:return:
+A string containing "w", "a", "s", or "d", or None.</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def determine_keypress(index):
+    &#34;&#34;&#34;
+    Determines the appropriate key to press for a given index. Utility function to convert the index of the maximum
+    output value from the neural net into a string containing w, a, s, or d. Returns None if the maximum value from the
+    output layer is found at index 4.
+
+    - :param index:
+        An int containing the index of the maximum value from the output layer of the neural network.
+    - :return:
+        A string containing &#34;w&#34;, &#34;a&#34;, &#34;s&#34;, or &#34;d&#34;, or None.
+    &#34;&#34;&#34;
+    if index == 0:
+        return &#34;w&#34;
+    elif index == 1:
+        return &#34;a&#34;
+    elif index == 2:
+        return &#34;s&#34;
+    elif index == 3:
+        return &#34;d&#34;
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.parse_if_training_net"><code class="name flex">
+<span>def <span class="ident">parse_if_training_net</span></span>(<span>argv)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parses the list of command line arguments, returns the argument after -t or -train if it is present,
+returns false otherwise. If not false, the argument after -t argument should be the number of generations the user
+wishes to train for.</p>
+<ul>
+<li>:param argv:
+The list of command line argyments retrieved from sys.argv.
+:return:
+The argument after -t or -train if either of those flags are present. If they are not, returns false.</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_if_training_net(argv):
+    &#34;&#34;&#34;
+    Parses the list of command line arguments, returns the argument after -t or -train if it is present,
+    returns false otherwise. If not false, the argument after -t argument should be the number of generations the user
+    wishes to train for.
+
+    - :param argv:
+        The list of command line argyments retrieved from sys.argv.
+    :return:
+        The argument after -t or -train if either of those flags are present. If they are not, returns false.
+    &#34;&#34;&#34;
+    arg_list = []
+    for arg in enumerate(argv):
+        arg_list.append(arg[1])
+
+    try:
+        index = arg_list.index(&#34;-t&#34;)
+
+    except ValueError:
+        try:
+            index = arg_list.index(&#34;-train&#34;)
+
+        except ValueError:
+            return False
+
+    return arg_list[index + 1]</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.pointcollidelist"><code class="name flex">
+<span>def <span class="ident">pointcollidelist</span></span>(<span>point, sprite_list: pygame.sprite.Group)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks a point against a list of sprites for collisions, and returns the first sprite in the list if a collision
+is found, otherwise returns false.</p>
+<ul>
+<li>:param point:
+A tuple containing the coordinates of a point in (x, y) format.</li>
+<li>:param sprite_list:
+A pygame Group object containing the sprites to be checked for collision with the point.</li>
+<li>:return:
+A pygame Sprite class, or an extension of one, that is the first sprite in the list that the point is found to
+collide with.</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pointcollidelist(point, sprite_list: pygame.sprite.Group):
+    &#34;&#34;&#34;
+    Checks a point against a list of sprites for collisions, and returns the first sprite in the list if a collision
+    is found, otherwise returns false.
+
+    - :param point:
+        A tuple containing the coordinates of a point in (x, y) format.
+    - :param sprite_list:
+        A pygame Group object containing the sprites to be checked for collision with the point.
+    - :return:
+        A pygame Sprite class, or an extension of one, that is the first sprite in the list that the point is found to
+        collide with.
+    &#34;&#34;&#34;
+    for sprite in sprite_list:
+        if sprite.rect.collidepoint(point):
+            return sprite
+
+    return False</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.quit_game"><code class="name flex">
+<span>def <span class="ident">quit_game</span></span>(<span>player)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Pushes pygame.QUIT event to the event queue to end the game.</p>
+<ul>
+<li>:param player:
+A Player object. Its score is set as the Window.FINAL_SCORE value.</li>
+<li>:return:
+None</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quit_game(player):
+    &#34;&#34;&#34;
+    Pushes pygame.QUIT event to the event queue to end the game.
+
+    - :param player:
+        A Player object. Its score is set as the Window.FINAL_SCORE value.
+    - :return:
+        None
+    &#34;&#34;&#34;
+    pygame.event.post(pygame.event.Event(pygame.QUIT))
+    Window.FINAL_SCORE = player.score
+    return Window.FINAL_SCORE</code></pre>
+</details>
+</dd>
+<dt id="src.Util.utilities.scale_image"><code class="name flex">
+<span>def <span class="ident">scale_image</span></span>(<span>image)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scale_image(image):
+    return pygame.transform.scale(image, (image.get_width()*4, image.get_height()*4))</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src.Util" href="index.html">src.Util</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="src.Util.utilities.add_player_to_water_lane" href="#src.Util.utilities.add_player_to_water_lane">add_player_to_water_lane</a></code></li>
+<li><code><a title="src.Util.utilities.add_sprites_to_group" href="#src.Util.utilities.add_sprites_to_group">add_sprites_to_group</a></code></li>
+<li><code><a title="src.Util.utilities.check_kill_collisions" href="#src.Util.utilities.check_kill_collisions">check_kill_collisions</a></code></li>
+<li><code><a title="src.Util.utilities.check_win_collisions" href="#src.Util.utilities.check_win_collisions">check_win_collisions</a></code></li>
+<li><code><a title="src.Util.utilities.determine_keypress" href="#src.Util.utilities.determine_keypress">determine_keypress</a></code></li>
+<li><code><a title="src.Util.utilities.parse_if_training_net" href="#src.Util.utilities.parse_if_training_net">parse_if_training_net</a></code></li>
+<li><code><a title="src.Util.utilities.pointcollidelist" href="#src.Util.utilities.pointcollidelist">pointcollidelist</a></code></li>
+<li><code><a title="src.Util.utilities.quit_game" href="#src.Util.utilities.quit_game">quit_game</a></code></li>
+<li><code><a title="src.Util.utilities.scale_image" href="#src.Util.utilities.scale_image">scale_image</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

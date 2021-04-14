@@ -49,15 +49,18 @@ background = pygame.transform.scale(background_image, (Window.WIDTH, Window.HEIG
 MOVEMENT_DISTANCE_X = AssetDictionary.get_asset("frog").get_width() + 4
 MOVEMENT_DISTANCE_Y = AssetDictionary.get_asset("frog").get_height() + 12
 
-start = True
-
-
 def text_ob(text, font, color):
     textforscreen = font.render(text, True, color)
     return textforscreen, textforscreen.get_rect()
 
 
-if not training_flag:
+def start_screen():
+    """
+    Renders the start screen until the player clicks to start the game. Should only appear if the AI is not being trained.
+
+    :return: None
+    """
+    start = True
     while start:
         # Initialize font before beginning of game
         pygame.font.init()
@@ -85,7 +88,21 @@ if not training_flag:
 
 
 def main(genomes="", config=""):
-    """Main game method containing the main game loop"""
+    """
+    Main game method containing the main game loop. Also handles the logic regarding spawning in all of the
+    players for a training generation and assessing their fitness.
+
+    - :param genomes:
+        Genomes passed in by NEAT-python library.
+    - :param config:
+        Configuration passed in by NEAT-python library.
+    - :return:
+        Exit code
+    """
+
+    if not training_flag:
+        start_screen()
+
     timer = 30
     timer_text = str(timer).rjust(5)
     pygame.init()
@@ -268,7 +285,7 @@ def main(genomes="", config=""):
 
             # Handle player logic that does not involve neural net
             check_kill_collisions(player, kill_group)
-            check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, [timer, timer_text])
+            check_win_collisions(player, win_group, render_group, kill_group, disabled_nests, timer)
             river_group.check_if_sunk(player, river)
             add_player_to_water_lane(water_lanes, player)
             player.set_score()
@@ -304,7 +321,7 @@ def main(genomes="", config=""):
         spawn_water_lanes(frame_count, water_lane1, water_lane2, water_lane3, water_lane4, water_lane5,
                           log_turtle_groups, WIN)
         add_sprites_to_group(water_lanes, river_group)
-        draw_sprites(render_group, WIN, background, player_lines)
+        draw_sprites(render_group, WIN, background)
 
         # Initialize and render score text
         empty_text = frogger_font.render("Score: 00000", True, BLACK, BLACK)
@@ -337,8 +354,15 @@ def main(genomes="", config=""):
 
 
 def run_neat(generations):
-    """This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
-    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI."""
+    """
+    This function contains the NEAT-python objects which are used to train and run the AI. It sets up the objects
+    and then calls main to run the NEAT training algorithm for the number of generations specified in the CLI.
+
+    - :param generations:
+        An int representing the number of generations the neural network should be trained for.
+    - :return:
+        None
+    """
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet,
                                 neat.DefaultStagnation, NEAT_CONFIG)
 
