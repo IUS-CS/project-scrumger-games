@@ -117,7 +117,7 @@ class Player(pygame.sprite.Sprite):
         # If the current position is a new farthest distance, increase the score
         if self.farthest_distance > self.rect.y > 110:
             self.farthest_distance = self.rect.y
-            self.score += 10
+            self.score += 10 + (10 * len(self.disabled_nests))
             if self.score > 60 and self.rect.y >= 109:
                 self.score += 10
 

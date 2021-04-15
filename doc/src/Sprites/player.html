@@ -73,7 +73,7 @@ class Player(pygame.sprite.Sprite):
         Called when the player reaches a nest to return him home and handle the score increase.
 
         - :param timer:
-            An int representing the current timer value.
+            A Timer object representing the current time on the game timer
         - :param nest:
             A Nest object, should be the nest that the player reached to trigger this method to be called
         - :return:
@@ -84,10 +84,10 @@ class Player(pygame.sprite.Sprite):
         else:
             self.return_home()
             self.farthest_distance = 813
-            self.score += (50 + 2*timer)
+            self.score += (50 + 2*timer.get_time())
             # pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren&#39;t still using the old clock
             # pygame.time.set_timer(pygame.USEREVENT, 1000)
-            # timer = 30
+            timer.reset()
         if not self.disabled_nests.has(nest):
             self.disabled_nests.add(nest)
 
@@ -141,12 +141,11 @@ class Player(pygame.sprite.Sprite):
         - :return:
             None
         &#34;&#34;&#34;
-        self.score += 0.01  # Reward the AI a little bit for staying alive another frame
 
         # If the current position is a new farthest distance, increase the score
         if self.farthest_distance &gt; self.rect.y &gt; 110:
             self.farthest_distance = self.rect.y
-            self.score += 10
+            self.score += 10 + (10 * len(self.disabled_nests))
             if self.score &gt; 60 and self.rect.y &gt;= 109:
                 self.score += 10
 
@@ -195,7 +194,7 @@ class Player(pygame.sprite.Sprite):
             Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
             in order to render the collision lines for debugging purposes.
         - :return:
-            None
+            An int representing the distance to the nearest sprite in the given direction.
         &#34;&#34;&#34;
         # Player&#39;s current position will be the start point of a line that is used to check the nearest sprite
         player_x = self.rect.center[0]
@@ -287,7 +286,8 @@ class Player(pygame.sprite.Sprite):
             Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
             in order to render the collision lines for debugging purposes.
         - :return:
-            None
+            A tuple of two ints representing the distance to the nearest sprite on the left and on the right, respectively,
+            in the corresponding lane.
         &#34;&#34;&#34;
 
         startpoint_x = self.rect.center[0]
@@ -430,7 +430,7 @@ Defaults to the "player" image asset found in the asset dictionary in utilities.
         Called when the player reaches a nest to return him home and handle the score increase.
 
         - :param timer:
-            An int representing the current timer value.
+            A Timer object representing the current time on the game timer
         - :param nest:
             A Nest object, should be the nest that the player reached to trigger this method to be called
         - :return:
@@ -441,10 +441,10 @@ Defaults to the "player" image asset found in the asset dictionary in utilities.
         else:
             self.return_home()
             self.farthest_distance = 813
-            self.score += (50 + 2*timer)
+            self.score += (50 + 2*timer.get_time())
             # pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren&#39;t still using the old clock
             # pygame.time.set_timer(pygame.USEREVENT, 1000)
-            # timer = 30
+            timer.reset()
         if not self.disabled_nests.has(nest):
             self.disabled_nests.add(nest)
 
@@ -498,12 +498,11 @@ Defaults to the "player" image asset found in the asset dictionary in utilities.
         - :return:
             None
         &#34;&#34;&#34;
-        self.score += 0.01  # Reward the AI a little bit for staying alive another frame
 
         # If the current position is a new farthest distance, increase the score
         if self.farthest_distance &gt; self.rect.y &gt; 110:
             self.farthest_distance = self.rect.y
-            self.score += 10
+            self.score += 10 + (10 * len(self.disabled_nests))
             if self.score &gt; 60 and self.rect.y &gt;= 109:
                 self.score += 10
 
@@ -552,7 +551,7 @@ Defaults to the "player" image asset found in the asset dictionary in utilities.
             Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
             in order to render the collision lines for debugging purposes.
         - :return:
-            None
+            An int representing the distance to the nearest sprite in the given direction.
         &#34;&#34;&#34;
         # Player&#39;s current position will be the start point of a line that is used to check the nearest sprite
         player_x = self.rect.center[0]
@@ -644,7 +643,8 @@ Defaults to the "player" image asset found in the asset dictionary in utilities.
             Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
             in order to render the collision lines for debugging purposes.
         - :return:
-            None
+            A tuple of two ints representing the distance to the nearest sprite on the left and on the right, respectively,
+            in the corresponding lane.
         &#34;&#34;&#34;
 
         startpoint_x = self.rect.center[0]
@@ -744,7 +744,7 @@ other sprites.</li>
 Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
 in order to render the collision lines for debugging purposes.</li>
 <li>:return:
-None</li>
+An int representing the distance to the nearest sprite in the given direction.</li>
 </ul></div>
 <details class="source">
 <summary>
@@ -770,7 +770,7 @@ None</li>
         Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
         in order to render the collision lines for debugging purposes.
     - :return:
-        None
+        An int representing the distance to the nearest sprite in the given direction.
     &#34;&#34;&#34;
     # Player&#39;s current position will be the start point of a line that is used to check the nearest sprite
     player_x = self.rect.center[0]
@@ -865,7 +865,8 @@ other sprites.</li>
 Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
 in order to render the collision lines for debugging purposes.</li>
 <li>:return:
-None</li>
+A tuple of two ints representing the distance to the nearest sprite on the left and on the right, respectively,
+in the corresponding lane.</li>
 </ul></div>
 <details class="source">
 <summary>
@@ -888,7 +889,8 @@ None</li>
         Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
         in order to render the collision lines for debugging purposes.
     - :return:
-        None
+        A tuple of two ints representing the distance to the nearest sprite on the left and on the right, respectively,
+        in the corresponding lane.
     &#34;&#34;&#34;
 
     startpoint_x = self.rect.center[0]
@@ -1037,7 +1039,7 @@ None</li>
 <div class="desc"><p>Called when the player reaches a nest to return him home and handle the score increase.</p>
 <ul>
 <li>:param timer:
-An int representing the current timer value.</li>
+A Timer object representing the current time on the game timer</li>
 <li>:param nest:
 A Nest object, should be the nest that the player reached to trigger this method to be called</li>
 <li>:return:
@@ -1052,7 +1054,7 @@ None</li>
     Called when the player reaches a nest to return him home and handle the score increase.
 
     - :param timer:
-        An int representing the current timer value.
+        A Timer object representing the current time on the game timer
     - :param nest:
         A Nest object, should be the nest that the player reached to trigger this method to be called
     - :return:
@@ -1063,10 +1065,10 @@ None</li>
     else:
         self.return_home()
         self.farthest_distance = 813
-        self.score += (50 + 2*timer)
+        self.score += (50 + 2*timer.get_time())
         # pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren&#39;t still using the old clock
         # pygame.time.set_timer(pygame.USEREVENT, 1000)
-        # timer = 30
+        timer.reset()
     if not self.disabled_nests.has(nest):
         self.disabled_nests.add(nest)</code></pre>
 </details>
@@ -1121,12 +1123,11 @@ None</li>
     - :return:
         None
     &#34;&#34;&#34;
-    self.score += 0.01  # Reward the AI a little bit for staying alive another frame
 
     # If the current position is a new farthest distance, increase the score
     if self.farthest_distance &gt; self.rect.y &gt; 110:
         self.farthest_distance = self.rect.y
-        self.score += 10
+        self.score += 10 + (10 * len(self.disabled_nests))
         if self.score &gt; 60 and self.rect.y &gt;= 109:
             self.score += 10</code></pre>
 </details>

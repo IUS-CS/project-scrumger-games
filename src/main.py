@@ -368,7 +368,7 @@ def run_neat(generations):
 
     population = neat.Population(config)
     # Uncomment the next line to load a checkpoint, change the number after 'neat-checkpoint-' to whichever checkpoint number you wish to load
-    # population = neat.checkpoint.Checkpointer.restore_checkpoint(os.path.join(current_dir, 'Checkpoints', 'neat-checkpoint-1161'))
+    # population = neat.checkpoint.Checkpointer.restore_checkpoint(os.path.join(current_dir, 'Checkpoints', 'neat-checkpoint-99'))
     population.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
