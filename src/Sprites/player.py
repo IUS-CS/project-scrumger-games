@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         Called when the player reaches a nest to return him home and handle the score increase.
 
         - :param timer:
-            An int representing the current timer value.
+            A Timer object representing the current time on the game timer
         - :param nest:
             A Nest object, should be the nest that the player reached to trigger this method to be called
         - :return:
@@ -56,10 +56,10 @@ class Player(pygame.sprite.Sprite):
         else:
             self.return_home()
             self.farthest_distance = 813
-            self.score += (50 + 2*timer)
+            self.score += (50 + 2*timer.get_time())
             # pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren't still using the old clock
             # pygame.time.set_timer(pygame.USEREVENT, 1000)
-            # timer = 30
+            timer.reset()
         if not self.disabled_nests.has(nest):
             self.disabled_nests.add(nest)
 
@@ -166,7 +166,7 @@ class Player(pygame.sprite.Sprite):
             Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
             in order to render the collision lines for debugging purposes.
         - :return:
-            None
+            An int representing the distance to the nearest sprite in the given direction.
         """
         # Player's current position will be the start point of a line that is used to check the nearest sprite
         player_x = self.rect.center[0]
@@ -258,7 +258,8 @@ class Player(pygame.sprite.Sprite):
             Optional debugging parameter. A list of tuples representing the endpoints of a line. This can be appended to
             in order to render the collision lines for debugging purposes.
         - :return:
-            None
+            A tuple of two ints representing the distance to the nearest sprite on the left and on the right, respectively,
+            in the corresponding lane.
         """
 
         startpoint_x = self.rect.center[0]

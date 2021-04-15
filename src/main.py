@@ -22,6 +22,7 @@ from Util.utilities import check_kill_collisions, check_win_collisions, add_spri
 from Engine.gameover import game_over
 from Util.asset_dictionary import AssetDictionary
 from Util.window import Window
+from Util.timer import Timer
 from Sprites.player import Player
 from Sprites.car import Car
 from Sprites.log import Log
@@ -103,8 +104,7 @@ def main(genomes="", config=""):
     if not training_flag:
         start_screen()
 
-    timer = 30
-    timer_text = str(timer).rjust(5)
+    timer = Timer()
     pygame.init()
     pygame.mixer.init()
     log_game()
@@ -206,7 +206,6 @@ def main(genomes="", config=""):
     # Create counter, timer and fonts for timer, counter
     timer_event = pygame.event.Event(pygame.USEREVENT, {})
     # pygame.time.set_timer(timer_event, 1000)
-    text_font = pygame.font.SysFont('Times New Roman', 35)
 
     # Initialize genomes and neural networks if flag is set
     if training_flag:
@@ -241,15 +240,14 @@ def main(genomes="", config=""):
 
             # Timer for player to complete game
             if game_event == timer_event:
-                timer -= 1
-                timer_text = str(timer).rjust(5)
+                timer.count_down()
 
         for i, player in enumerate(players):
             # Begin neural net logic
             genome_list[i].fitness = player.score
 
             # If the timer has hit zero, kill the player before letting it compute its move
-            if timer < 1:
+            if timer.get_time() < 1:
                 player.kill()
 
             # On every 10th frame, allow the neural net to move the frog
@@ -338,7 +336,7 @@ def main(genomes="", config=""):
         # Initialize and render timer
         empty_text = frogger_font.render("Time: 00", True, BLACK, BLACK)
         background.blit(empty_text, (355, 10))
-        timer_text = frogger_font.render("Time: " + str(timer), True, WHITE, BLACK)
+        timer_text = frogger_font.render("Time: " + str(timer.get_time()), True, WHITE, BLACK)
         background.blit(timer_text, (355, 10))
 
         if len(players) <= 0:
@@ -347,11 +345,11 @@ def main(genomes="", config=""):
         # Iterate the frame counter
         frame_count += 1
 
-        if timer < 1:
-            timer = 30
+        if timer.get_time() < 1:
+            timer.reset()
 
         # Push a timer event to the event queue every second to iterate the timer
-        if frame_count % 30 == 0:
+        if frame_count % FPS == 0:
             pygame.event.post(timer_event)
 
 
@@ -375,7 +373,7 @@ def run_neat(generations):
     stats = neat.StatisticsReporter()
     population.add_reporter(stats)
     checkpoint_file = os.path.join(current_dir, 'Checkpoints', 'neat-checkpoint-')
-    checkpointer = neat.checkpoint.Checkpointer(25, 300, checkpoint_file)
+    checkpointer = neat.checkpoint.Checkpointer(100, 1200, checkpoint_file)
     population.add_reporter(checkpointer)
 
     best = population.run(main, int(generations))
