@@ -56,11 +56,10 @@ class Player(pygame.sprite.Sprite):
         else:
             self.return_home()
             self.farthest_distance = 813
-            self.score += (50 + 2*timer.get_time())
+            self.score += (50 + 2*timer.get_time() + 50 * len(self.disabled_nests))
             # pygame.time.set_timer(pygame.USEREVENT, 0)  # Reset clock tick so we aren't still using the old clock
             # pygame.time.set_timer(pygame.USEREVENT, 1000)
             timer.reset()
-        if not self.disabled_nests.has(nest):
             self.disabled_nests.add(nest)
 
     def win_game(self):
