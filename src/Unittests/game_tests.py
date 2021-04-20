@@ -11,6 +11,7 @@ from Sprites.car import Car
 from Util.window import Window
 import Engine.sprite_animator as sprite_animator
 from Sprites.frog_nest import FrogNest
+from Util.timer import Timer
 from Util.asset_dictionary import AssetDictionary
 from Sprites.turtle import Turtle
 from Sprites.turtle_animated import TurtleSinker
@@ -383,7 +384,7 @@ class TestGameMethods(unittest.TestCase):
         pygame.init()
         test_render_group = pygame.sprite.LayeredUpdates()
         actual = Player(test_render_group)
-        test_timer = 20
+        test_timer = Timer(20)
         nest = FrogNest(1)
 
         actual.rect.x = 101
@@ -401,7 +402,7 @@ class TestGameMethods(unittest.TestCase):
         self.assertEqual(actual.direction, expected.direction)
 
         actual.farthest_distance = 265
-        expected.score += 50 + 2 * test_timer
+        expected.score += 50 + 2 * test_timer.get_time()
 
         actual.nest(test_timer, nest)
 
@@ -612,34 +613,34 @@ class TestGameMethods(unittest.TestCase):
 
         self.assertEqual(test_player.score, 0)
 
-        test_player.set_score(0)
-        self.assertEqual(test_player.score, 0.01)
+        test_player.set_score()
+        self.assertEqual(test_player.score, 0)
 
-        test_player.move("w")
-        test_player.set_score(10)
-        self.assertEqual(round(test_player.score, 2), 10.02)
+        test_player.move("w", 10)
+        test_player.set_score()
+        self.assertEqual(round(test_player.score, 2), 10)
         self.assertEqual(test_player.last_advancement, 10)
 
-        test_player.move("d")
-        test_player.set_score(11)
-        self.assertEqual(round(test_player.score, 2), 10.03)
+        test_player.move("d", 11)
+        test_player.set_score()
+        self.assertEqual(round(test_player.score, 2), 10)
         self.assertEqual(test_player.last_advancement, 10)
 
-        test_player.move("a")
-        test_player.set_score(12)
-        self.assertEqual(round(test_player.score, 2), 10.04)
+        test_player.move("a", 12)
+        test_player.set_score()
+        self.assertEqual(round(test_player.score, 2), 10)
         self.assertEqual(test_player.last_advancement, 10)
 
-        test_player.move("s")
-        test_player.set_score(13)
-        self.assertEqual(round(test_player.score, 2), 10.05)
+        test_player.move("s", 13)
+        test_player.set_score()
+        self.assertEqual(round(test_player.score, 2), 10)
         self.assertEqual(test_player.last_advancement, 10)
 
-        test_player.move("w")
-        test_player.move("w")
-        test_player.set_score(14)
-        self.assertEqual(round(test_player.score, 2), 20.06)
-        self.assertEqual(test_player.last_advancement, 14)
+        test_player.move("w", 14)
+        test_player.move("w", 15)
+        test_player.set_score()
+        self.assertEqual(round(test_player.score, 2), 20)
+        self.assertEqual(test_player.last_advancement, 15)
 
     def test_find_distance_to_sprite_ahead(self):
         test_player = Player(pygame.sprite.LayeredUpdates())
